@@ -1,3 +1,4 @@
+[![Build Status](https://dev.azure.com/symdit/SwarmPlus-CSharp-Angular/_apis/build/status/SwarmPlus-dev-pipelines%20-%20CI?branchName=develop)](https://dev.azure.com/symdit/SwarmPlus-CSharp-Angular/_build/latest?definitionId=6&branchName=develop)
 # AngularSpa
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.0.
