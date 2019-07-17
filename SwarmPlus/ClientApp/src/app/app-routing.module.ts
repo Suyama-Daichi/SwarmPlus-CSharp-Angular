@@ -6,6 +6,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '*', redirectTo: '' },
   { path: 'counter', component: CounterComponent },
   { path: 'fetch-data', component: FetchDataComponent },
 ];
