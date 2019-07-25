@@ -13,6 +13,7 @@ namespace SwarmPlus.Controllers
     {
         // GET: api/Login
         [HttpGet]
+        [Route("auth")]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
@@ -28,18 +29,6 @@ namespace SwarmPlus.Controllers
         // POST: api/Login
         [HttpPost]
         public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Login/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
         {
         }
     }
