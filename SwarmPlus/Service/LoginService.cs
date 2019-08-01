@@ -11,10 +11,11 @@ namespace SwarmPlus.Service
     public class LoginService
     {
         /// <summary>
-        /// httpクライアント
+        /// 認証サービス
         /// </summary>
-        //static readonly HttpClient _httpClient = new HttpClient();
-
+        /// <param name="clientId">クライアントID</param>
+        /// <param name="clientSecret">クライアントシークレット</param>
+        /// <returns></returns>
         public string Auth(string clientId, string clientSecret)
         {
             return clientId + clientSecret;

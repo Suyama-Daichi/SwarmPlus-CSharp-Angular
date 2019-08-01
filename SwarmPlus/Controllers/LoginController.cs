@@ -33,12 +33,15 @@ namespace SwarmPlus.Controllers
             this._foursquare = setting.Value;
         }
 
+
         // GET: api/Login
         [HttpGet]
         [Route("auth")]
-        public IEnumerable<string> Auth()
+        public ActionResult<string> Auth()
         {
-            return new string[] { _loginService.Auth(_foursquare.ClientId, _foursquare.ClientSecret), "value2" };
+            _loginService.Auth(_foursquare.ClientId, _foursquare.ClientSecret);
+            return Ok();
+            //return new string[] { _loginService.Auth(_foursquare.ClientId, _foursquare.ClientSecret), "value2" };
         }
 
         // GET: api/Login/5
