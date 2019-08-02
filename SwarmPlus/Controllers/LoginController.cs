@@ -37,9 +37,9 @@ namespace SwarmPlus.Controllers
         // GET: api/Login
         [HttpGet]
         [Route("auth")]
-        public ActionResult<string> Auth()
+        public ActionResult<string> Auth(string code)
         {
-            _loginService.Auth(_foursquare.ClientId, _foursquare.ClientSecret);
+            _loginService.Auth(code);
             return Ok();
             //return new string[] { _loginService.Auth(_foursquare.ClientId, _foursquare.ClientSecret), "value2" };
         }

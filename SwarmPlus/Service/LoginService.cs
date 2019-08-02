@@ -16,9 +16,9 @@ namespace SwarmPlus.Service
         /// <param name="clientId">クライアントID</param>
         /// <param name="clientSecret">クライアントシークレット</param>
         /// <returns></returns>
-        public string Auth(string clientId, string clientSecret)
+        public string Auth(string code)
         {
-            return clientId + clientSecret;
+            return code;
         }
     }
 }
