@@ -8,7 +8,7 @@ namespace SwarmPlus.Models
     public class User
     {
         /// <summary>
-        /// uuid
+        /// ユーザーID(UUID)
         /// </summary>
         public string UserID { get; set; }
 
