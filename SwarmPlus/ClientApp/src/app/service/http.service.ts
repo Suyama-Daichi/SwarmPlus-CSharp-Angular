@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -7,11 +7,19 @@ import { environment } from '../../environments/environment';
 })
 export class HttpService {
   constructor(private httpClient: HttpClient) { }
+  
+  readonly httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'my-auth-token'
+    })
+  };
 
   /**
-   * login
+   * アクセスコードを保存
+   * @param code 認証コード
    */
-  public login() {
-    return this.httpClient.get(environment.backEndApi + '/login');
+  saveaccesstoken(code: string) {
+    return this.httpClient.post(environment.backEndApi + '/login/saveaccesstoken', { code: code }, this.httpOptions);
   }
 }

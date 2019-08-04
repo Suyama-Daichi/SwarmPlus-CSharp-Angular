@@ -5,56 +5,50 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using SwarmPlus.Models;
 using SwarmPlus.Service;
 
 namespace SwarmPlus.Controllers
 {
+    /// <summary>
+    /// ログインコントローラ
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
     {
         /// <summary>
-        /// ログインサービス
-        /// </summary>
-        private readonly LoginService _loginService = new LoginService();
-
-        /// <summary>
         /// 環境変数
         /// </summary>
         private readonly Foursquare _foursquare = null;
+
+        private readonly LoginService _loginService;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="setting"></param>
-        public LoginController(IOptions<Foursquare> setting)
+        public LoginController(IOptions<Foursquare> setting, LoginService loginService)
         {
             this._foursquare = setting.Value;
+            this._loginService = loginService;
         }
 
+        /// <summary>
+        /// アクセストークンを取得
+        /// </summary>
+        /// <param name="code">認証コード</param>
+        /// <returns></returns>
+        /// 
 
-        // GET: api/Login
-        [HttpGet]
-        [Route("auth")]
-        public ActionResult<string> Auth(string code)
-        {
-            _loginService.Auth(code);
-            return Ok();
-            //return new string[] { _loginService.Auth(_foursquare.ClientId, _foursquare.ClientSecret), "value2" };
-        }
 
-        // GET: api/Login/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Login
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Route("saveaccesstoken")]
+        public async Task<ActionResult> SaveAccessToken(Code code)
         {
+            var result = await _loginService.GetAccessToken(code.code, _foursquare.ClientId, _foursquare.ClientSecret);
+            return Ok(result);
         }
     }
 }

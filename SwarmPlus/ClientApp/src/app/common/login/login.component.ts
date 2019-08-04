@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { HttpService } from '../../service/http.service';
 
 @Component({
   selector: 'app-login',
@@ -8,14 +9,24 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private httpService: HttpService) { }
 
   ngOnInit() {
-    this.route.queryParamMap
-    .subscribe((params: ParamMap) => {
-      const queryParam = this.route.snapshot.queryParamMap.get('code');
-      console.log(queryParam);
-    });
+    this.getCode();
   }
 
+  /**
+   * 認証コード取得
+   */
+  getCode() {
+    this.route.queryParamMap
+      .subscribe((params: ParamMap) => {
+        const queryParam = this.route.snapshot.queryParamMap.get('code');
+        this.httpService.saveaccesstoken(queryParam).subscribe(
+          response => {
+            console.log(response);
+          }
+        );
+      });
+  }
 }
