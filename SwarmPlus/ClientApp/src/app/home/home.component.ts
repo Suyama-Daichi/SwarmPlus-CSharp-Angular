@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { HttpService } from '../service/http.service';
 import { environment } from '../../environments/environment';
 import *  as uuidGenerator from "uuid";
@@ -15,16 +14,14 @@ export class HomeComponent implements OnInit {
   constructor(private httpService: HttpService) { }
 
   ngOnInit() {
-    console.log(
-      this.isAuthedFoursquare()
-    );
+    this.isAuthedFoursquare()
   }
 
   /** Foursquareにログインしているか */
   isAuthedFoursquare() {
     let uuid = localStorage.getItem('uuid');
     this.httpService.hasaccesstoken(uuid).subscribe(
-      (response: Response) => {},
+      (response: Response) => { },
       (error: Error) => {
         uuid = uuidGenerator.v4();
         localStorage.setItem('uuid', uuid);

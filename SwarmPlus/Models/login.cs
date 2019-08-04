@@ -13,11 +13,15 @@ namespace SwarmPlus.Models
         public string access_token { get; set; }
     }
 
-    public class Code
+    public class AuthInfo
     {
         /// <summary>
-        /// 認証コード
+        /// 認可コード
         /// </summary>
-        public string code { get; set; }
+        public string Code { get; set; }
+        /// <summary>
+        /// ユーザーコード
+        /// </summary>
+        public string Uuid { get; set; }
     }
 }

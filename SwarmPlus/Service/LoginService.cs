@@ -28,12 +28,12 @@ namespace SwarmPlus.Service
         }
 
         /// <summary>
-        /// 認証サービス
+        /// 認可サービス
         /// </summary>
-        /// <param name="code">認証コード</param>
+        /// <param name="code">認可コード</param>
         /// <returns></returns>
         /// 
-        public async Task<string> GetAccessToken(string code, string clientId, string clientSecret)
+        public async Task<string> GetAccessToken(string code, string clientId, string clientSecret, string uuid)
         {
             // GETリクエストを実行
             var response = await Client.GetAsync(
@@ -43,6 +43,12 @@ namespace SwarmPlus.Service
             // レスポンスのBodyを取得
             var result = await response.Content
                 .ReadAsStringAsync();
+
+            var deserialisedResult = JsonConvert.DeserializeObject<AccessToken>(result);
+
+            // DBに取得したアクセストークンをUUIDと一緒に保存
+            _db.Add(new User { UserID = uuid, AccessToken = deserialisedResult.access_token });
+            _db.SaveChanges();
 
             return result;
         }

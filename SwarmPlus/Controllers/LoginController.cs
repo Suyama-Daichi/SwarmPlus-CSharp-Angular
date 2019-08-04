@@ -36,18 +36,15 @@ namespace SwarmPlus.Controllers
         }
 
         /// <summary>
-        /// アクセストークンを取得
+        /// アクセストークンを取得してDBに保存する
         /// </summary>
-        /// <param name="code">認証コード</param>
+        /// <param name="authInfo">認可コードとUUID</param>
         /// <returns></returns>
-        /// 
-
-
         [HttpPost]
         [Route("saveaccesstoken")]
-        public async Task<ActionResult> SaveAccessToken(Code code)
+        public async Task<ActionResult> SaveAccessToken(AuthInfo authInfo)
         {
-            var result = await _loginService.GetAccessToken(code.code, _foursquare.ClientId, _foursquare.ClientSecret);
+            var result = await _loginService.GetAccessToken(authInfo.Code, _foursquare.ClientId, _foursquare.ClientSecret, authInfo.Uuid);
             return Ok(result);
         }
 

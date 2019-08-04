@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { AuthInfo } from '../model/auth.type';
 
 @Injectable({
   providedIn: 'root'
@@ -8,18 +9,27 @@ import { environment } from '../../environments/environment';
 export class HttpService {
   constructor(private httpClient: HttpClient) { }
   
+  /** ヘッダー情報 */
   readonly httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'my-auth-token'
     })
   };
 
   /**
-   * アクセスコードを保存
-   * @param code 認証コード
+   * アクセストークンを保存
+   * @param authInfo 認証コードとUUID
    */
-  saveaccesstoken(code: string) {
-    return this.httpClient.post(environment.backEndApi + '/login/saveaccesstoken', { code: code }, this.httpOptions);
+  saveaccesstoken(authInfo: AuthInfo) {
+    console.log(authInfo);
+    return this.httpClient.post(environment.backEndApi + '/login/saveaccesstoken', authInfo, this.httpOptions);
+  }
+
+  /**
+   * アクセストークンを取得しているか確認
+   * @param uuid ユーザーID(UUID)
+   */
+  hasaccesstoken(uuid: string){
+    return this.httpClient.get(environment.backEndApi + '/login/hasaccesstoken', {params: {uuid: uuid}})
   }
 }
