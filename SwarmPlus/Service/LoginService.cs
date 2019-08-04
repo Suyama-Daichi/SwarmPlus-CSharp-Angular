@@ -8,6 +8,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
+using SwarmPlus.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace SwarmPlus.Service
 {
@@ -15,11 +17,14 @@ namespace SwarmPlus.Service
     {
         private HttpClient Client { get; }
 
-        public LoginService(HttpClient client)
+        private readonly SwarmPlusContext _db;
+        public LoginService(HttpClient client, SwarmPlusContext db)
         {
             client.BaseAddress = new Uri("https://foursquare.com/");
             client.DefaultRequestHeaders.Add("Acccept", "application/json");
             Client = client;
+
+            _db = db;
         }
 
         /// <summary>
@@ -39,6 +44,16 @@ namespace SwarmPlus.Service
             var result = await response.Content
                 .ReadAsStringAsync();
 
+            return result;
+        }
+
+        /// <summary>
+        /// アクセストークンを取得しているか確認
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> hasAccessToken(string uuid)
+        {
+            var result = await _db.User.AnyAsync(x => x.UserID == uuid);
             return result;
         }
     }

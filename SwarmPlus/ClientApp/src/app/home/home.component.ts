@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { HttpService } from '../service/http.service';
 import { environment } from '../../environments/environment';
+import *  as uuidGenerator from "uuid";
 
 @Component({
   selector: 'app-home',
@@ -11,13 +12,23 @@ export class HomeComponent implements OnInit {
   /** バックエンドAPI */
   authenticateURL = environment.authenticateURL;
 
-  items: AngularFirestoreCollection<string>;
-
-  constructor(public db: AngularFirestore, private httpService: HttpService) {
-    this.items = db.collection('users');
-  }
-
+  constructor(private httpService: HttpService) { }
 
   ngOnInit() {
+    console.log(
+      this.isAuthedFoursquare()
+    );
+  }
+
+  /** Foursquareにログインしているか */
+  isAuthedFoursquare() {
+    let uuid = localStorage.getItem('uuid');
+    this.httpService.hasaccesstoken(uuid).subscribe(
+      (response: Response) => {},
+      (error: Error) => {
+        uuid = uuidGenerator.v4();
+        localStorage.setItem('uuid', uuid);
+      }
+    );
   }
 }

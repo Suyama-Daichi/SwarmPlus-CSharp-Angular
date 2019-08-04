@@ -50,5 +50,22 @@ namespace SwarmPlus.Controllers
             var result = await _loginService.GetAccessToken(code.code, _foursquare.ClientId, _foursquare.ClientSecret);
             return Ok(result);
         }
+
+        /// <summary>
+        /// アクセストークンを取得しているか確認
+        /// </summary>
+        /// <param name="uuid">ユーザーID(UUID)</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("hasaccesstoken")]
+        public async Task<ActionResult> hasAccessToken(string uuid)
+        {
+            var result = await _loginService.hasAccessToken(uuid);
+            if (result)
+            {
+                return Ok();
+            }
+            return StatusCode(401);
+        }
     }
 }
