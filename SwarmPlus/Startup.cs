@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SwarmPlus.Data;
 using SwarmPlus.Models;
 using SwarmPlus.Service;
 using System;
@@ -36,6 +38,11 @@ namespace SwarmPlus
 
             // HttpClient’Ç‰Á(https://docs.microsoft.com/ja-jp/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.2#basic-usage)
             services.AddHttpClient<LoginService>();
+
+            // DbContext’Ç‰Á
+            services.AddDbContext<SwarmPlusContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
