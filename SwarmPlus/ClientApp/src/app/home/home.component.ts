@@ -13,19 +13,5 @@ export class HomeComponent implements OnInit {
 
   constructor(private httpService: HttpService) { }
 
-  ngOnInit() {
-    this.isAuthedFoursquare()
-  }
-
-  /** Foursquareにログインしているか */
-  isAuthedFoursquare() {
-    let uuid = localStorage.getItem('uuid');
-    this.httpService.hasaccesstoken(uuid).subscribe(
-      (response: Response) => { },
-      (error: Error) => {
-        uuid = uuidGenerator.v4();
-        localStorage.setItem('uuid', uuid);
-      }
-    );
-  }
+  ngOnInit() {}
 }

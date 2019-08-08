@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { HttpService } from '../../service/http.service';
 import { AuthInfo } from '../../model/auth.type';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +10,10 @@ import { AuthInfo } from '../../model/auth.type';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private httpService: HttpService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private httpService: HttpService, private authService: AuthService) { }
 
   ngOnInit() {
+    localStorage.setItem('uuid', this.authService.getUuid().replace(/-/g, ''));
     this.getCode();
   }
 
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
     const authInfo: AuthInfo = { Code: queryParam, Uuid: localStorage.getItem('uuid') };
     this.httpService.saveaccesstoken(authInfo).subscribe(
       response => {
-        console.log(response);
+        this.router.navigateByUrl('/top')
       }
     );
   }

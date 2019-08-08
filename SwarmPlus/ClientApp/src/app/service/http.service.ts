@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AuthInfo } from '../model/auth.type';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,6 @@ export class HttpService {
    * @param authInfo 認証コードとUUID
    */
   saveaccesstoken(authInfo: AuthInfo) {
-    console.log(authInfo);
     return this.httpClient.post(environment.backEndApi + '/login/saveaccesstoken', authInfo, this.httpOptions);
   }
 
@@ -29,7 +29,7 @@ export class HttpService {
    * アクセストークンを取得しているか確認
    * @param uuid ユーザーID(UUID)
    */
-  hasaccesstoken(uuid: string){
-    return this.httpClient.get(environment.backEndApi + '/login/hasaccesstoken', {params: {uuid: uuid}})
+  hasaccesstoken(uuid: string): Observable<boolean>{
+    return this.httpClient.get<any>(environment.backEndApi + '/login/hasaccesstoken', {params: {uuid: uuid}})
   }
 }

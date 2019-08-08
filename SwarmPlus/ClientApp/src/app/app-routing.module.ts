@@ -4,13 +4,16 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LoginComponent } from './common/login/login.component';
+import { ToppageComponent } from './page/toppage/toppage.component';
+import { AuthGuard } from './service/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '', component: HomeComponent },
   { path: '*', redirectTo: '' },
+  { path: 'top', component: ToppageComponent, canActivate: [AuthGuard] },
   { path: 'counter', component: CounterComponent },
   { path: 'fetch-data', component: FetchDataComponent },
-  {path: 'login', component: LoginComponent}
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({

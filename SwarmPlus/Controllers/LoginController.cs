@@ -60,9 +60,9 @@ namespace SwarmPlus.Controllers
             var result = await _loginService.hasAccessToken(uuid);
             if (result)
             {
-                return Ok();
+                return Ok(true);
             }
-            return StatusCode(401);
+            return Ok(false);
         }
     }
 }
