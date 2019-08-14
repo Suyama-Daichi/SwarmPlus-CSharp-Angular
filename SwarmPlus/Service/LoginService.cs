@@ -37,7 +37,7 @@ namespace SwarmPlus.Service
         {
             // GETリクエストを実行
             var response = await Client.GetAsync(
-                $"oauth2/access_token?client_id={clientId}&client_secret={clientSecret}&grant_type=authorization_code&redirect_uri=http://localhost:49947/&code={code}");
+                $"oauth2/access_token?client_id={clientId}&client_secret={clientSecret}&grant_type=authorization_code&redirect_uri=https://swarmplus20190815051502.azurewebsites.net/&code={code}");
             response.EnsureSuccessStatusCode();
 
             // レスポンスのBodyを取得
