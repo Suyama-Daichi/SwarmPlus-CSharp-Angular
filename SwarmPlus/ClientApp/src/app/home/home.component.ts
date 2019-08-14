@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../service/http.service';
 import { environment } from '../../environments/environment';
-import *  as uuidGenerator from "uuid";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  /** バックエンドAPI */
+  /** 認可URL */
   authenticateURL = environment.authenticateURL;
+  /** リダイレクトURL */
+  redirectUrl = environment.redirectUrl;
 
-  constructor(private httpService: HttpService) { }
+  constructor() { }
 
   ngOnInit() {}
 }

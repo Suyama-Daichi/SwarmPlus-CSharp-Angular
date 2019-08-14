@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   firebaseConfig: {
     apiKey: 'AIzaSyBDDSgopNCKorq75jcyksNSYXFOZ_gwZqY',
     authDomain: 'swarmplus.firebaseapp.com',
