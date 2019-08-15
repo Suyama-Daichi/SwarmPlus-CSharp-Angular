@@ -9,7 +9,7 @@ export const environment = {
         messagingSenderId: '467829541317',
         appId: '1:467829541317:web:b043b5717f36d61f'
     },
-    backEndApi: 'https://swarmplus20190815051502.azurewebsites.net/api',
+    backEndApi: 'http://localhost:50391/api',
     authenticateURL: 'https://foursquare.com/oauth2/authenticate?client_id=1DSKDVJVFM3FHGAREG1LUY2NWJVX452M0UVDO1KAAIVCMVZ5&response_type=code',
-    redirectUrl: 'https://swarmplus20190815051502.azurewebsites.net/login'
+    redirectUrl: 'http://localhost:50391/login'
 };
