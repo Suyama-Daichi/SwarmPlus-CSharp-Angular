@@ -38,6 +38,7 @@ namespace SwarmPlus
 
             // HttpClient’Ç‰Á(https://docs.microsoft.com/ja-jp/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.2#basic-usage)
             services.AddHttpClient<LoginService>();
+            services.AddHttpClient<FoursquareAPIService>();
 
             // DbContext’Ç‰Á(https://docs.microsoft.com/ja-jp/aspnet/core/data/ef-mvc/intro?view=aspnetcore-2.2)
             services.AddDbContext<SwarmPlusContext>(options =>
