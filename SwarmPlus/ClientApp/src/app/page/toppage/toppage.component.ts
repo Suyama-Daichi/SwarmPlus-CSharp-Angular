@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../service/http.service';
-import { Observable, of } from 'rxjs';
+import { UtilService } from '../../service/util.service';
+import { AfterBeforeTimestamp } from '../../model/AfterBeforeTimestamp.type';
 
 @Component({
   selector: 'app-toppage',
@@ -8,11 +9,16 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./toppage.component.css']
 })
 export class ToppageComponent implements OnInit {
+  /** ユーザーのチェックイン履歴 */
   checkinHistory: UsersCheckins;
-  constructor(private httpService: HttpService) { }
+  /** 初月と月末のタイムスタンプインスタンス */
+  afterBeforeTimestamp: AfterBeforeTimestamp;
+
+  constructor(private httpService: HttpService, private utilService: UtilService) { }
 
   ngOnInit() {
-    this.getCheckinsPerMonth();
+    this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth();
+    this.getCheckinsPerMonth(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp);
   }
 
 
@@ -20,6 +26,7 @@ export class ToppageComponent implements OnInit {
     this.httpService.getCheckinsPerMonth(localStorage.getItem('uuid'), afterTimestamp, beforeTimestamp).subscribe(
       response=> {
         this.checkinHistory = response;
+        console.log(this.checkinHistory)
       }
     );
   }

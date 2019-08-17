@@ -37,8 +37,8 @@ export class HttpService {
   /**
    * ユーザーのチェックイン履歴を取得
    * @param uuid ユーザーID(UUID)
-   * @param afterTimestamp 取得する期間(終わり)
-   * @param beforeTimestamp 取得する期間(始まり)
+   * @param afterTimestamp 取得する期間(始まり)
+   * @param beforeTimestamp 取得する期間(終わり)
    */
   getCheckinsPerMonth(uuid: string, afterTimestamp: string, beforeTimestamp: string): Observable<UsersCheckins> {
     let params = new HttpParams().set('uuid', uuid).set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);

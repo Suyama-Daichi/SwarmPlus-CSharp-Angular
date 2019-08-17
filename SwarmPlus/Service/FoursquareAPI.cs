@@ -33,8 +33,8 @@ namespace SwarmPlus.Service
         /// ユーザーのチェックインを取得する
         /// </summary>
         /// <param name="uuid">UUID</param>
-        /// <param name="afterTimestamp">取得する期間(終わり)</param>
-        /// <param name="beforeTimestamp">取得する期間(始まり)</param>
+        /// <param name="afterTimestamp">取得する期間(始まり)</param>
+        /// <param name="beforeTimestamp">取得する期間(終わり)</param>
         /// <returns></returns>
         public async Task<UsersCheckins> GetUsersCheckinsAsync(string uuid ,int afterTimestamp, int beforeTimestamp)
         {
