@@ -1,2 +1,2 @@
-<full-calendar defaultView="listDay" (dateClick)="calenderClick($event)" [events]="calendarEvents"
-eventOrder="-id" deepChangeDetection="true" [plugins]="calendarPlugins" locale="jaLocale"></full-calendar>
+<full-calendar defaultView="listDay" [events]="calendarEvents"
+eventOrder="-id" deepChangeDetection="true" [plugins]="calendarPlugins" [header]="headerOptions" [defaultDate]="selectedDate" locale="jaLocale"></full-calendar>

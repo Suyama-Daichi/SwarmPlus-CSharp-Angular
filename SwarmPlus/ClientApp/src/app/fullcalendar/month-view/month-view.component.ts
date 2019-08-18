@@ -7,6 +7,7 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarEvent } from '../../model/calendarEvent.type';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-month-view',
@@ -22,6 +23,8 @@ export class MonthViewComponent implements OnInit {
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
   /** カレンダーイベントオブジェクト */
   calendarEvents: CalendarEvent[] = [];
+  /** 選択された日付 */
+  selectedDate: string;
   /** monthViewが有効か */
   activeMonthView: boolean = true;
   constructor(private httpService: HttpService, private utilService: UtilService) { }
@@ -31,7 +34,14 @@ export class MonthViewComponent implements OnInit {
 
   ngOnInit() {
     this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth();
-    this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp);
+    this.blockUI.start();
+    this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
+      response => {
+        this.checkinHistory = response;
+        this.generateEvents();
+        this.blockUI.stop();
+      }
+    );
   }
 
   /**
@@ -44,35 +54,34 @@ export class MonthViewComponent implements OnInit {
     let afterBeforeTimestamp = this.utilService.getTimestamp(event.dateStr);
     // 未来のチェックインは取得しない
     if (Number(afterBeforeTimestamp.afterTimestamp) <= Number(new Date().getTime().toString().substring(0, 10))) {
-      this.getCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp);
+      this.blockUI.start();
+      this.getCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp).subscribe(
+        response => {
+          this.checkinHistory = response;
+          this.generateEvents();
+          this.blockUI.stop();
+          this.activeMonthView = !this.activeMonthView;
+        }
+      );
     }
-    console.log(afterBeforeTimestamp);
-    this.activeMonthView = !this.activeMonthView;
   }
 
-    /**
-   * 特定期間のチェックインを取得する
-   * @param afterTimestamp 取得する期間(始まり)
-   * @param beforeTimestamp 取得する期間(終わり)
-   */
-  getCheckins(afterTimestamp: string = '1500218379', beforeTimestamp: string = '1502896779') {
-    this.blockUI.start();
-    this.httpService.getCheckinsPerMonth(localStorage.getItem('uuid'), afterTimestamp, beforeTimestamp).subscribe(
-      response => {
-        this.checkinHistory = response;
-        this.generateEvents();
-        this.blockUI.stop();
-      }
-    );
+  /**
+ * 特定期間のチェックインを取得する
+ * @param afterTimestamp 取得する期間(始まり)
+ * @param beforeTimestamp 取得する期間(終わり)
+ */
+  getCheckins(afterTimestamp: string = '1500218379', beforeTimestamp: string = '1502896779'): Observable<UsersCheckins> {
+    return this.httpService.getCheckinsPerMonth(localStorage.getItem('uuid'), afterTimestamp, beforeTimestamp);
   }
 
   /** イベントデータを生成 */
   generateEvents() {
-    this.checkinHistory.response.checkins.items.forEach(
+    this.calendarEvents = this.checkinHistory.response.checkins.items.map(
       (x, i) => {
-        this.calendarEvents = this.calendarEvents.concat({ id: i + 1, title: x.venue.name, date: this.utilService.getDateStringFromTimestamp(x.createdAt) });
+        return ({ id: i + 1, title: x.venue.name, date: this.utilService.getDateStringFromTimestamp(x.createdAt) });
       }
     );
-    console.log(this.calendarEvents)
+    this.selectedDate = this.calendarEvents[0].date;
   }
 }

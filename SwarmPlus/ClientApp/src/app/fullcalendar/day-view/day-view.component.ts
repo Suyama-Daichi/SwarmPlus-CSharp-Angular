@@ -12,10 +12,21 @@ import interactionPlugin from '@fullcalendar/interaction';
 export class DayViewComponent implements OnInit {
   /** FullCalenderライブラリのインポート */
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
-  @Input() calendarEvent: CalendarEvent[] = [];
+  /** 選択された日付 */
+  @Input() selectedDate: string;
+  /** カレンダーイベントオブジェクト */
+  @Input() calendarEvents: CalendarEvent[] = [];
+
+  /** ヘッダーオプション */
+  headerOptions = {
+    left:   'title',
+    center: '',
+    right:  'today prev,next'
+  }
   constructor() { }
 
   ngOnInit() {
+    console.log(this.selectedDate);
   }
 
 }
