@@ -5,6 +5,7 @@ import { AfterBeforeTimestamp } from '../../model/AfterBeforeTimestamp.type';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
+import { CalendarEvent } from '../../model/calendarEvent.type';
 
 @Component({
   selector: 'app-month-view',
@@ -20,7 +21,7 @@ export class MonthViewComponent implements OnInit {
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
   /** HTTP通信が終わったかどうか */
   isLoadFinished = false;
-  calendarEvents = [];
+  calendarEvents: CalendarEvent[] = [];
   constructor(private httpService: HttpService, private utilService: UtilService) { }
 
 
@@ -62,7 +63,7 @@ export class MonthViewComponent implements OnInit {
   generateEvents() {
     this.checkinHistory.response.checkins.items.forEach(
       (x, i) => {
-        this.calendarEvents = this.calendarEvents.concat({ id: i, title: x.venue.name, date: this.utilService.getDateStringFromTimestamp(x.createdAt) });
+        this.calendarEvents = this.calendarEvents.concat({ id: i + 1, title: x.venue.name, date: this.utilService.getDateStringFromTimestamp(x.createdAt) });
         this.isLoadFinished = true;
       }
     );
