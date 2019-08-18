@@ -18,12 +18,15 @@ export class MonthViewComponent implements OnInit {
   afterBeforeTimestamp: AfterBeforeTimestamp;
   /** FullCalenderライブラリのインポート */
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
-  @Input() calendarEvents;
+  /** HTTP通信が終わったかどうか */
+  isLoadFinished = false;
+  calendarEvents = [];
   constructor(private httpService: HttpService, private utilService: UtilService) { }
 
 
   ngOnInit() {
     this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth();
+    this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp);
   }
 
     /**
@@ -50,9 +53,19 @@ export class MonthViewComponent implements OnInit {
     this.httpService.getCheckinsPerMonth(localStorage.getItem('uuid'), afterTimestamp, beforeTimestamp).subscribe(
       response => {
         this.checkinHistory = response;
-        console.log(this.checkinHistory.response.checkins)
+        this.generateEvents();
       }
     );
   }
 
+  /** イベントデータを生成 */
+  generateEvents() {
+    this.checkinHistory.response.checkins.items.forEach(
+      (x, i) => {
+        this.calendarEvents = this.calendarEvents.concat({ id: i, title: x.venue.name, date: this.utilService.getDateStringFromTimestamp(x.createdAt) });
+        this.isLoadFinished = true;
+      }
+    );
+    console.log(this.calendarEvents)
+  }
 }
