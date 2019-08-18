@@ -36,4 +36,14 @@ export class UtilService {
     afterBeforeTimestamp.beforeTimestamp = clickedDate.setDate(clickedDate.getDate() + 1).toString().substring(0, 10);
     return afterBeforeTimestamp;
   }
+
+  /**
+   * タイムスタンプを"2019-08-01"の形式に変換
+   * @param timestamp タイムスタンプ(10桁)
+   */
+  getDateStringFromTimestamp(timestamp: number = 1566226800) {
+    const parsedDate:Date = new Date(timestamp * 1000);
+    const dateString = parsedDate.getFullYear() + '-' + (parsedDate.getMonth() +1) + '-' + parsedDate.getDate();
+    return dateString;
+  }
 }

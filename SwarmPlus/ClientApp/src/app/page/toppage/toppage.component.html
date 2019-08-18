@@ -1,4 +1,6 @@
-<full-calendar defaultView="dayGridMonth" (dateClick)="calenderClick($event)" [plugins]="calendarPlugins"
+<div class="app-calendar" *ngIf="isLoadFinished">
+    <full-calendar defaultView="dayGridMonth" (dateClick)="calenderClick($event)" [events]="calendarEvents" [plugins]="calendarPlugins"
     locale="jaLocale"></full-calendar>
+</div>
 
 {{checkinHistory | json}}
