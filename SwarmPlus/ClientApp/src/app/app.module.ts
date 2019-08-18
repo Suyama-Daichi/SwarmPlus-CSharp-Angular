@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FullCalendarModule } from '@fullcalendar/angular';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -35,6 +36,7 @@ import { AuthGuard } from './service/auth.guard';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    FullCalendarModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
