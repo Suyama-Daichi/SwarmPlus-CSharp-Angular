@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './common/login/login.component';
 import { ToppageComponent } from './page/toppage/toppage.component';
 import { AuthGuard } from './service/auth.guard';
+import { MonthViewComponent } from './fullcalendar/month-view/month-view.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AuthGuard } from './service/auth.guard';
     CounterComponent,
     FetchDataComponent,
     LoginComponent,
-    ToppageComponent
+    ToppageComponent,
+    MonthViewComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

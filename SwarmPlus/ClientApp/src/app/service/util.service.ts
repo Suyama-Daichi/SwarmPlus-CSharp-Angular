@@ -42,8 +42,8 @@ export class UtilService {
    * @param timestamp タイムスタンプ(10桁)
    */
   getDateStringFromTimestamp(timestamp: number = 1566226800) {
-    const parsedDate:Date = new Date(timestamp * 1000);
-    const dateString = parsedDate.getFullYear() + '-' + (parsedDate.getMonth() +1) + '-' + parsedDate.getDate();
+    const parsedDate: Date = new Date(timestamp * 1000);
+    const dateString = parsedDate.getFullYear() + '-' + ("0" + (parsedDate.getMonth() + 1)).slice(-2) + '-' + ("0" + parsedDate.getDate()).slice(-2);
     return dateString;
   }
 }

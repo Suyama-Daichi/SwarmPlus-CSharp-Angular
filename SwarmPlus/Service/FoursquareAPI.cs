@@ -24,6 +24,7 @@ namespace SwarmPlus.Service
         {
             client.BaseAddress = new Uri("https://api.foursquare.com/v2/");
             client.DefaultRequestHeaders.Add("Acccept", "application/json");
+            client.DefaultRequestHeaders.Add("Accept-Language", "ja");
             Client = client;
 
             _db = db;
