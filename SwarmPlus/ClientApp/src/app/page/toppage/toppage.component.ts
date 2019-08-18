@@ -4,7 +4,6 @@ import { UtilService } from '../../service/util.service';
 import { AfterBeforeTimestamp } from '../../model/AfterBeforeTimestamp.type';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import jaLocale from '@fullcalendar/core/locales/ja';
-import { FullCalendarComponent } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-toppage',
@@ -16,7 +15,6 @@ export class ToppageComponent implements OnInit {
   calendarPlugins = [dayGridPlugin];
   /** 言語設定 */
   jaLocale = jaLocale;
-  @ViewChild('calendar', { read: ElementRef, static: false }) calendarComponent: FullCalendarComponent;
 
   /** ユーザーのチェックイン履歴 */
   checkinHistory: UsersCheckins;
@@ -27,16 +25,34 @@ export class ToppageComponent implements OnInit {
 
   ngOnInit() {
     this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth();
-    this.getCheckinsPerMonth(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp);
+    console.log(this.afterBeforeTimestamp);
+    // this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp);
   }
 
-
-  getCheckinsPerMonth(afterTimestamp: string = '1500218379', beforeTimestamp: string = '1502896779') {
+  
+  /**
+   * 特定期間のチェックインを取得する
+   * @param afterTimestamp 取得する期間(始まり)
+   * @param beforeTimestamp 取得する期間(終わり)
+   */
+  getCheckins(afterTimestamp: string = '1500218379', beforeTimestamp: string = '1502896779') {
     this.httpService.getCheckinsPerMonth(localStorage.getItem('uuid'), afterTimestamp, beforeTimestamp).subscribe(
       response => {
         this.checkinHistory = response;
-        console.log(this.checkinHistory)
+        console.log(this.checkinHistory.response.checkins)
       }
     );
+  }
+
+  /**
+   * 日付を押下したときに発火される
+   * Todo: FullCalenderのイベントハンドラ(dateClick)が効かない。Angular8に対応してない可能性あり
+   * @param event 日付のクリックイベント
+   */
+  dateClick(event) {
+    console.log(event.target.dataset['date']);
+    let afterBeforeTimestamp = this.utilService.getTimestamp(event.target.dataset['date']);
+    this.getCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp);
+    console.log(afterBeforeTimestamp);
   }
 }
