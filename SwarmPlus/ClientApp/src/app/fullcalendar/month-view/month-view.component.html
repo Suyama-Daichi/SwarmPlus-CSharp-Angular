@@ -1,2 +1,9 @@
-<full-calendar defaultView="dayGridMonth" (dateClick)="calenderClick($event)" [events]="calendarEvents" eventOrder="-id" deepChangeDetection="true" [plugins]="calendarPlugins"
-locale="jaLocale"></full-calendar>
+<div class="app-calendar" *ngIf="activeMonthView">
+    <block-ui>
+        <full-calendar defaultView="dayGridMonth" (dateClick)="calenderClick($event)" [events]="calendarEvents"
+        eventOrder="-id" deepChangeDetection="true" [plugins]="calendarPlugins" locale="jaLocale"></full-calendar>
+    </block-ui>
+</div>
+
+
+<app-day-view [calendarEvent]=""></app-day-view>

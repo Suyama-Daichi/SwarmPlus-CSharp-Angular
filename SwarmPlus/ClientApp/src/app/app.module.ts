@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BlockUIModule } from 'ng-block-ui';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -17,6 +17,7 @@ import { LoginComponent } from './common/login/login.component';
 import { ToppageComponent } from './page/toppage/toppage.component';
 import { AuthGuard } from './service/auth.guard';
 import { MonthViewComponent } from './fullcalendar/month-view/month-view.component';
+import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { MonthViewComponent } from './fullcalendar/month-view/month-view.compone
     FetchDataComponent,
     LoginComponent,
     ToppageComponent,
-    MonthViewComponent
+    MonthViewComponent,
+    DayViewComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,7 +39,8 @@ import { MonthViewComponent } from './fullcalendar/month-view/month-view.compone
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    FullCalendarModule
+    FullCalendarModule,
+    BlockUIModule.forRoot()
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

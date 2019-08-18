@@ -6,6 +6,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarEvent } from '../../model/calendarEvent.type';
+import { NgBlockUI, BlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-month-view',
@@ -19,18 +20,21 @@ export class MonthViewComponent implements OnInit {
   afterBeforeTimestamp: AfterBeforeTimestamp;
   /** FullCalenderライブラリのインポート */
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
-  /** HTTP通信が終わったかどうか */
-  isLoadFinished = false;
+  /** カレンダーイベントオブジェクト */
   calendarEvents: CalendarEvent[] = [];
+  /** monthViewが有効か */
+  activeMonthView: boolean = true;
   constructor(private httpService: HttpService, private utilService: UtilService) { }
 
+  /** BlockUI */
+  @BlockUI() blockUI: NgBlockUI;
 
   ngOnInit() {
     this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth();
     this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp);
   }
 
-    /**
+  /**
    * 日付を押下したときに発火される
    * https://stackoverflow.com/questions/56261140/dateclick-not-emitted-in-fullcalendar-angular
    * @param event 日付のクリックイベント
@@ -43,6 +47,7 @@ export class MonthViewComponent implements OnInit {
       this.getCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp);
     }
     console.log(afterBeforeTimestamp);
+    this.activeMonthView = !this.activeMonthView;
   }
 
     /**
@@ -51,10 +56,12 @@ export class MonthViewComponent implements OnInit {
    * @param beforeTimestamp 取得する期間(終わり)
    */
   getCheckins(afterTimestamp: string = '1500218379', beforeTimestamp: string = '1502896779') {
+    this.blockUI.start();
     this.httpService.getCheckinsPerMonth(localStorage.getItem('uuid'), afterTimestamp, beforeTimestamp).subscribe(
       response => {
         this.checkinHistory = response;
         this.generateEvents();
+        this.blockUI.stop();
       }
     );
   }
@@ -64,7 +71,6 @@ export class MonthViewComponent implements OnInit {
     this.checkinHistory.response.checkins.items.forEach(
       (x, i) => {
         this.calendarEvents = this.calendarEvents.concat({ id: i + 1, title: x.venue.name, date: this.utilService.getDateStringFromTimestamp(x.createdAt) });
-        this.isLoadFinished = true;
       }
     );
     console.log(this.calendarEvents)
