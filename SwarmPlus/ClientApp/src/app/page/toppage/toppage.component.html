@@ -1,4 +1,4 @@
-<full-calendar #calender defaultView="dayGridMonth" (click)="dateClick($event)" [plugins]="calendarPlugins"
-    [locale]="jaLocale"></full-calendar>
+<full-calendar defaultView="dayGridMonth" (dateClick)="calenderClick($event)" [plugins]="calendarPlugins"
+    locale="jaLocale"></full-calendar>
 
 {{checkinHistory | json}}

@@ -3,7 +3,8 @@ import { HttpService } from '../../service/http.service';
 import { UtilService } from '../../service/util.service';
 import { AfterBeforeTimestamp } from '../../model/AfterBeforeTimestamp.type';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import jaLocale from '@fullcalendar/core/locales/ja';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
 
 @Component({
   selector: 'app-toppage',
@@ -12,9 +13,7 @@ import jaLocale from '@fullcalendar/core/locales/ja';
 })
 export class ToppageComponent implements OnInit {
   /** FullCalenderライブラリのインポート */
-  calendarPlugins = [dayGridPlugin];
-  /** 言語設定 */
-  jaLocale = jaLocale;
+  calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
 
   /** ユーザーのチェックイン履歴 */
   checkinHistory: UsersCheckins;
@@ -47,12 +46,23 @@ export class ToppageComponent implements OnInit {
   /**
    * 日付を押下したときに発火される
    * Todo: FullCalenderのイベントハンドラ(dateClick)が効かない。Angular8に対応してない可能性あり
+   * https://stackoverflow.com/questions/56261140/dateclick-not-emitted-in-fullcalendar-angular
    * @param event 日付のクリックイベント
    */
-  dateClick(event) {
-    console.log(event.target.dataset['date']);
-    let afterBeforeTimestamp = this.utilService.getTimestamp(event.target.dataset['date']);
-    this.getCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp);
+  // calenderClick(event) {
+  //   console.log(event.target.dataset['date']);
+  //   let afterBeforeTimestamp = this.utilService.getTimestamp(event.target.dataset['date']);
+  //   this.getCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp);
+  //   console.log(afterBeforeTimestamp);
+  // }
+
+  calenderClick(event){
+    console.log(event);
+    let afterBeforeTimestamp = this.utilService.getTimestamp(event.dateStr);
+    // 未来のチェックインは取得しない
+    if(Number(afterBeforeTimestamp.afterTimestamp) <= Number(new Date().getTime().toString().substring(0, 10))){
+      this.getCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp);
+    }
     console.log(afterBeforeTimestamp);
   }
 }
