@@ -1,6 +1,6 @@
 <div class="app-calendar" *ngIf="activeMonthView">
     <block-ui>
-        <full-calendar defaultView="dayGridMonth" (dateClick)="calenderClick($event)" [events]="calendarEvents"
+        <full-calendar defaultView="dayGridMonth" (dateClick)="calenderClick($event)" [events]="calendarEvents" (datesRender)="getCheckinsPerMonth($event)"
         eventOrder="-id" deepChangeDetection="true" [plugins]="calendarPlugins" locale="jaLocale"></full-calendar>
     </block-ui>
 </div>

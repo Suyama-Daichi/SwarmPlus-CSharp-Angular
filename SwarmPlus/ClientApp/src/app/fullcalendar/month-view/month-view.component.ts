@@ -34,14 +34,6 @@ export class MonthViewComponent implements OnInit {
 
   ngOnInit() {
     this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth();
-    this.blockUI.start();
-    this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
-      response => {
-        this.checkinHistory = response;
-        this.generateEvents();
-        this.blockUI.stop();
-      }
-    );
   }
 
   /**
@@ -83,5 +75,29 @@ export class MonthViewComponent implements OnInit {
       }
     );
     this.selectedDate = this.calendarEvents[0].date;
+  }
+
+  /**
+   * 表示している月のチェックインを取得する
+   * @param e 表示しているカレンダーのイベントデータ
+   */
+  getCheckinsPerMonth(e) {
+    const t: string = e['view']['title'];
+    // let startDate: Date = new Date(`${t.substring(0, 4)}-0${t.substr(5, 1)}-01`);
+    let startDate: Date = new Date(Number(t.substring(0, 4)), Number(t.substr(5, 1)) - 1, 1, 0, 0);
+    let afterTimestamp = startDate.getTime().toString().substring(0, 10);
+    startDate.setMonth(startDate.getMonth() + 1);
+    startDate.setDate(0);
+    startDate.setHours(23);
+    startDate.setMinutes(59);
+    let beforeTimestamp: string = startDate.setSeconds(59).toString().substring(0, 10);
+    this.blockUI.start();
+    this.getCheckins(afterTimestamp, beforeTimestamp).subscribe(
+      response => {
+        this.checkinHistory = response;
+        this.generateEvents();
+        this.blockUI.stop();
+      }
+    );
   }
 }
