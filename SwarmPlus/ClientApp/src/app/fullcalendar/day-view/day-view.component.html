@@ -1,2 +1,11 @@
-<full-calendar defaultView="listDay" [events]="calendarEvents"
-eventOrder="-id" deepChangeDetection="true" [plugins]="calendarPlugins" [header]="headerOptions" [defaultDate]="selectedDate" locale="jaLocale"></full-calendar>
+<div class="app-dayView" *ngIf="!activeMonthView">
+    <full-calendar defaultView="listDay" (datesRender)="getCheckinsPerDate($event)" [events]="calendarEvents" eventOrder="-id" deepChangeDetection="true"
+        [plugins]="calendarPlugins" [defaultDate]="selectedDate"
+        locale="jaLocale"></full-calendar>
+</div>
+
+<div class="app-calendar" *ngIf="activeMonthView">
+    <app-month-view [activeMonthView]="activeMonthView"></app-month-view>
+</div>
+
+{{activeMonthView}}

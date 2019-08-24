@@ -26,7 +26,7 @@ export class MonthViewComponent implements OnInit {
   /** 選択された日付 */
   selectedDate: string;
   /** monthViewが有効か */
-  activeMonthView: boolean = true;
+  @Input() activeMonthView: boolean = true;
   constructor(private httpService: HttpService, private utilService: UtilService) { }
 
   /** BlockUI */
@@ -50,7 +50,7 @@ export class MonthViewComponent implements OnInit {
       this.getCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp).subscribe(
         response => {
           this.checkinHistory = response;
-          this.generateEvents();
+          this.generateEvents(this.checkinHistory.response.checkins.items);
           this.blockUI.stop();
           this.activeMonthView = !this.activeMonthView;
         }
@@ -64,16 +64,12 @@ export class MonthViewComponent implements OnInit {
  * @param beforeTimestamp 取得する期間(終わり)
  */
   getCheckins(afterTimestamp: string = '1500218379', beforeTimestamp: string = '1502896779'): Observable<UsersCheckins> {
-    return this.httpService.getCheckinsPerMonth(localStorage.getItem('uuid'), afterTimestamp, beforeTimestamp);
+    return this.httpService.getUserCheckins(localStorage.getItem('uuid'), afterTimestamp, beforeTimestamp);
   }
 
   /** イベントデータを生成 */
-  generateEvents() {
-    this.calendarEvents = this.checkinHistory.response.checkins.items.map(
-      (x, i) => {
-        return ({ id: i + 1, title: x.venue.name, date: this.utilService.getDateStringFromTimestamp(x.createdAt) });
-      }
-    );
+  generateEvents(items: Item4[]) {
+    this.calendarEvents = this.utilService.generateEvents(items);
     this.selectedDate = this.calendarEvents[0].date;
   }
 
@@ -81,21 +77,21 @@ export class MonthViewComponent implements OnInit {
    * 表示している月のチェックインを取得する
    * @param e 表示しているカレンダーのイベントデータ
    */
-  getCheckinsPerMonth(e) {
+  getUserCheckins(e) {
     const t: string = e['view']['title'];
-    // let startDate: Date = new Date(`${t.substring(0, 4)}-0${t.substr(5, 1)}-01`);
-    let startDate: Date = new Date(Number(t.substring(0, 4)), Number(t.substr(5, 1)) - 1, 1, 0, 0);
-    let afterTimestamp = startDate.getTime().toString().substring(0, 10);
-    startDate.setMonth(startDate.getMonth() + 1);
-    startDate.setDate(0);
-    startDate.setHours(23);
-    startDate.setMinutes(59);
-    let beforeTimestamp: string = startDate.setSeconds(59).toString().substring(0, 10);
+    const afterDate: Date = new Date(Number(t.substring(0, 4)), Number(t.substr(5, 1)) - 1, 1, 0, 0);
+    const afterTimestamp = afterDate.getTime().toString().substring(0, 10);
+    afterDate.setMonth(afterDate.getMonth() + 1);
+    afterDate.setDate(0);
+    afterDate.setHours(23);
+    afterDate.setMinutes(59);
+    afterDate.setSeconds(59)
+    const beforeTimestamp: string = afterDate.getTime().toString().substring(0, 10);
     this.blockUI.start();
     this.getCheckins(afterTimestamp, beforeTimestamp).subscribe(
       response => {
         this.checkinHistory = response;
-        this.generateEvents();
+        this.generateEvents(this.checkinHistory.response.checkins.items);
         this.blockUI.stop();
       }
     );

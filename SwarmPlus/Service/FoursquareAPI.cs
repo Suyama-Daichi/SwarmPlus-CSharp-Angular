@@ -51,7 +51,6 @@ namespace SwarmPlus.Service
                 $"users/self/checkins?oauth_token={accesstoken}&v=20180815&limit=250&afterTimestamp={afterTimestamp}&beforeTimestamp={deserialisedResult.response.checkins.items.Last().createdAt}");
                 string moreResult = await moreResponse.Content.ReadAsStringAsync();
                 UsersCheckins moreDeserialisedResult = JsonConvert.DeserializeObject<UsersCheckins>(moreResult);
-                //deserialisedResult.response.checkins.items.Concat(moreDeserialisedResult.response.checkins.items);
                 return new UsersCheckins
                 {
                     meta = deserialisedResult.meta,

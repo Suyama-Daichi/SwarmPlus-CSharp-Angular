@@ -1,10 +1,10 @@
 <div class="app-calendar" *ngIf="activeMonthView">
     <block-ui>
-        <full-calendar defaultView="dayGridMonth" (dateClick)="calenderClick($event)" [events]="calendarEvents" (datesRender)="getCheckinsPerMonth($event)"
+        <full-calendar defaultView="dayGridMonth" (dateClick)="calenderClick($event)" [events]="calendarEvents" (datesRender)="getUserCheckins($event)"
         eventOrder="-id" deepChangeDetection="true" [plugins]="calendarPlugins" locale="jaLocale"></full-calendar>
     </block-ui>
 </div>
 
 <div class="app-dayView" *ngIf="!activeMonthView">
-    <app-day-view [calendarEvents]="calendarEvents" [selectedDate]="selectedDate"></app-day-view>
+    <app-day-view [calendarEvents]="calendarEvents" [selectedDate]="selectedDate" [activeMonthView]="activeMonthView"></app-day-view>
 </div>

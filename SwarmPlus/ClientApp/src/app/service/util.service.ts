@@ -46,4 +46,13 @@ export class UtilService {
     const dateString = parsedDate.getFullYear() + '-' + ("0" + (parsedDate.getMonth() + 1)).slice(-2) + '-' + ("0" + parsedDate.getDate()).slice(-2);
     return dateString;
   }
+
+  /** イベントデータを生成 */
+  generateEvents(chackinItems: Item4[]) {
+    return chackinItems.map(
+      (x, i) => {
+        return ({ id: i + 1, title: x.venue.name, date: this.getDateStringFromTimestamp(x.createdAt) });
+      }
+    );
+  }
 }
