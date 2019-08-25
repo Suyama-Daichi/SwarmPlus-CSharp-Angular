@@ -41,6 +41,5 @@ export class DayViewComponent implements OnInit {
         this.blockUI.stop();
       }
     );
-    console.log(afterDate);
   }
 }
