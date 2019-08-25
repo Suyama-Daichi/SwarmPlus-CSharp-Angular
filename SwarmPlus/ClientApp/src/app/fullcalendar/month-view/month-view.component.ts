@@ -70,7 +70,7 @@ export class MonthViewComponent implements OnInit {
   /** イベントデータを生成 */
   generateEvents(items: Item4[]) {
     this.calendarEvents = this.utilService.generateEvents(items);
-    this.selectedDate = this.calendarEvents[0].date;
+    this.selectedDate = this.utilService.getDateStringFromTimestamp(this.calendarEvents[0].date.getTime());
   }
 
   /**

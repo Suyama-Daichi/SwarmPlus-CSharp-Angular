@@ -5,5 +5,5 @@ export class CalendarEvent {
     /** イベントのタイトル */
     public title: string;
     /** イベントの日付 */
-    public date: string;
+    public date: Date;
 }

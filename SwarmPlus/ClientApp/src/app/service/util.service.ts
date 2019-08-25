@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AfterBeforeTimestamp } from '../model/AfterBeforeTimestamp.type';
+import { CalendarEvent } from '../model/calendarEvent.type';
 
 @Injectable({
   providedIn: 'root'
@@ -42,16 +43,16 @@ export class UtilService {
    * @param timestamp タイムスタンプ(10桁)
    */
   getDateStringFromTimestamp(timestamp: number = 1566226800) {
-    const parsedDate: Date = new Date(timestamp * 1000);
+    const parsedDate: Date = new Date(timestamp);
     const dateString = parsedDate.getFullYear() + '-' + ("0" + (parsedDate.getMonth() + 1)).slice(-2) + '-' + ("0" + parsedDate.getDate()).slice(-2);
     return dateString;
   }
 
   /** イベントデータを生成 */
-  generateEvents(chackinItems: Item4[]) {
+  generateEvents(chackinItems: Item4[]): CalendarEvent[] {
     return chackinItems.map(
       (x, i) => {
-        return ({ id: i + 1, title: x.venue.name, date: this.getDateStringFromTimestamp(x.createdAt) });
+        return ({ id: i + 1, title: x.venue.name, date: new Date(x.createdAt * 1000)});
       }
     );
   }
