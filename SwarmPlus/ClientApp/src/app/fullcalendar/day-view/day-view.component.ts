@@ -28,7 +28,7 @@ export class DayViewComponent implements OnInit {
   ngOnInit() { }
   getCheckinsPerDate(e) {
     const t: string = e['view']['title'];
-    const afterDate: Date = new Date(Number(t.substring(0, 4)), Number(t.substr(5, 1)) - 1, Number(t.substr(7, 2)), 0, 0);
+    const afterDate: Date = new Date(t.replace(/年/, '/').replace(/月/, '/').replace(/日/, ''));
     const afterTimestamp = afterDate.getTime().toString().substring(0, 10);
     afterDate.setHours(23);
     afterDate.setMinutes(59);
