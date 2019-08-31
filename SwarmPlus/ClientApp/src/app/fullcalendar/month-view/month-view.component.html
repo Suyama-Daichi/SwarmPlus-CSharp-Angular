@@ -2,7 +2,7 @@
     <block-ui>
         <full-calendar defaultView="dayGridMonth" (dateClick)="calenderClick($event)" [events]="calendarEvents"
             (datesRender)="getUserCheckins($event)" eventOrder="-id" deepChangeDetection="true"
-            [plugins]="calendarPlugins" locale="jaLocale" nextDayThreshold="01:00:00" eventLimit="true" [validRange]="nowDate"></full-calendar>
+            [plugins]="calendarPlugins" locale="jaLocale" nextDayThreshold="01:00:00" eventLimit="true" eventColor="orange" eventTextColor="white" [validRange]="nowDate"></full-calendar>
     </block-ui>
 </div>
 
