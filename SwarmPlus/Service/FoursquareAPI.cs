@@ -39,33 +39,41 @@ namespace SwarmPlus.Service
         /// <returns></returns>
         public async Task<UsersCheckins> GetUsersCheckinsAsync(string uuid, int afterTimestamp, int beforeTimestamp)
         {
-            string accesstoken = _db.User.FirstOrDefault(f => f.UserID == uuid).AccessToken;
+            string accessToken = _db.User.FirstOrDefault(f => f.UserID == uuid).AccessToken;
             var response = await Client.GetAsync(
-                $"users/self/checkins?oauth_token={accesstoken}&v=20180815&limit=250&afterTimestamp={afterTimestamp}&beforeTimestamp={beforeTimestamp}");
+                $"users/self/checkins?oauth_token={accessToken}&v=20180815&limit=250&afterTimestamp={afterTimestamp}&beforeTimestamp={beforeTimestamp}");
             var result = await response.Content.ReadAsStringAsync();
             var deserialisedResult = JsonConvert.DeserializeObject<UsersCheckins>(result);
-            // 250チェックイン/月する場合の処理
-            if (deserialisedResult.response.checkins.items.Length == 250)
+
+            return new UsersCheckins
             {
-                HttpResponseMessage moreResponse = await Client.GetAsync(
-                $"users/self/checkins?oauth_token={accesstoken}&v=20180815&limit=250&afterTimestamp={afterTimestamp}&beforeTimestamp={deserialisedResult.response.checkins.items.Last().createdAt}");
-                string moreResult = await moreResponse.Content.ReadAsStringAsync();
-                UsersCheckins moreDeserialisedResult = JsonConvert.DeserializeObject<UsersCheckins>(moreResult);
-                return new UsersCheckins
+                meta = deserialisedResult.meta,
+                notifications = deserialisedResult.notifications,
+                response = new Response
                 {
-                    meta = deserialisedResult.meta,
-                    notifications = deserialisedResult.notifications,
-                    response = new Response
+                    checkins = new Checkins
                     {
-                        checkins = new Checkins
-                        {
-                            count = deserialisedResult.response.checkins.count,
-                            items = deserialisedResult.response.checkins.items.Concat(moreDeserialisedResult.response.checkins.items).ToArray()
-                        }
+                        count = deserialisedResult.response.checkins.count,
+                        items = deserialisedResult.response.checkins.items.Length == 250 ? await getCheckinForOver250PerMonth(accessToken, afterTimestamp, deserialisedResult) : deserialisedResult.response.checkins.items.OrderBy(o => o.createdAt).ToArray()
                     }
-                };
-            }
-            return deserialisedResult;
+                }
+            };
+
+        }
+        /// <summary>
+        /// 250チェックイン/月する場合の処理
+        /// </summary>
+        /// <param name="accessToken">アクセストークン</param>
+        /// <param name="afterTimestamp">取得する期間(始まり)</param>
+        /// <param name="deserialisedResult">途中までのチェックイン情報</param>
+        /// <returns>結合されたチェックイン情報</returns>
+        private async Task<Items[]> getCheckinForOver250PerMonth(string accessToken, int afterTimestamp, UsersCheckins deserialisedResult)
+        {
+            HttpResponseMessage moreResponse = await Client.GetAsync(
+            $"users/self/checkins?oauth_token={accessToken}&v=20180815&limit=250&afterTimestamp={afterTimestamp}&beforeTimestamp={deserialisedResult.response.checkins.items.Last().createdAt}");
+            string moreResult = await moreResponse.Content.ReadAsStringAsync();
+            UsersCheckins moreDeserialisedResult = JsonConvert.DeserializeObject<UsersCheckins>(moreResult);
+            return deserialisedResult.response.checkins.items.Concat(moreDeserialisedResult.response.checkins.items).OrderBy(o => o.createdAt).ToArray();
         }
     }
 }
