@@ -51,8 +51,8 @@ export class UtilService {
   /** イベントデータを生成 */
   generateEvents(chackinItems: Item4[]): CalendarEvent[] {
     return chackinItems.map(
-      (x, i) => {
-        return ({ id: i + 1, title: x.venue.name, date: new Date(x.createdAt * 1000)});
+      (x: Item4, i) => {
+        return ({ id: i + 1, title: x.venue.name, date: new Date(x.createdAt * 1000), checkinData: x});
       }
     );
   }

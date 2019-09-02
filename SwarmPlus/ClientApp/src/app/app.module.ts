@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { SimpleModalModule } from 'ngx-simple-modal';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BlockUIModule } from 'ng-block-ui';
@@ -18,6 +19,8 @@ import { ToppageComponent } from './page/toppage/toppage.component';
 import { AuthGuard } from './service/auth.guard';
 import { MonthViewComponent } from './fullcalendar/month-view/month-view.component';
 import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
+import { CheckinDetailComponent } from './modal/checkin-detail/checkin-detail.component';
+import { defaultSimpleModalOptions } from 'ngx-simple-modal/dist/simple-modal/simple-modal-options';
 
 
 @NgModule({
@@ -30,7 +33,8 @@ import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
     LoginComponent,
     ToppageComponent,
     MonthViewComponent,
-    DayViewComponent
+    DayViewComponent,
+    CheckinDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -40,9 +44,15 @@ import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     FullCalendarModule,
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
+    SimpleModalModule.forRoot({ container: 'modal-container' }, {
+      ...defaultSimpleModalOptions, ...{
+        closeOnClickOutside: true
+      }
+    })
   ],
   providers: [AuthGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CheckinDetailComponent]
 })
 export class AppModule { }

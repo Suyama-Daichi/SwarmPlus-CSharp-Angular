@@ -36,8 +36,7 @@ namespace SwarmPlus.Controllers
         [Route("getCheckinsPerMonth")]
         public async Task<ActionResult> getCheckinsPerMonth(string uuid, int afterTimestamp, int beforeTimestamp)
         {
-            var result = await _foursquareAPIService.GetUsersCheckinsAsync(uuid, afterTimestamp, beforeTimestamp);
-            return Ok(result);
+            return Ok(await _foursquareAPIService.GetUsersCheckinsAsync(uuid, afterTimestamp, beforeTimestamp));
         }
     }
 }

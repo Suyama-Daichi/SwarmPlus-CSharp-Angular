@@ -1,3 +1,4 @@
+import { CheckinDetailComponent } from './../../modal/checkin-detail/checkin-detail.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { UtilService } from '../../service/util.service';
@@ -8,6 +9,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarEvent } from '../../model/calendarEvent.type';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { Observable } from 'rxjs';
+import { SimpleModalService } from 'ngx-simple-modal';
 
 @Component({
   selector: 'app-month-view',
@@ -31,7 +33,7 @@ export class MonthViewComponent implements OnInit {
 
   /** monthViewが有効か */
   @Input() activeMonthView: boolean = true;
-  constructor(private httpService: HttpService, private utilService: UtilService) { }
+  constructor(private httpService: HttpService, private utilService: UtilService, private simpleModalService: SimpleModalService) { }
 
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
@@ -49,7 +51,7 @@ export class MonthViewComponent implements OnInit {
     let afterBeforeTimestamp = this.utilService.getTimestamp(event.dateStr);
     this.blockUI.start();
     this.getCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp).subscribe(
-      response => {
+      (response: UsersCheckins) => {
         this.checkinHistory = response;
         this.generateEvents(this.checkinHistory.response.checkins.items);
         this.blockUI.stop();
@@ -98,6 +100,18 @@ export class MonthViewComponent implements OnInit {
         this.checkinHistory = response;
         this.generateEvents(this.checkinHistory.response.checkins.items);
         this.blockUI.stop();
+      }
+    );
+  }
+
+  /**
+   * モーダルを開く
+   */
+  openModal(e) {
+    const checkinData: Item4 = e['event']['_def']['extendedProps']['checkinData'];
+    this.simpleModalService.addModal(CheckinDetailComponent, checkinData).subscribe(
+      (isOpened) => {
+        console.log(isOpened);
       }
     );
   }
