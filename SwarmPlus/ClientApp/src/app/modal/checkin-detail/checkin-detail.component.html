@@ -1,11 +1,10 @@
 <div class="modal-content">
-    <div class="modal-body">
-        <!-- <p>{{venue | json}}</p> -->
-        <p>べニュー名：{{venue.name}}</p>
-        <p *ngIf="with">一緒にいた人：<span *ngFor="let anyone of with">{{anyone.firstName}}、</span></p>
-        <p *ngIf="likes.count">いいねした人：<span *ngFor="let anyone of likes.groups[0].items">{{anyone.firstName}}、</span></p>
+    <div class="modal-header">
+        <h2 class="midashi"><i class="fas fa-map-marker-alt icon"></i>{{venue.name}}</h2>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="close()"><<</button>
+    <div class="modal-body">
+        <p *ngIf="with">一緒にいた人：<span *ngFor="let anyone of with">{{anyone.firstName}}、</span></p>
+        <p *ngIf="likes.count">いいねした人：<span *ngFor="let anyone of likes.groups[0].items">{{anyone.firstName}}、</span>
+        </p>
     </div>
 </div>
