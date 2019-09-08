@@ -38,5 +38,17 @@ namespace SwarmPlus.Controllers
         {
             return Ok(await _foursquareAPIService.GetUsersCheckinsAsync(uuid, afterTimestamp, beforeTimestamp));
         }
+
+        /// <summary>
+        /// べニューの写真を返す
+        /// </summary>
+        /// <param name="venueId">べニューID</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("getVenuePhotos")]
+        public async Task<ActionResult> getVenuePhotos(string venueId)
+        {
+            return Ok(await _foursquareAPIService.getVenuePhotos(venueId));
+        }
     }
 }

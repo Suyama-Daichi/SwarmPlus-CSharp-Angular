@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SwarmPlus.Models
 {
-    public class UsersCheckins
+    public class ResponseFromFoursquare
     {
         public Meta meta { get; set; }
         public Notifications[] notifications { get; set; }
@@ -14,10 +14,11 @@ namespace SwarmPlus.Models
 
     public class Response
     {
-        public Checkins checkins { get; set; }
+        public Items checkins { get; set; }
+        public Photos photos { get;set; }
     }
 
-    public class Checkins
+    public class Items
     {
         /// <summary>
         /// チェックイン数
@@ -26,10 +27,10 @@ namespace SwarmPlus.Models
         /// <summary>
         /// チェックインデータ本体
         /// </summary>
-        public Items[] items { get; set; }
+        public CheckinInfo[] items { get; set; }
     }
 
-    public class Items
+    public class CheckinInfo
     {
         /// <summary>
         /// チェックインID
