@@ -38,8 +38,7 @@ export class DayViewComponent implements OnInit {
    */
   getCheckinsPerDate(e) {
     const t: string = e['view']['title'];
-    const afterDate: Date = new Date(t.replace(/年/, '/').replace(/月/, '/').replace(/日/, ''));
-    this.router.navigate[t.replace(/年/, '/').replace(/月/, '/').replace(/日/, '')];
+    const afterDate: Date = new Date(t.replace(/[年月日]/gu, '/'));
     const afterTimestamp = afterDate.getTime().toString().substring(0, 10);
     afterDate.setHours(23);
     afterDate.setMinutes(59);
