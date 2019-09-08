@@ -32,6 +32,10 @@ export class DayViewComponent implements OnInit {
     });
   }
 
+  /**
+   * 初期データ取得
+   * @param e 表示されている日付
+   */
   getCheckinsPerDate(e) {
     const t: string = e['view']['title'];
     const afterDate: Date = new Date(t.replace(/年/, '/').replace(/月/, '/').replace(/日/, ''));

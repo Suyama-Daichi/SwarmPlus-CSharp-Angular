@@ -47,15 +47,7 @@ export class MonthViewComponent implements OnInit {
    * @param event 日付のクリックイベント
    */
   onDateClick(event) {
-    let afterBeforeTimestamp = this.utilService.getTimestamp(event.dateStr);
     this.router.navigate(['day', this.utilService.getDateStringFromTimestamp(Number(this.afterBeforeTimestamp.afterTimestamp))]);
-    // this.getCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp).subscribe(
-    //   (response: UsersCheckins) => {
-    //     this.checkinHistory = response;
-    //     this.generateEvents(this.checkinHistory.response.checkins.items);
-    //     this.activeMonthView = !this.activeMonthView;
-    //   }
-    // );
   }
 
   /**

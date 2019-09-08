@@ -15,7 +15,8 @@ const routes: Routes = [
   { path: 'counter', component: CounterComponent },
   { path: 'fetch-data', component: FetchDataComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'day/:date', component: DayViewComponent }
+  { path: 'day/:date', component: DayViewComponent },
+  { path: 'day', component: DayViewComponent }
 ];
 
 @NgModule({
