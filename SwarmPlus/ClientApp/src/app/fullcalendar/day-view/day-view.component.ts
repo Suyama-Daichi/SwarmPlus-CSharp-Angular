@@ -7,6 +7,8 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { SimpleModalService } from 'ngx-simple-modal';
+import { CheckinDetailComponent } from '../../modal/checkin-detail/checkin-detail.component';
 
 @Component({
   selector: 'app-day-view',
@@ -22,11 +24,11 @@ export class DayViewComponent implements OnInit {
   @Input() calendarEvents: CalendarEvent[] = [];
   @Input() activeMonthView: boolean = false;
 
-  constructor(private httpService: HttpService, private utilService: UtilService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private httpService: HttpService, private utilService: UtilService, private activatedRoute: ActivatedRoute, private router: Router, private simpleModalService: SimpleModalService) { }
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
 
-  ngOnInit() { 
+  ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       this.selectedDate = params.get('date');
     });
@@ -49,6 +51,18 @@ export class DayViewComponent implements OnInit {
       (response: UsersCheckins) => {
         this.calendarEvents = this.utilService.generateEvents(response.response.checkins.items);
         this.blockUI.stop();
+      }
+    );
+  }
+
+  /**
+ * モーダルを開く
+ */
+  openModal(e) {
+    const checkinData: Item4 = e['event']['_def']['extendedProps']['checkinData'];
+    this.simpleModalService.addModal(CheckinDetailComponent, checkinData).subscribe(
+      (isOpened) => {
+        console.log(isOpened);
       }
     );
   }
