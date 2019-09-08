@@ -10,6 +10,7 @@ import { CalendarEvent } from '../../model/calendarEvent.type';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { Observable } from 'rxjs';
 import { SimpleModalService } from 'ngx-simple-modal';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-month-view',
@@ -25,15 +26,13 @@ export class MonthViewComponent implements OnInit {
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
   /** カレンダーイベントオブジェクト */
   calendarEvents: CalendarEvent[] = [];
-  /** 選択された日付 */
-  selectedDate: string;
 
   /** 今日の日付(未来の日付を選択させないため) */
   nowDate = { end: new Date() };
 
   /** monthViewが有効か */
   @Input() activeMonthView: boolean = true;
-  constructor(private httpService: HttpService, private utilService: UtilService, private simpleModalService: SimpleModalService) { }
+  constructor(private httpService: HttpService, private utilService: UtilService, private simpleModalService: SimpleModalService, private router: Router) { }
 
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
@@ -47,17 +46,16 @@ export class MonthViewComponent implements OnInit {
    * https://stackoverflow.com/questions/56261140/dateclick-not-emitted-in-fullcalendar-angular
    * @param event 日付のクリックイベント
    */
-  calenderClick(event) {
+  onDateClick(event) {
     let afterBeforeTimestamp = this.utilService.getTimestamp(event.dateStr);
-    this.blockUI.start();
-    this.getCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp).subscribe(
-      (response: UsersCheckins) => {
-        this.checkinHistory = response;
-        this.generateEvents(this.checkinHistory.response.checkins.items);
-        this.blockUI.stop();
-        this.activeMonthView = !this.activeMonthView;
-      }
-    );
+    this.router.navigate(['day', this.utilService.getDateStringFromTimestamp(Number(this.afterBeforeTimestamp.afterTimestamp))]);
+    // this.getCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp).subscribe(
+    //   (response: UsersCheckins) => {
+    //     this.checkinHistory = response;
+    //     this.generateEvents(this.checkinHistory.response.checkins.items);
+    //     this.activeMonthView = !this.activeMonthView;
+    //   }
+    // );
   }
 
   /**
@@ -74,9 +72,6 @@ export class MonthViewComponent implements OnInit {
     // チェックインデータが0件の時はイベントデータを生成しない
     if (items.length !== 0) {
       this.calendarEvents = this.utilService.generateEvents(items);
-      this.selectedDate = this.utilService.getDateStringFromTimestamp(this.calendarEvents[0].date.getTime());
-    } else {
-      this.selectedDate = this.utilService.getDateStringFromTimestamp(this.nowDate.end.getTime());
     }
   }
 

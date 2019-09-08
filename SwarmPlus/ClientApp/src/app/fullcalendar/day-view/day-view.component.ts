@@ -6,6 +6,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'app-day-view',
@@ -16,19 +17,25 @@ export class DayViewComponent implements OnInit {
   /** FullCalenderライブラリのインポート */
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
   /** 選択された日付 */
-  @Input() selectedDate: string;
+  selectedDate: string;
   /** カレンダーイベントオブジェクト */
   @Input() calendarEvents: CalendarEvent[] = [];
   @Input() activeMonthView: boolean = false;
 
-  constructor(private httpService: HttpService, private utilService: UtilService) { }
+  constructor(private httpService: HttpService, private utilService: UtilService, private activatedRoute: ActivatedRoute, private router: Router) { }
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
+      this.selectedDate = params.get('date');
+    });
+  }
+
   getCheckinsPerDate(e) {
     const t: string = e['view']['title'];
     const afterDate: Date = new Date(t.replace(/年/, '/').replace(/月/, '/').replace(/日/, ''));
+    this.router.navigate[t.replace(/年/, '/').replace(/月/, '/').replace(/日/, '')];
     const afterTimestamp = afterDate.getTime().toString().substring(0, 10);
     afterDate.setHours(23);
     afterDate.setMinutes(59);
