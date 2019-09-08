@@ -1,32 +1,21 @@
-<!-- <div class="modal-content">
-    <div class="modal-header">
-        <h2 class="midashi"><i class="fas fa-map-marker-alt icon"></i>{{venue.name}}</h2>
-    </div>
-    <div class="modal-body">
-        
-        <p *ngIf="with">一緒にいた人：<span *ngFor="let anyone of with">{{anyone.firstName}}、</span></p>
-        <p *ngIf="likes.count">いいねした人：<span *ngFor="let anyone of likes.groups[0].items">{{anyone.firstName}}、</span>
-        </p>
-    </div>
-</div> -->
 <div class="modal-content">
     <div class="card">
-        <span *ngFor="let photo of photos.items; index as i">
-            <img *ngIf="photo" class="card-img-top" src="{{photo.prefix}}original{{photo.suffix}}"
-                alt="Upload Photo {{i}}">
+        <!-- 写真付きチェックインではその写真、写真なしでは公開されている写真を表示する -->
+        <span *ngFor="let photo of photos.count !== 0 ? photos.items : venuePhotos?.items; index as i">
+            <img class="card-img-top" src="{{photo.prefix}}original{{photo.suffix}}" alt="Upload Photo {{i}}">
         </span>
-        <span>
-            <img *ngIf="photos.count === 0" width="500px" height="500px" class="card-img-top" src="../../../assets/image/l_e_others_500.png"
-                alt="Photo is not found">
-        </span>
+        <img *ngIf="photos.count === 0 && venuePhotos?.count === 0" width="500px" height="500px" class="card-img-top"
+            src="../../../assets/image/l_e_others_500.png" alt="Photo is not found">
         <div class="card-body">
+            <!-- チェックインしたべニュー -->
             <h4 class="card-title">
                 <i class="fas fa-map-marker-alt icon"></i>{{venue.name}}<span
                     *ngFor="let categoryIcon of venue.categories"><img
                         src="{{categoryIcon.icon.prefix}}bg_32{{categoryIcon.icon.suffix}}" class="icon"></span>
             </h4>
             <!-- チェックインした時間 -->
-            <p><i class="far fa-clock clock-icon"></i><span class="font-gray">{{checkinDateTime | date: 'yyyy/MM/dd hh:mm:ss'}}</span></p>
+            <p><i class="far fa-clock clock-icon"></i><span
+                    class="font-gray">{{checkinDateTime | date: 'yyyy/MM/dd hh:mm:ss'}}</span></p>
             <!-- 一緒にいたユーザ -->
             <p *ngIf="with"><i class="fas fa-user-friends people-icon"></i>{{withWho}}</p>
             <!-- お気に入りしたユーザー -->

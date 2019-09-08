@@ -44,4 +44,13 @@ export class HttpService {
     let params = new HttpParams().set('uuid', uuid).set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);
     return this.httpClient.get<UsersCheckins>(environment.backEndApi + '/foursquareapi/getCheckinsPerMonth', { params: params });
   }
+
+  /**
+   * べニューの写真を返す
+   * @param venueId べニューID
+   */
+  getVenuePhotos(venueId: string): Observable<Photos>{
+    let params = new HttpParams().set('venueId', venueId);
+    return this.httpClient.get<Photos>(environment.backEndApi + '/foursquareapi/getVenuePhotos', {params: params });
+  }
 }

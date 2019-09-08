@@ -97,9 +97,7 @@ export class MonthViewComponent implements OnInit {
   openModal(e) {
     const checkinData: Item4 = e['event']['_def']['extendedProps']['checkinData'];
     this.simpleModalService.addModal(CheckinDetailComponent, checkinData).subscribe(
-      (isOpened) => {
-        console.log(isOpened);
-      }
+      () => {}
     );
   }
 }
