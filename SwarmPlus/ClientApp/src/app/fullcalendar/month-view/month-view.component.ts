@@ -47,7 +47,7 @@ export class MonthViewComponent implements OnInit {
    * @param event 日付のクリックイベント
    */
   onDateClick(event) {
-    this.router.navigate(['day', this.utilService.getDateStringFromTimestamp(Number(this.afterBeforeTimestamp.afterTimestamp))]);
+    this.router.navigate(['day', this.utilService.getDateStringFromTimestamp(Number(this.utilService.getTimestamp(event.dateStr).afterTimestamp))]);
   }
 
   /**
