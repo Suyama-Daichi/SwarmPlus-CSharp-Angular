@@ -52,7 +52,7 @@ export class UtilService {
   generateEvents(chackinItems: Item4[]): CalendarEvent[] {
     return chackinItems.map(
       (x: Item4, i) => {
-        return ({ id: i + 1, title: x.venue.name, date: new Date(x.createdAt * 1000), checkinData: x});
+        return ({ id: i + 1, title: (x.isMayor ? '👑' : '') + (x.photos.count > 0 ? '📷' : '') + x.venue.name, date: new Date(x.createdAt * 1000), checkinData: x});
       }
     );
   }
