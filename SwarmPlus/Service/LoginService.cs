@@ -47,7 +47,7 @@ namespace SwarmPlus.Service
             var deserialisedResult = JsonConvert.DeserializeObject<AccessToken>(result);
 
             // DBに取得したアクセストークンを暗号化し、UUIDと一緒に保存
-            _db.Add(new User { UserID = uuid, AccessToken = Security.EncryptString(deserialisedResult.access_token, uuid) });
+            _db.Add(new User { UserID = uuid, AccessToken = Security.EncryptString(deserialisedResult.access_token, uuid), RegistDateTime = DateTime.Now, DeleteFlag = false });
             _db.SaveChanges();
 
             return result;

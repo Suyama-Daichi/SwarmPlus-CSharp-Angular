@@ -16,5 +16,15 @@ namespace SwarmPlus.Models
         /// アクセストークン
         /// </summary>
         public string AccessToken { get; set; }
+
+        /// <summary>
+        /// 登録日
+        /// </summary>
+        public DateTime RegistDateTime { get; set; }
+
+        /// <summary>
+        /// 削除フラグ
+        /// </summary>
+        public bool DeleteFlag { get; set; }
     }
 }
