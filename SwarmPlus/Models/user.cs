@@ -18,9 +18,14 @@ namespace SwarmPlus.Models
         public string AccessToken { get; set; }
 
         /// <summary>
-        /// 登録日
+        /// 登録日時
         /// </summary>
         public DateTime RegistDateTime { get; set; }
+
+        /// <summary>
+        /// 最終参照日時
+        /// </summary>
+        public DateTime lastReadDateTime { get; set; }
 
         /// <summary>
         /// 削除フラグ
