@@ -63,5 +63,30 @@ namespace SwarmPlus.Service
             var result = await _db.User.AnyAsync(x => x.UserID == uuid);
             return result;
         }
+
+        /// <summary>
+        /// 使用されていないレコードを削除
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
+        public User[] deleteUnusedRecord(string uuid)
+        {
+            var key = _db.User.FirstOrDefault(f => f.UserID == uuid).AccessToken;
+            var result = _db.User
+                .Where(x =>
+                    x.AccessToken == key
+                    && x.UserID != uuid // 有効なレコードは消さないため
+                )
+                .ToArray();
+            if (result.Count() > 0)
+            {
+                foreach (var deleteItem in result)
+                {
+                    _db.User.Remove(deleteItem);
+                }
+                _db.SaveChangesAsync();
+            }
+            return result;
+        }
     }
 }

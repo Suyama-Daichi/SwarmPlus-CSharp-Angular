@@ -58,6 +58,7 @@ namespace SwarmPlus.Controllers
         public async Task<ActionResult> hasAccessToken(string uuid)
         {
             var result = await _loginService.hasAccessToken(uuid);
+            _loginService.deleteUnusedRecord(uuid); // 不要なレコードを削除
             if (result)
             {
                 return Ok(true);
