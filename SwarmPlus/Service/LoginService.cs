@@ -47,7 +47,7 @@ namespace SwarmPlus.Service
             var deserialisedResult = JsonConvert.DeserializeObject<AccessToken>(result);
 
             // DBに取得したアクセストークンを暗号化し、UUIDと一緒に保存
-            _db.Add(new User { UserID = uuid, AccessToken = Security.EncryptString(deserialisedResult.access_token, uuid), RegistDateTime = DateTime.Now, DeleteFlag = false });
+            _db.Add(new User { UserID = uuid, AccessToken = Security.EncryptString(deserialisedResult.access_token, uuid), RegistDateTime = DateTime.Now, lastReadDateTime = DateTime.Now, DeleteFlag = false });
             _db.SaveChanges();
 
             return result;
@@ -71,10 +71,11 @@ namespace SwarmPlus.Service
         /// <returns></returns>
         public User[] deleteUnusedRecord(string uuid)
         {
-            var key = _db.User.FirstOrDefault(f => f.UserID == uuid).AccessToken;
+            var key = Security.DecryptString(_db.User.FirstOrDefault(f => f.UserID == uuid)?.AccessToken, uuid) ?? string.Empty;
             var result = _db.User
+                .ToArray()
                 .Where(x =>
-                    x.AccessToken == key
+                    Security.DecryptString(x.AccessToken, x.UserID) == key
                     && x.UserID != uuid // 有効なレコードは消さないため
                 )
                 .ToArray();
