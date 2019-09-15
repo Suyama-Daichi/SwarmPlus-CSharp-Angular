@@ -44,7 +44,7 @@ namespace SwarmPlus.Controllers
         [Route("saveaccesstoken")]
         public async Task<ActionResult> SaveAccessToken(AuthInfo authInfo)
         {
-            var result = await _loginService.GetAccessToken(authInfo.Code, _foursquare.ClientId, _foursquare.ClientSecret, authInfo.Uuid);
+            var result = await _loginService.GetAccessToken(authInfo.Code, _foursquare.ClientId, _foursquare.ClientSecret, _foursquare.RedirectUri , authInfo.Uuid);
             return Ok(result);
         }
 

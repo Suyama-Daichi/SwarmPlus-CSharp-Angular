@@ -33,11 +33,11 @@ namespace SwarmPlus.Service
         /// <param name="code">認可コード</param>
         /// <returns></returns>
         /// 
-        public async Task<string> GetAccessToken(string code, string clientId, string clientSecret, string uuid)
+        public async Task<string> GetAccessToken(string code, string clientId, string clientSecret, string redirectUri, string uuid)
         {
             // GETリクエストを実行
             var response = await Client.GetAsync(
-                $"oauth2/access_token?client_id={clientId}&client_secret={clientSecret}&grant_type=authorization_code&redirect_uri=http://localhost:50391/&code={code}");
+                $"oauth2/access_token?client_id={clientId}&client_secret={clientSecret}&grant_type=authorization_code&redirect_uri={redirectUri}&code={code}");
             response.EnsureSuccessStatusCode();
 
             // レスポンスのBodyを取得
@@ -46,9 +46,11 @@ namespace SwarmPlus.Service
 
             var deserialisedResult = JsonConvert.DeserializeObject<AccessToken>(result);
 
+            var hoge = _db.User.ToArray();
+
             // DBに取得したアクセストークンを暗号化し、UUIDと一緒に保存
             _db.Add(new User { UserID = uuid, AccessToken = Security.EncryptString(deserialisedResult.access_token, uuid), RegistDateTime = DateTime.Now, lastReadDateTime = DateTime.Now, DeleteFlag = false });
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return result;
         }
