@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    backEndApi: 'http://localhost:50391/api',
+    backEndApi: 'https://swarmplusdev.azurewebsites.net/api',
     authenticateURL: 'https://foursquare.com/oauth2/authenticate?client_id=1DSKDVJVFM3FHGAREG1LUY2NWJVX452M0UVDO1KAAIVCMVZ5&response_type=code',
-    redirectUrl: 'http://localhost:50391/login'
+    redirectUrl: 'https://swarmplusdev.azurewebsites.net/login'
 };

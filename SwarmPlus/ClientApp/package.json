@@ -38,7 +38,7 @@
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
     "ng-block-ui": "^2.1.7",
-    "ngx-simple-modal": "^1.4.1",
+    "ngx-simple-modal": "^1.4.2",
     "popper.js": "^1.15.0",
     "rxjs": "^6.4.0",
     "uuid": "^3.3.2",
