@@ -7,7 +7,6 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { SimpleModalService } from 'ngx-simple-modal';
 
 @Component({
   selector: 'app-day-view',
@@ -27,7 +26,7 @@ export class DayViewComponent implements OnInit {
   @Input() calendarEvents: CalendarEvent[] = [];
   @Input() activeMonthView: boolean = false;
 
-  constructor(private httpService: HttpService, private utilService: UtilService, private activatedRoute: ActivatedRoute, private router: Router, private simpleModalService: SimpleModalService) { }
+  constructor(private httpService: HttpService, private utilService: UtilService, private activatedRoute: ActivatedRoute, private router: Router) { }
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
 

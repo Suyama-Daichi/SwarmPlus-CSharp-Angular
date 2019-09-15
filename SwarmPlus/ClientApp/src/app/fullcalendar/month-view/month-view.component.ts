@@ -8,7 +8,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarEvent } from '../../model/calendarEvent.type';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { Observable } from 'rxjs';
-import { SimpleModalService } from 'ngx-simple-modal';
 import { Router } from '@angular/router';
 
 @Component({
@@ -35,7 +34,7 @@ export class MonthViewComponent implements OnInit {
 
   /** monthViewが有効か */
   @Input() activeMonthView: boolean = true;
-  constructor(private httpService: HttpService, private utilService: UtilService, private simpleModalService: SimpleModalService, private router: Router) { }
+  constructor(private httpService: HttpService, private utilService: UtilService, private router: Router) { }
 
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
