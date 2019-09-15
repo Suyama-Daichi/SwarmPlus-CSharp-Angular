@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { Observable } from 'rxjs';
@@ -12,22 +12,21 @@ export class CheckinDetailComponent implements OnInit {
   @Input() checkinData: Item4;
   /** べニューの写真(Publicなもの) */
   venuePhotosUrl: Observable<Photos> 
+  /** BlockUI */
+  @BlockUI() blockUI: NgBlockUI;
+  @ViewChild('checkinDetail', {static: true}) checkinDetailArea: ElementRef;
   
+  constructor(private httpService: HttpService) { }
+
   /** 値の変更を検知
    *  https://angular.jp/guide/lifecycle-hooks#onchanges
    */
   ngOnChanges(changes: SimpleChanges){
     this.venuePhotosUrl = this.httpService.getVenuePhotos(changes.checkinData.currentValue.venue.id);
+    this.checkinDetailArea.nativeElement.scrollIntoView({ behavior: "smooth", block: "end" });
   }
 
-  /** BlockUI */
-  @BlockUI() blockUI: NgBlockUI;
-
-  constructor(private httpService: HttpService) { }
-
-  ngOnInit() {
-    console.log(this.checkinData.photos.items)
-  }
+  ngOnInit() {}
 
   /** チェックイン日時 */
   get checkinDateTime(): Date {
