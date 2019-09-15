@@ -11,14 +11,13 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { LoginComponent } from './common/login/login.component';
 import { ToppageComponent } from './page/toppage/toppage.component';
 import { AuthGuard } from './service/auth.guard';
 import { MonthViewComponent } from './fullcalendar/month-view/month-view.component';
 import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
-import { CheckinDetailComponent } from './modal/checkin-detail/checkin-detail.component';
+import { CheckinDetailComponent } from './common/checkin-detail/checkin-detail.component'
 import { defaultSimpleModalOptions } from 'ngx-simple-modal/dist/simple-modal/simple-modal-options';
 
 

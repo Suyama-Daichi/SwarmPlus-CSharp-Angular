@@ -26,6 +26,10 @@ export class MonthViewComponent implements OnInit {
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
   /** カレンダーイベントオブジェクト */
   calendarEvents: CalendarEvent[] = [];
+  /** 詳細コンポーネントが開かれているか */
+  isDetailOpen: boolean;
+  /** 詳細表示するチェックインデータ */
+  checkinData: Item4;
 
   /** 今日の日付(未来の日付を選択させないため) */
   nowDate = { end: new Date() };
@@ -92,12 +96,10 @@ export class MonthViewComponent implements OnInit {
   }
 
   /**
-   * モーダルを開く
+   * 詳細表示する
    */
-  openModal(e) {
-    const checkinData: Item4 = e['event']['_def']['extendedProps']['checkinData'];
-    this.simpleModalService.addModal(CheckinDetailComponent, checkinData).subscribe(
-      () => {}
-    );
+  openDetail(e) {
+    this.isDetailOpen = true;
+    this.checkinData = e['event']['_def']['extendedProps']['checkinData'];
   }
 }
