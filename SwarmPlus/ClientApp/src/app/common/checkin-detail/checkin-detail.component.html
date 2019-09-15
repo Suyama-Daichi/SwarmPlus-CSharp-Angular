@@ -1,7 +1,7 @@
 <div class="modal-content">
     <div class="card">
         <!-- 写真付きチェックインではその写真、写真なしでは公開されている写真を表示する -->
-        <span *ngFor="let photo of checkinData.photos.count !== 0 ? checkinData.photos.items : venuePhotos?.items; index as i">
+        <span *ngFor="let photo of checkinData.photos.count !== 0 ? checkinData.photos.items : (venuePhotosUrl | async)?.items; index as i">
             <img class="card-img-top" src="{{photo.prefix}}original{{photo.suffix}}" alt="Upload Photo {{i}}">
         </span>
         <img *ngIf="checkinData.photos.count === 0 && venuePhotos?.count === 0" width="500px" height="500px" class="card-img-top"
@@ -25,5 +25,3 @@
         </div>
     </div>
 </div>
-
-{{checkinData.photos.items}}

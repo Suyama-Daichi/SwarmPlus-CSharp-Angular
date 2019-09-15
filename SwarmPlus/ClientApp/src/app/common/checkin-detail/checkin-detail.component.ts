@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-checkin-detail',
@@ -10,14 +11,21 @@ import { NgBlockUI, BlockUI } from 'ng-block-ui';
 export class CheckinDetailComponent implements OnInit {
   @Input() checkinData: Item4;
   /** べニューの写真(Publicなもの) */
-  venuePhotos: Photos;
+  venuePhotosUrl: Observable<Photos> 
+  
+  /** 値の変更を検知
+   *  https://angular.jp/guide/lifecycle-hooks#onchanges
+   */
+  ngOnChanges(changes: SimpleChanges){
+    this.venuePhotosUrl = this.httpService.getVenuePhotos(changes.checkinData.currentValue.venue.id);
+  }
+
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
 
   constructor(private httpService: HttpService) { }
 
   ngOnInit() {
-    this.venuePhotosUrl();
     console.log(this.checkinData.photos.items)
   }
 
@@ -41,14 +49,4 @@ export class CheckinDetailComponent implements OnInit {
     return this.checkinData.shout.replace(/— .+と一緒に$/, '');
   }
 
-  /** べニューの写真を取得 */
-  async venuePhotosUrl() {
-    this.blockUI.start();
-    this.httpService.getVenuePhotos(this.checkinData.venue.id).subscribe(
-      result => {
-        this.venuePhotos = result;
-        this.blockUI.stop()
-      }
-    );
-  }
 }
