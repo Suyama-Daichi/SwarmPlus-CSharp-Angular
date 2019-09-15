@@ -8,7 +8,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SimpleModalService } from 'ngx-simple-modal';
-import { CheckinDetailComponent } from '../../modal/checkin-detail/checkin-detail.component';
 
 @Component({
   selector: 'app-day-view',
@@ -20,6 +19,10 @@ export class DayViewComponent implements OnInit {
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
   /** 選択された日付 */
   selectedDate: string;
+  /** 詳細コンポーネントが開かれているか */
+  isDetailOpen: boolean;
+  /** 詳細表示するチェックインデータ */
+  checkinData: Item4;
   /** カレンダーイベントオブジェクト */
   @Input() calendarEvents: CalendarEvent[] = [];
   @Input() activeMonthView: boolean = false;
@@ -56,12 +59,10 @@ export class DayViewComponent implements OnInit {
   }
 
   /**
- * モーダルを開く
- */
-  openModal(e) {
-    const checkinData: Item4 = e['event']['_def']['extendedProps']['checkinData'];
-    this.simpleModalService.addModal(CheckinDetailComponent, checkinData).subscribe(
-      () => {}
-    );
+   * 詳細表示する
+   */
+  openDetail(e) {
+    this.isDetailOpen = true;
+    this.checkinData = e['event']['_def']['extendedProps']['checkinData'];
   }
 }

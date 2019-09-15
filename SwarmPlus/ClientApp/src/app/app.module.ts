@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { SimpleModalModule } from 'ngx-simple-modal';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BlockUIModule } from 'ng-block-ui';
@@ -18,7 +17,6 @@ import { AuthGuard } from './service/auth.guard';
 import { MonthViewComponent } from './fullcalendar/month-view/month-view.component';
 import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
 import { CheckinDetailComponent } from './common/checkin-detail/checkin-detail.component'
-import { defaultSimpleModalOptions } from 'ngx-simple-modal/dist/simple-modal/simple-modal-options';
 
 
 @NgModule({
@@ -42,11 +40,6 @@ import { defaultSimpleModalOptions } from 'ngx-simple-modal/dist/simple-modal/si
     AngularFirestoreModule,
     FullCalendarModule,
     BlockUIModule.forRoot(),
-    SimpleModalModule.forRoot({ container: 'modal-container' }, {
-      ...defaultSimpleModalOptions, ...{
-        closeOnClickOutside: true
-      }
-    })
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

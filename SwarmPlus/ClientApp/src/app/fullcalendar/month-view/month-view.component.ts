@@ -1,4 +1,3 @@
-import { CheckinDetailComponent } from './../../modal/checkin-detail/checkin-detail.component';
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { UtilService } from '../../service/util.service';
