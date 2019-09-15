@@ -4,7 +4,7 @@
         <span *ngFor="let photo of checkinData.photos.count !== 0 ? checkinData.photos.items : (venuePhotosUrl | async)?.items; index as i">
             <img class="card-img-top" src="{{photo.prefix}}original{{photo.suffix}}" alt="Upload Photo {{i}}">
         </span>
-        <img *ngIf="checkinData.photos.count === 0 && venuePhotos?.count === 0" width="500px" height="500px" class="card-img-top"
+        <img *ngIf="checkinData.photos.count === 0 && (venuePhotosUrl | async)?.count === 0" width="500px" height="500px" class="card-img-top"
             src="../../../assets/image/l_e_others_500.png" alt="Photo is not found">
         <div class="card-body">
             <!-- チェックインしたべニュー -->
