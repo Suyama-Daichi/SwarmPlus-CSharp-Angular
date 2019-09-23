@@ -3,7 +3,7 @@
         <full-calendar defaultView="dayGridMonth" (dateClick)="onDateClick($event)" (eventClick)="openDetail($event)"
             [events]="calendarEvents" (datesRender)="getUserCheckins($event)" deepChangeDetection="true"
             [plugins]="calendarPlugins" locale="jaLocale" nextDayThreshold="01:00:00" eventLimit="true"
-            eventColor="orange" eventTextColor="white" [validRange]="nowDate"></full-calendar>
+            eventColor="orange" eventTextColor="white" [validRange]="nowDate" [defaultDate]="selectedDate"></full-calendar>
     </block-ui>
 </div>
 

@@ -8,7 +8,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarEvent } from '../../model/calendarEvent.type';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-month-view',
@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./month-view.component.css']
 })
 export class MonthViewComponent implements OnInit {
+  selectedDate: Date;
   /** ユーザーのチェックイン履歴 */
   checkinHistory: UsersCheckins;
   /** 初月と月末のタイムスタンプインスタンス */
@@ -34,13 +35,31 @@ export class MonthViewComponent implements OnInit {
 
   /** monthViewが有効か */
   @Input() activeMonthView: boolean = true;
-  constructor(private httpService: HttpService, private utilService: UtilService, private router: Router) { }
+  constructor(private httpService: HttpService, private utilService: UtilService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
 
   ngOnInit() {
-    this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth();
+    this.getUserCheckins();
+  }
+  
+  /**
+   * 初期データ取得
+   */
+  getUserCheckins() {
+    this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
+      this.selectedDate = new Date(Number(params.get('year')), Number(params.get('month')) - 1);
+      this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
+      this.blockUI.start();
+      this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
+        response => {
+          this.checkinHistory = response;
+          this.generateEvents(this.checkinHistory.response.checkins.items);
+          this.blockUI.stop();
+        }
+      );;
+    });
   }
 
   /**
@@ -69,29 +88,6 @@ export class MonthViewComponent implements OnInit {
     }
   }
 
-  /**
-   * 表示している月のチェックインを取得する
-   * @param e 表示しているカレンダーのイベントデータ
-   */
-  getUserCheckins(e) {
-    const t: string = e['view']['title'];
-    const afterDate: Date = new Date(Number(t.substring(0, 4)), Number(t.substr(5, 1)) - 1, 1, 0, 0);
-    const afterTimestamp = afterDate.getTime().toString().substring(0, 10);
-    afterDate.setMonth(afterDate.getMonth() + 1);
-    afterDate.setDate(0);
-    afterDate.setHours(23);
-    afterDate.setMinutes(59);
-    afterDate.setSeconds(59)
-    const beforeTimestamp: string = afterDate.getTime().toString().substring(0, 10);
-    this.blockUI.start();
-    this.getCheckins(afterTimestamp, beforeTimestamp).subscribe(
-      response => {
-        this.checkinHistory = response;
-        this.generateEvents(this.checkinHistory.response.checkins.items);
-        this.blockUI.stop();
-      }
-    );
-  }
 
   /**
    * 詳細表示する

@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: '*', redirectTo: '' },
   { path: 'top', component: ToppageComponent, canActivate: [AuthGuard] },
+  { path: 'top/:year/:month', component: ToppageComponent, canActivate: [AuthGuard] },
   { path: 'counter', component: CounterComponent },
   { path: 'fetch-data', component: FetchDataComponent },
   { path: 'login', component: LoginComponent },
