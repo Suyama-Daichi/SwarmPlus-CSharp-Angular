@@ -43,13 +43,14 @@ export class MonthViewComponent implements OnInit {
   ngOnInit() {
     this.getUserCheckins();
   }
-  
+
   /**
    * 初期データ取得
    */
   getUserCheckins() {
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
-      this.selectedDate = new Date(Number(params.get('year')), Number(params.get('month')) - 1);
+      const y = params.get('year'), m = params.get('month');
+      this.selectedDate = y === null || m === null || typeof y !== 'number' || typeof m !== 'number' ? new Date() : new Date(Number(y), Number(m) - 1);
       this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
       this.blockUI.start();
       this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
