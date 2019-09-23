@@ -22,7 +22,7 @@ interface Item4 {
     timeZoneOffset: number;
     with?: With[];
     editableUntil: number;
-    venue?: Venue;
+    venue: Venue;
     likes: Likes;
     like: boolean;
     sticker?: Sticker;

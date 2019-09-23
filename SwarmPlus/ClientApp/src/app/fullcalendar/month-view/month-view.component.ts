@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { UtilService } from '../../service/util.service';
 import { AfterBeforeTimestamp } from '../../model/AfterBeforeTimestamp.type';
@@ -9,6 +9,8 @@ import { CalendarEvent } from '../../model/calendarEvent.type';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { FullCalendarComponent } from '@fullcalendar/angular';
+import { Calendar } from '@fullcalendar/core';
 
 @Component({
   selector: 'app-month-view',
@@ -16,6 +18,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./month-view.component.css']
 })
 export class MonthViewComponent implements OnInit {
+  /** 表示対象の年月日 */
   selectedDate: Date;
   /** ユーザーのチェックイン履歴 */
   checkinHistory: UsersCheckins;
@@ -29,13 +32,14 @@ export class MonthViewComponent implements OnInit {
   isDetailOpen: boolean;
   /** 詳細表示するチェックインデータ */
   checkinData: Item4;
-
   /** 今日の日付(未来の日付を選択させないため) */
   nowDate = { end: new Date() };
-
+  /** カレンダーのインスタンス */
+  @ViewChild('calendar', {static: false}) calenderComponent: FullCalendarComponent;
+  calendarApi: Calendar;
   /** monthViewが有効か */
   @Input() activeMonthView: boolean = true;
-  constructor(private httpService: HttpService, private utilService: UtilService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private httpService: HttpService, private utilService: UtilService, private router: Router, private activatedRoute: ActivatedRoute, private detectChange: ChangeDetectorRef) { }
 
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
@@ -43,7 +47,9 @@ export class MonthViewComponent implements OnInit {
   ngOnInit() {
     this.getUserCheckins();
   }
-
+  ngAfterViewInit(){
+    this.calendarApi = this.calenderComponent.getApi();
+  }
   /**
    * 初期データ取得
    */
@@ -52,15 +58,22 @@ export class MonthViewComponent implements OnInit {
       const y = params.get('year'), m = params.get('month');
       this.selectedDate = y === null || m === null || !y.match(/[+-]?\d+/g) || !m.match(/[+-]?\d+/g) ? new Date() : new Date(Number(y), Number(m) - 1);
       this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
+      console.log({y, m});
       this.blockUI.start();
       this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
         response => {
           this.checkinHistory = response;
-          this.generateEvents(this.checkinHistory.response.checkins.items);
+          // 一部チェックインデータ欠損？
+          // 例：2019年1月4日15：31にチェックインしたべニューデータがnull
+          this.generateEvents(this.checkinHistory.response.checkins.items.filter(x => x.venue != null));
           this.blockUI.stop();
         }
-      );;
+      );
     });
+  }
+
+  onPrev(){
+    this.router.navigateByUrl(`top/${this.selectedDate.getFullYear()}/${this.selectedDate.getMonth()}`);
   }
 
   /**
