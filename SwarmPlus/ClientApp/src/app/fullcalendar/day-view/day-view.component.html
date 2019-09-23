@@ -1,7 +1,9 @@
 <div class="app-dayView" *ngIf="!activeMonthView">
-    <full-calendar defaultView="listDay" (datesRender)="getCheckinsPerDate($event)" (eventClick)="openDetail($event)" [events]="calendarEvents"
-        deepChangeDetection="true" [plugins]="calendarPlugins" [defaultDate]="selectedDate"
-        locale="jaLocale"></full-calendar>
+    <block-ui>
+        <full-calendar defaultView="listDay" (datesRender)="getCheckinsPerDate($event)"
+            (eventClick)="openDetail($event)" [events]="calendarEvents" deepChangeDetection="true"
+            [plugins]="calendarPlugins" [defaultDate]="selectedDate" locale="jaLocale"></full-calendar>
+    </block-ui>
 </div>
 
 <div *ngIf="isDetailOpen">
