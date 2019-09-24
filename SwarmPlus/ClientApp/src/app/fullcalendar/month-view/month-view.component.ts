@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { UtilService } from '../../service/util.service';
 import { AfterBeforeTimestamp } from '../../model/AfterBeforeTimestamp.type';
@@ -39,7 +39,7 @@ export class MonthViewComponent implements OnInit {
   calendarApi: Calendar;
   /** monthViewが有効か */
   @Input() activeMonthView: boolean = true;
-  constructor(private httpService: HttpService, private utilService: UtilService, private router: Router, private activatedRoute: ActivatedRoute, private detectChange: ChangeDetectorRef) { }
+  constructor(private httpService: HttpService, private utilService: UtilService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
@@ -56,9 +56,8 @@ export class MonthViewComponent implements OnInit {
   getUserCheckins() {
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       const y = params.get('year'), m = params.get('month');
-      this.selectedDate = y === null || m === null || !y.match(/[+-]?\d+/g) || !m.match(/[+-]?\d+/g) ? new Date() : new Date(Number(y), Number(m) - 1);
+      this.selectedDate = y === null || m === null || !y.match(/[+-]?\d+/g) || !m.match(/[+-]?\d+/g) ? new Date() : new Date(Number(y), Number(m));
       this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
-      console.log({y, m});
       this.blockUI.start();
       this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
         response => {
@@ -72,8 +71,20 @@ export class MonthViewComponent implements OnInit {
     });
   }
 
-  onPrev(){
-    this.router.navigateByUrl(`top/${this.selectedDate.getFullYear()}/${this.selectedDate.getMonth()}`);
+  onThisMonth(){
+    this.calendarApi.today();
+    this.router.navigateByUrl(`top/${this.nowDate.end.getFullYear()}/${this.nowDate.end.getMonth() === 0 ? 12 : this.nowDate.end.getMonth() +1}`);
+  }
+  
+  onPrevMonth(){
+    this.calendarApi.prev();
+    this.selectedDate = this.calendarApi.getDate();
+    this.router.navigateByUrl(`top/${this.selectedDate .getFullYear()}/${this.selectedDate .getMonth() === 0 ? 12 : this.selectedDate .getMonth() +1}`);
+  }
+
+  onNextMonth(){
+    this.calendarApi.next();
+    this.router.navigateByUrl(`top/${this.selectedDate.getFullYear()}/${this.selectedDate.getMonth() === 0 ? 12 : this.selectedDate.getMonth() +2}`);
   }
 
   /**

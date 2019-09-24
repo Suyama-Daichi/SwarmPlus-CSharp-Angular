@@ -2,15 +2,16 @@
     <block-ui>
         <div class="fc-toolbar fc-header-toolbar">
             <div class="fc-left">
-                <h2>{{selectedDate | date: 'yyyy年M月'}}</h2>
+                <h2>{{selectedDate | datePlus | date: 'yyyy年M月'}}</h2>
             </div>
             <div class="fc-center"></div>
-            <div class="fc-right"><button type="button" class="fc-today-button fc-button fc-button-primary">today</button>
+            <div class="fc-right"><button type="button" class="fc-today-button fc-button fc-button-primary" (click)="onThisMonth()">今月</button>
                 <div class="fc-button-group">
-                    <button type="button" class="fc-prev-button fc-button fc-button-primary" aria-label="prev" (click)="onPrev()">
+                    <button type="button" class="fc-prev-button fc-button fc-button-primary" aria-label="prev" (click)="onPrevMonth()">
                         <span class="fc-icon fc-icon-chevron-left"></span>
                     </button>
-                    <button type="button" class="fc-next-button fc-button fc-button-primary" aria-label="next"><span class="fc-icon fc-icon-chevron-right"></span>
+                    <button type="button" class="fc-next-button fc-button fc-button-primary" aria-label="next" (click)="onNextMonth()">
+                        <span class="fc-icon fc-icon-chevron-right"></span>
                     </button>
                 </div>
             </div>
@@ -18,7 +19,7 @@
         <full-calendar defaultView="dayGridMonth" #calendar (dateClick)="onDateClick($event)" (eventClick)="openDetail($event)"
             [events]="calendarEvents" deepChangeDetection="true"
             [plugins]="calendarPlugins" locale="jaLocale" nextDayThreshold="01:00:00" eventLimit="true"
-            eventColor="orange" eventTextColor="white" [validRange]="nowDate" [defaultDate]="selectedDate">
+            eventColor="orange" eventTextColor="white" [validRange]="nowDate" [defaultDate]="selectedDate" [header]=false>
         </full-calendar>
     </block-ui>
 </div>

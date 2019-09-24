@@ -16,8 +16,8 @@ import { ToppageComponent } from './page/toppage/toppage.component';
 import { AuthGuard } from './service/auth.guard';
 import { MonthViewComponent } from './fullcalendar/month-view/month-view.component';
 import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
-import { CheckinDetailComponent } from './common/checkin-detail/checkin-detail.component'
-
+import { CheckinDetailComponent } from './common/checkin-detail/checkin-detail.component';
+import { DatePipe } from './pipe/date.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { CheckinDetailComponent } from './common/checkin-detail/checkin-detail.c
     ToppageComponent,
     MonthViewComponent,
     DayViewComponent,
-    CheckinDetailComponent
+    CheckinDetailComponent,
+    DatePipe,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -16,7 +16,7 @@ export class UtilService {
     let afterBeforeTimestamp = new AfterBeforeTimestamp();
     const nowDateTime = new Date(year, month);
     // 月末を取得
-    nowDateTime.setMonth(nowDateTime.getMonth() + 1)
+    nowDateTime.setMonth(nowDateTime.getMonth())
     afterBeforeTimestamp.beforeTimestamp = nowDateTime.setDate(0).toString().substring(0, 10);
     // 月初を取得
     nowDateTime.setDate(1)
