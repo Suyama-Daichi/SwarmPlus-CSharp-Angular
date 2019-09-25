@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'counter', component: CounterComponent },
   { path: 'fetch-data', component: FetchDataComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'day/:date', component: DayViewComponent, canActivate: [AuthGuard] },
+  { path: 'day/:year/:month/:date', component: DayViewComponent, canActivate: [AuthGuard] },
   { path: 'day', component: DayViewComponent, canActivate: [AuthGuard] }
 ];
 

@@ -35,7 +35,7 @@ export class MonthViewComponent implements OnInit {
   /** 今日の日付(未来の日付を選択させないため) */
   nowDate = { end: new Date() };
   /** カレンダーのインスタンス */
-  @ViewChild('calendar', {static: false}) calenderComponent: FullCalendarComponent;
+  @ViewChild('calendar', { static: false }) calenderComponent: FullCalendarComponent;
   calendarApi: Calendar;
   /** monthViewが有効か */
   @Input() activeMonthView: boolean = true;
@@ -47,7 +47,7 @@ export class MonthViewComponent implements OnInit {
   ngOnInit() {
     this.getUserCheckins();
   }
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.calendarApi = this.calenderComponent.getApi();
   }
   /**
@@ -71,20 +71,20 @@ export class MonthViewComponent implements OnInit {
     });
   }
 
-  onThisMonth(){
+  onThisMonth() {
     this.calendarApi.today();
-    this.router.navigateByUrl(`top/${this.nowDate.end.getFullYear()}/${this.nowDate.end.getMonth() === 0 ? 12 : this.nowDate.end.getMonth() +1}`);
-  }
-  
-  onPrevMonth(){
-    this.calendarApi.prev();
-    this.selectedDate = this.calendarApi.getDate();
-    this.router.navigateByUrl(`top/${this.selectedDate .getFullYear()}/${this.selectedDate .getMonth() === 0 ? 12 : this.selectedDate .getMonth() +1}`);
+    this.router.navigateByUrl(`top/${this.nowDate.end.getFullYear()}/${this.nowDate.end.getMonth() === 0 ? 12 : this.nowDate.end.getMonth() + 1}`);
   }
 
-  onNextMonth(){
+  onPrevMonth() {
+    this.calendarApi.prev();
+    this.selectedDate = this.calendarApi.getDate();
+    this.router.navigateByUrl(`top/${this.selectedDate.getFullYear()}/${this.selectedDate.getMonth() === 0 ? 12 : this.selectedDate.getMonth() + 1}`);
+  }
+
+  onNextMonth() {
     this.calendarApi.next();
-    this.router.navigateByUrl(`top/${this.selectedDate.getFullYear()}/${this.selectedDate.getMonth() === 0 ? 12 : this.selectedDate.getMonth() +2}`);
+    this.router.navigateByUrl(`top/${this.selectedDate.getFullYear()}/${this.selectedDate.getMonth() === 0 ? 12 : this.selectedDate.getMonth() + 2}`);
   }
 
   /**
@@ -93,7 +93,7 @@ export class MonthViewComponent implements OnInit {
    * @param event 日付のクリックイベント
    */
   onDateClick(event) {
-    this.router.navigate(['day', this.utilService.getDateStringFromTimestamp(Number(this.utilService.getTimestamp(event.dateStr).afterTimestamp))]);
+    this.router.navigateByUrl(`day/${event.dateStr.replace(/-/g, '/')}`);
   }
 
   /**

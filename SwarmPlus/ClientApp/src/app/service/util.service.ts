@@ -27,14 +27,13 @@ export class UtilService {
 
   /**
    * 特定の日付のタイムスタンプを取得する
-   * @param dateString 日時文字列
+   * @param date 日時
    */
-  getTimestamp(dateString: string): AfterBeforeTimestamp {
+  getTimestamp(date: Date): AfterBeforeTimestamp {
     let afterBeforeTimestamp = new AfterBeforeTimestamp();
-    const clickedDate = new Date(dateString);
-    clickedDate.setHours(0, 0, 0);
-    afterBeforeTimestamp.afterTimestamp = (clickedDate.getTime()).toString().substring(0, 10);
-    afterBeforeTimestamp.beforeTimestamp = clickedDate.setDate(clickedDate.getDate() + 1).toString().substring(0, 10);
+    date.setHours(0, 0, 0);
+    afterBeforeTimestamp.afterTimestamp = (date.getTime()).toString().substring(0, 10);
+    afterBeforeTimestamp.beforeTimestamp = date.setDate(date.getDate() + 1).toString().substring(0, 10);
     return afterBeforeTimestamp;
   }
 
