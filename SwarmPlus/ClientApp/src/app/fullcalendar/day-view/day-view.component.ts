@@ -53,7 +53,6 @@ export class DayViewComponent implements OnInit {
       const y = params.get('year'), m = params.get('month'), d = params.get('date');
       this.momentApi = moment(y === null || m === null || d === null || !y.match(/19[0-9]{2}|20[0-9]{2}/g) || !m.match(/[1-9]|1[0-2]/g) || !d.match(/[1-9]|[12][0-9]|3[01]/g) ? new Date() : `${y}-${m}-${d}`);
       this.selectedDate = this.momentApi.toDate();
-      console.log(this.selectedDate);
       const afterBeforeTimestamp: AfterBeforeTimestamp = this.utilService.getTimestamp(this.selectedDate);
       this.blockUI.start();
       this.httpService.getUserCheckins(localStorage.getItem('uuid'), afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp).subscribe(
@@ -67,20 +66,19 @@ export class DayViewComponent implements OnInit {
 
   onToday() {
     this.calendarApi.today();
+    this.momentApi = moment();
     this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
   }
 
   onPrevDate() {
     this.calendarApi.prev();
     this.momentApi.subtract(1, 'days');
-    this.selectedDate = this.momentApi.toDate();
     this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
   }
 
   onNextDate() {
     this.calendarApi.next();
     this.momentApi.add(1, 'days');
-    this.selectedDate = this.momentApi.toDate();
     this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
   }
   /**
