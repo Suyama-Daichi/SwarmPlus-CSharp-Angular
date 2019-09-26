@@ -33,7 +33,6 @@ export class DayViewComponent implements OnInit {
   checkinData: Item4;
   /** カレンダーイベントオブジェクト */
   @Input() calendarEvents: CalendarEvent[] = [];
-  @Input() activeMonthView: boolean = false;
 
   constructor(private httpService: HttpService, private utilService: UtilService, private activatedRoute: ActivatedRoute, private router: Router) { }
   /** BlockUI */
@@ -57,7 +56,7 @@ export class DayViewComponent implements OnInit {
       this.blockUI.start();
       this.httpService.getUserCheckins(localStorage.getItem('uuid'), afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp).subscribe(
         (response: UsersCheckins) => {
-          this.calendarEvents = this.utilService.generateEvents(response.response.checkins.items);
+          this.calendarEvents = this.utilService.generateEvents(response.response.checkins.items.filter(x => x.venue != null));
           this.blockUI.stop();
         }
       );

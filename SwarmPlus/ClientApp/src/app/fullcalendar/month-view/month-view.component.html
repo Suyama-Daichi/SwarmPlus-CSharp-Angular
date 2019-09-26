@@ -1,4 +1,4 @@
-<div class="app-calendar" *ngIf="activeMonthView">
+<div class="app-calendar">
     <block-ui>
         <div class="fc-toolbar fc-header-toolbar">
             <div class="fc-left">
@@ -32,7 +32,6 @@
         </full-calendar>
     </block-ui>
 </div>
-
 <div *ngIf="isDetailOpen">
     <app-checkin-detail [checkinData]="checkinData"></app-checkin-detail>
 </div>

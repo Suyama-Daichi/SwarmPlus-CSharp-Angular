@@ -40,8 +40,6 @@ export class MonthViewComponent implements OnInit {
   /** カレンダーのインスタンス */
   @ViewChild('calendar', { static: false }) calenderComponent: FullCalendarComponent;
   calendarApi: Calendar;
-  /** monthViewが有効か */
-  @Input() activeMonthView: boolean = true;
   constructor(private httpService: HttpService, private utilService: UtilService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   /** BlockUI */
