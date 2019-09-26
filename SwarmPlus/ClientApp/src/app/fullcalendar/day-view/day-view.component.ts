@@ -63,6 +63,16 @@ export class DayViewComponent implements OnInit {
       );
     });
   }
+  onLastYear() {
+    this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
+    this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
+  }
+
+  onLastYearToday() {
+    this.momentApi = moment();
+    this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
+    this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
+  }
 
   onToday() {
     this.calendarApi.today();

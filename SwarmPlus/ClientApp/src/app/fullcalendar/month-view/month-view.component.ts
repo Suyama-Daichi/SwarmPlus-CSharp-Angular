@@ -74,6 +74,16 @@ export class MonthViewComponent implements OnInit {
       );
     });
   }
+  onLastYear() {
+    this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
+    this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`);
+  }
+
+  onLastYearMonth(){
+    this.momentApi = moment();
+    this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
+    this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`); 
+  }
 
   onThisMonth() {
     this.calendarApi.today();
@@ -118,7 +128,6 @@ export class MonthViewComponent implements OnInit {
       this.calendarEvents = this.utilService.generateEvents(items);
     }
   }
-
 
   /**
    * 詳細表示する
