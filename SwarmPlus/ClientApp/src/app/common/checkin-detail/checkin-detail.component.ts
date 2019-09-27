@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-checkin-detail',
   templateUrl: './checkin-detail.component.html',
-  styleUrls: ['./checkin-detail.component.css']
+  styleUrls: ['./checkin-detail.component.scss']
 })
 export class CheckinDetailComponent implements OnInit {
   @Input() checkinData: Item4;
