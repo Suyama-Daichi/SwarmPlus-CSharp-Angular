@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'datePlus'
+  name: 'dateMinus'
 })
-export class DatePipe implements PipeTransform {
+export class DateMinusPipe implements PipeTransform {
 
   transform(value: Date, ...args: any[]): Date {
     value.setDate(value.getDate() -1);

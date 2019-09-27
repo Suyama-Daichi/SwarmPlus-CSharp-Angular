@@ -62,34 +62,38 @@ export class DayViewComponent implements OnInit {
       );
     });
   }
+
+  /** 日付操作 */
   onLastYear() {
     this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
     this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
+    this.isDetailOpen = false;
   }
-
   onLastYearToday() {
     this.momentApi = moment();
     this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
     this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
+    this.isDetailOpen = false;
   }
-
   onToday() {
     this.calendarApi.today();
     this.momentApi = moment();
     this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
+    this.isDetailOpen = false;
   }
-
   onPrevDate() {
     this.calendarApi.prev();
     this.momentApi.subtract(1, 'days');
     this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
+    this.isDetailOpen = false;
   }
-
   onNextDate() {
     this.calendarApi.next();
     this.momentApi.add(1, 'days');
     this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
+    this.isDetailOpen = false;
   }
+  
   /**
    * 詳細表示する
    */

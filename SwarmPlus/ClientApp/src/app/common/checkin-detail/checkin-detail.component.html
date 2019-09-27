@@ -16,7 +16,7 @@
             </h4>
             <!-- チェックインした時間 -->
             <p><i class="far fa-clock clock-icon"></i><span
-                    class="font-gray">{{checkinDateTime | date: 'yyyy/MM/dd HH:mm:ss'}}</span></p>
+                    class="font-gray">{{checkinDateTime | dateJP: true}}</span></p>
             <!-- 一緒にいたユーザ -->
             <p *ngIf="checkinData.with"><i class="fas fa-user-friends people-icon"></i>{{withWho}}</p>
             <!-- お気に入りしたユーザー -->

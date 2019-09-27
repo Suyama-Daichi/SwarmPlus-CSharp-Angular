@@ -17,7 +17,8 @@ import { AuthGuard } from './service/auth.guard';
 import { MonthViewComponent } from './fullcalendar/month-view/month-view.component';
 import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
 import { CheckinDetailComponent } from './common/checkin-detail/checkin-detail.component';
-import { DatePipe } from './pipe/date.pipe';
+import { DateMinusPipe } from './pipe/date.pipe';
+import { DateJPPipe } from './pipe/date-jp.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DatePipe } from './pipe/date.pipe';
     MonthViewComponent,
     DayViewComponent,
     CheckinDetailComponent,
-    DatePipe,
+    DateMinusPipe,
+    DateJPPipe,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
