@@ -16,7 +16,7 @@ export class UtilService {
     let afterBeforeTimestamp = new AfterBeforeTimestamp();
     const nowDateTime = new Date(year, month);
     // 月末を取得
-    nowDateTime.setMonth(nowDateTime.getMonth() +1)
+    nowDateTime.setMonth(nowDateTime.getMonth() + 1)
     afterBeforeTimestamp.beforeTimestamp = nowDateTime.setDate(0).toString().substring(0, 10);
     // 月初を取得
     nowDateTime.setDate(1)
@@ -51,8 +51,22 @@ export class UtilService {
   generateEvents(chackinItems: Item4[]): CalendarEvent[] {
     return chackinItems.map(
       (x: Item4, i) => {
-        return ({ id: i + 1, title: (x.isMayor ? '👑' : '') + (x.photos.count > 0 ? '📷' : '') + x.venue.name, date: new Date(x.createdAt * 1000), checkinData: x});
+        return ({ id: i + 1, title: (x.isMayor ? '👑' : '') + (x.photos.count > 0 ? '📷' : '') + x.venue.name, date: new Date(x.createdAt * 1000), checkinData: x });
       }
     );
+  }
+
+  /** 写真付きのチェックインで絞り込み */
+  filterHasPhotoCheckin(checkinItems: Item4[]): CalendarEvent[] {
+    return checkinItems.filter(x => x.photos.count > 0).map((x: Item4, i) => {
+      return ({ id: i + 1, title: (x.isMayor ? '👑' : '') + (x.photos.count > 0 ? '📷' : '') + x.venue.name, date: new Date(x.createdAt * 1000), checkinData: x });
+    })
+  }
+
+  /** 写真付きのチェックインで絞り込み */
+  filterHasMayorCheckin(checkinItems: Item4[]): CalendarEvent[] {
+    return checkinItems.filter(x => x.isMayor === true).map((x: Item4, i) => {
+      return ({ id: i + 1, title: (x.isMayor ? '👑' : '') + (x.photos.count > 0 ? '📷' : '') + x.venue.name, date: new Date(x.createdAt * 1000), checkinData: x });
+    })
   }
 }

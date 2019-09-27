@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { UtilService } from '../../service/util.service';
 import { AfterBeforeTimestamp } from '../../model/AfterBeforeTimestamp.type';
@@ -72,29 +72,35 @@ export class MonthViewComponent implements OnInit {
       );
     });
   }
+
+  /** フィルター */
+  filterPhotoCheckins() {
+    this.calendarEvents = this.utilService.filterHasPhotoCheckin((this.checkinHistory.response.checkins.items.filter(x => x.venue != null)));
+  }
+  filterMayorCheckins(){
+    this.calendarEvents = this.utilService.filterHasMayorCheckin((this.checkinHistory.response.checkins.items.filter(x => x.venue != null)));
+  }
+
+  /** 日付操作 */
   onLastYear() {
     this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
     this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`);
   }
-
   onLastYearMonth(){
     this.momentApi = moment();
     this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
     this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`); 
   }
-
   onThisMonth() {
     this.calendarApi.today();
     this.momentApi = moment();
     this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`);
   }
-
   onPrevMonth() {
     this.calendarApi.prev();
     this.momentApi.subtract(1, 'months');
     this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`);
   }
-
   onNextMonth() {
     this.calendarApi.next();
     this.momentApi.add(1, 'months');
