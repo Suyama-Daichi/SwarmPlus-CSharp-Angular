@@ -21,7 +21,7 @@ namespace SwarmPlus.Data
             // テストユーザーを作成
             var users = new User[]
             {
-                new User{ UserID="TestUser1", AccessToken ="ABCDEFGHIJKLMNOPQRSTUVWXYZ", RegistDateTime = DateTime.Now, DeleteFlag =false}
+                //new User{ UserID="TestUser1", AccessToken ="ABCDEFGHIJKLMNOPQRSTUVWXYZ", RegistDateTime = DateTime.Now, DeleteFlag =false}
             };
 
             // ユーザーマスタにINSERT
