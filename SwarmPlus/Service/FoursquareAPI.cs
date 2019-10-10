@@ -103,5 +103,42 @@ namespace SwarmPlus.Service
                 layout = deserialisedResult.response.photos.layout
             };
         }
+
+        /// <summary>
+        /// チェックインの詳細を取得する
+        /// </summary>
+        /// <param name="checkinId">チェックインID</param>
+        /// <returns>チェックインデータ</returns>
+        public async Task<CheckinInfo> getCheckinDetail(string uuid, string checkinId)
+        {
+            string encryptAccessToken = _db.User.FirstOrDefault(f => f.UserID == uuid).AccessToken;
+            string decryptAccessToken = Security.DecryptString(encryptAccessToken, uuid);
+            var response = await Client.GetAsync(
+                $"https://api.foursquare.com/v2/checkins/{checkinId}?oauth_token={decryptAccessToken}&v=20180815");
+            var result = await response.Content.ReadAsStringAsync();
+            var deserialisedResult = JsonConvert.DeserializeObject<ResponseFromFoursquare>(result);
+            return new CheckinInfo
+            {
+                id = deserialisedResult.response.checkin.id,
+                createdAt = deserialisedResult.response.checkin.createdAt,
+                type = deserialisedResult.response.checkin.type,
+                entities = deserialisedResult.response.checkin.entities,
+                shout = deserialisedResult.response.checkin.shout,
+                timeZoneOffset = deserialisedResult.response.checkin.timeZoneOffset,
+                with = deserialisedResult.response.checkin.with,
+                user = deserialisedResult.response.checkin.user,
+                venue = deserialisedResult.response.checkin.venue,
+                source = deserialisedResult.response.checkin.source,
+                photos = deserialisedResult.response.checkin.photos,
+                posts = deserialisedResult.response.checkin.posts,
+                checkinShortUrl = deserialisedResult.response.checkin.checkinShortUrl,
+                likes = deserialisedResult.response.checkin.likes,
+                like = deserialisedResult.response.checkin.like,
+                comments = deserialisedResult.response.checkin.comments,
+                sticker = deserialisedResult.response.checkin.sticker,
+                isMayor = deserialisedResult.response.checkin.isMayor,
+                score = deserialisedResult.response.checkin.score
+            };
+        }
     }
 }

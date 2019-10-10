@@ -14,8 +14,15 @@ namespace SwarmPlus.Models
 
     public class Response
     {
+        /// <summary>
+        /// チェックインリスト
+        /// </summary>
         public Items checkins { get; set; }
-        public Photos photos { get;set; }
+        /// <summary>
+        /// チェックインの詳細
+        /// </summary>
+        public CheckinInfo checkin { get; set; }
+        public Photos photos { get; set; }
     }
 
     public class Items
@@ -85,11 +92,44 @@ namespace SwarmPlus.Models
         /// チェックイン元
         /// </summary>
         public Source source { get; set; }
+        /// <summary>
+        /// チェックインしたユーザー情報
+        /// </summary>
+        public UserInfo user { get; set; }
+        /// <summary>
+        /// 編集できるか(?)
+        /// </summary>
+        public bool locked { get; set; }
+        /// <summary>
+        /// Swarm公式のチェックイン詳細ページURL
+        /// </summary>
+        public string checkinShortUrl { get; set; }
+        public Score score { get; set; }
+    }
+
+    public class Score
+    {
+        /// <summary>
+        /// 獲得コイン数
+        /// </summary>
+        public int total { get; set; }
+        public Scores[] scores { get; set; }
+
+        public class Scores
+        {
+            public string icon { get; set; }
+            public string message { get; set; }
+            public int points { get; set; }
+        }
     }
 
     public class Comments
     {
+        /// <summary>
+        /// コメント数
+        /// </summary>
         public int count { get; set; }
+        public CommentsItems[] items { get; set; }
     }
 
     public class Posts
@@ -176,5 +216,16 @@ namespace SwarmPlus.Models
         /// リクエストID
         /// </summary>
         public string requestId { get; set; }
+    }
+
+    public class CommentsItems
+    {
+        public string id { get; set; }
+        public int createdAt { get; set; }
+        public UserInfo user { get; set; }
+        /// <summary>
+        /// コメント本文
+        /// </summary>
+        public string text { get; set; }
     }
 }

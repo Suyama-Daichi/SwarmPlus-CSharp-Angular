@@ -50,5 +50,18 @@ namespace SwarmPlus.Controllers
         {
             return Ok(await _foursquareAPIService.getVenuePhotos(venueId));
         }
+
+        /// <summary>
+        /// チェックインの詳細を取得
+        /// </summary>
+        /// <param name="uuid">uuid</param>
+        /// <param name="checkinId">チェックインID</param>
+        /// <returns>チェックイン詳細データ</returns>
+        [HttpGet]
+        [Route("getCheckinDetail")]
+        public async Task<ActionResult> getCheckinDetail(string uuid, string checkinId)
+        {
+            return Ok(await _foursquareAPIService.getCheckinDetail(uuid, checkinId));
+        }
     }
 }
