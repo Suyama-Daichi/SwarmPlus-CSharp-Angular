@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AfterBeforeTimestamp } from '../model/AfterBeforeTimestamp.type';
 import { CalendarEvent } from '../model/calendarEvent.type';
+import { SelectedCategory } from '../model/selectedCategory.type';
 
 @Injectable({
   providedIn: 'root'
@@ -56,17 +57,18 @@ export class UtilService {
     );
   }
 
-  /** 写真付きのチェックインで絞り込み */
-  filterHasPhotoCheckin(checkinItems: Item4[]): CalendarEvent[] {
-    return checkinItems.filter(x => x.photos.count > 0).map((x: Item4, i) => {
-      return ({ id: i + 1, title: (x.isMayor ? '👑' : '') + (x.photos.count > 0 ? '📷' : '') + x.venue.name, date: new Date(x.createdAt * 1000), checkinData: x });
-    })
-  }
-
-  /** 写真付きのチェックインで絞り込み */
-  filterHasMayorCheckin(checkinItems: Item4[]): CalendarEvent[] {
-    return checkinItems.filter(x => x.isMayor === true).map((x: Item4, i) => {
-      return ({ id: i + 1, title: (x.isMayor ? '👑' : '') + (x.photos.count > 0 ? '📷' : '') + x.venue.name, date: new Date(x.createdAt * 1000), checkinData: x });
-    })
+  /** チェックインを絞り込み */
+  filterCheckin(checkinItems: Item4[], selectedCategories: string[]): CalendarEvent[] {
+    console.log(checkinItems);
+    return checkinItems.filter(f =>
+      f.venue.categories.some(s => selectedCategories.length === 0 || selectedCategories.includes(s.id))
+    ).map((x, i) => {
+      return (
+        {
+          id: i + 1,
+          title: (x.isMayor ? '👑' : '') + (x.photos.count > 0 ? '📷' : '') + x.venue.name, date: new Date(x.createdAt * 1000),
+          checkinData: x
+        });
+    });
   }
 }

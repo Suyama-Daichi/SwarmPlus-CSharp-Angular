@@ -1,0 +1,24 @@
+<h4 data-toggle="collapse" data-target="#checkinStatus">ステータス</h4>
+<div class="collapse" id="checkinStatus" aria-expanded="false" aria-controls="checkinStatus" *ngFor="let checkinStatus of checkinStatusList; index as i">
+    <div class="form-check">
+        <input type="checkbox" name="{{checkinStatus.key}}" id="{{checkinStatus.key}}" [(ngModel)]="checkinStatusList[i].selected" class="form-check-input" (change)="search()">
+        <label for="{{checkinStatus.key}}" class="form-check-label">{{checkinStatus.name}}</label>
+    </div>
+</div>
+<hr>
+
+<h4 data-toggle="collapse" data-target="#trafic">交通</h4>
+<div class="collapse" id="trafic" aria-expanded="false" aria-controls="trafic" *ngFor="let trafic of traficList; index as i">
+    <div class="form-check">
+        <input type="checkbox" name="{{trafic.key}}" id="{{trafic.key}}" [(ngModel)]="traficList[i].selected" class="form-check-input" (change)="search()">
+        <label for="{{trafic.key}}" class="form-check-label">{{trafic.name}}</label>
+    </div>
+</div>
+<hr>
+<h4 data-toggle="collapse">飲食店</h4>
+<hr>
+<h4 data-toggle="collapse">ショッピング</h4>
+<hr>
+<h4 data-toggle="collapse">施設・建物</h4>
+<hr>
+<h4 data-toggle="collapse">アウトドア</h4>

@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { StoreService } from './../../service/store.service';
+import { Component, OnInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { UtilService } from '../../service/util.service';
 import { AfterBeforeTimestamp } from '../../model/AfterBeforeTimestamp.type';
@@ -12,6 +13,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar } from '@fullcalendar/core';
 import * as moment from 'moment';
+import { SelectedCategory } from '../../model/selectedCategory.type';
 
 @Component({
   selector: 'app-month-view',
@@ -40,7 +42,12 @@ export class MonthViewComponent implements OnInit {
   /** カレンダーのインスタンス */
   @ViewChild('calendar', { static: false }) calenderComponent: FullCalendarComponent;
   calendarApi: Calendar;
-  constructor(private httpService: HttpService, private utilService: UtilService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private httpService: HttpService,
+    private utilService: UtilService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+  ) { }
 
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
@@ -74,11 +81,8 @@ export class MonthViewComponent implements OnInit {
   }
 
   /** フィルター */
-  filterPhotoCheckins() {
-    this.calendarEvents = this.utilService.filterHasPhotoCheckin((this.checkinHistory.response.checkins.items.filter(x => x.venue != null)));
-  }
-  filterMayorCheckins(){
-    this.calendarEvents = this.utilService.filterHasMayorCheckin((this.checkinHistory.response.checkins.items.filter(x => x.venue != null)));
+  filterCheckins(e: string[]) {
+    this.calendarEvents = this.utilService.filterCheckin((this.checkinHistory.response.checkins.items), e);
   }
 
   /** 日付操作 */
@@ -86,10 +90,10 @@ export class MonthViewComponent implements OnInit {
     this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
     this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`);
   }
-  onLastYearMonth(){
+  onLastYearMonth() {
     this.momentApi = moment();
     this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
-    this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`); 
+    this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`);
   }
   onThisMonth() {
     this.calendarApi.today();
@@ -139,5 +143,11 @@ export class MonthViewComponent implements OnInit {
   openDetail(e) {
     this.isDetailOpen = true;
     this.checkinData = e['event']['_def']['extendedProps']['checkinData'];
+  }
+
+  /** サイドバーから検索条件を受けとる */
+  catchSearchCondition(e: string[]) {
+    // 二次元配列を一次元配列に変換
+    this.filterCheckins(Array.prototype.concat.apply([], e));
   }
 }

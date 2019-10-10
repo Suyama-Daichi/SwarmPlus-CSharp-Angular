@@ -63,6 +63,11 @@ export class DayViewComponent implements OnInit {
     });
   }
 
+  /** フィルター */
+  filterCheckins(e: string[]) {
+    this.calendarEvents = this.utilService.filterCheckin(([this.checkinData]), e);
+  }
+
   /** 日付操作 */
   onLastYear() {
     this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
@@ -93,12 +98,17 @@ export class DayViewComponent implements OnInit {
     this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
     this.isDetailOpen = false;
   }
-  
+
   /**
    * 詳細表示する
    */
   openDetail(e) {
     this.isDetailOpen = true;
     this.checkinData = e['event']['_def']['extendedProps']['checkinData'];
+  }
+  /** サイドバーから検索条件を受けとる */
+  catchSearchCondition(e: string[]) {
+    // 二次元配列を一次元配列に変換
+    this.filterCheckins(Array.prototype.concat.apply([], e));
   }
 }
