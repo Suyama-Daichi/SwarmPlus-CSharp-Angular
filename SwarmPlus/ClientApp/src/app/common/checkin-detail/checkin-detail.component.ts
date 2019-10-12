@@ -9,9 +9,13 @@ import { Observable } from 'rxjs';
   styleUrls: ['./checkin-detail.component.scss']
 })
 export class CheckinDetailComponent implements OnInit {
-  @Input() checkinData: Item4;
+  /** 取得対象のチェックインID */
+  @Input() checkinId: string;
+  /** チェックイン詳細データ */
+  checkinData: Observable<Item4>;
   /** べニューの写真(Publicなもの) */
-  venuePhotosUrl: Observable<Photos> 
+  venuePhotosUrl: Observable<Photos>
+
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('checkinDetail', {static: true}) checkinDetailArea: ElementRef;
@@ -22,30 +26,33 @@ export class CheckinDetailComponent implements OnInit {
    *  https://angular.jp/guide/lifecycle-hooks#onchanges
    */
   ngOnChanges(changes: SimpleChanges){
-    this.venuePhotosUrl = this.httpService.getVenuePhotos(changes.checkinData.currentValue.venue.id);
-    this.checkinDetailArea.nativeElement.scrollIntoView({ behavior: "smooth", block: "end" });
+    this.checkinData = this.httpService.getCheckinDetail(this.checkinId);
+    this.checkinData.subscribe(s => {
+      this.venuePhotosUrl = this.httpService.getVenuePhotos(s.venue.id);
+      this.checkinDetailArea.nativeElement.scrollIntoView({ behavior: "smooth", block: "end" });
+      console.log(s)
+    })
   }
 
   ngOnInit() {}
+  // /** チェックイン日時 */
+  // get checkinDateTime(): Date {
+  //   return new Date(this.checkinData.createdAt * 1000);
+  // }
 
-  /** チェックイン日時 */
-  get checkinDateTime(): Date {
-    return new Date(this.checkinData.createdAt * 1000);
-  }
+  // /** 一緒にいたユーザ */
+  // get withWho(): string {
+  //   return this.checkinData.with.map(x => x.firstName).join(',');
+  // }
 
-  /** 一緒にいたユーザ */
-  get withWho(): string {
-    return this.checkinData.with.map(x => x.firstName).join(',');
-  }
+  // /** お気に入りしたユーザ */
+  // get whoFavorite(): string {
+  //   return this.checkinData.likes.groups[0].items.map(x => x.firstName).join(',');
+  // }
 
-  /** お気に入りしたユーザ */
-  get whoFavorite(): string {
-    return this.checkinData.likes.groups[0].items.map(x => x.firstName).join(',');
-  }
-
-  /** シャウト文字列の加工 */
-  get modifiedShout(): string {
-    return this.checkinData.shout.replace(/— .+と一緒に$/, '');
-  }
+  // /** シャウト文字列の加工 */
+  // get modifiedShout(): string {
+  //   return this.checkinData.shout.replace(/— .+と一緒に$/, '');
+  // }
 
 }

@@ -36,7 +36,7 @@ export class MonthViewComponent implements OnInit {
   /** 詳細コンポーネントが開かれているか */
   isDetailOpen: boolean;
   /** 詳細表示するチェックインデータ */
-  checkinData: Item4;
+  checkinId: string;
   /** 今日の日付(未来の日付を選択させないため) */
   nowDate = { end: new Date() };
   /** カレンダーのインスタンス */
@@ -126,7 +126,7 @@ export class MonthViewComponent implements OnInit {
  * @param beforeTimestamp 取得する期間(終わり)
  */
   getCheckins(afterTimestamp: string = '1500218379', beforeTimestamp: string = '1502896779'): Observable<UsersCheckins> {
-    return this.httpService.getUserCheckins(localStorage.getItem('uuid'), afterTimestamp, beforeTimestamp);
+    return this.httpService.getUserCheckins(afterTimestamp, beforeTimestamp);
   }
 
   /** イベントデータを生成 */
@@ -142,7 +142,7 @@ export class MonthViewComponent implements OnInit {
    */
   openDetail(e) {
     this.isDetailOpen = true;
-    this.checkinData = e['event']['_def']['extendedProps']['checkinData'];
+    this.checkinId = e['event']['_def']['extendedProps']['checkinData'].id;
   }
 
   /** サイドバーから検索条件を受けとる */

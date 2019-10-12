@@ -59,7 +59,6 @@ export class UtilService {
 
   /** チェックインを絞り込み */
   filterCheckin(checkinItems: Item4[], selectedCategories: string[]): CalendarEvent[] {
-    console.log(checkinItems);
     return checkinItems.filter(f =>
       f.venue.categories.some(s => selectedCategories.length === 0 || selectedCategories.includes(s.id))
     ).map((x, i) => {

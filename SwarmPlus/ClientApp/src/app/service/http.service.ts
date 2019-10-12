@@ -9,7 +9,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HttpService {
-  constructor(private httpClient: HttpClient) { }
+  uuid: string;
+  constructor(private httpClient: HttpClient) { 
+    this.uuid = localStorage.getItem('uuid');
+  }
 
   /** ヘッダー情報 */
   readonly httpOptions = {
@@ -36,12 +39,11 @@ export class HttpService {
 
   /**
    * ユーザーのチェックイン履歴を取得
-   * @param uuid ユーザーID(UUID)
    * @param afterTimestamp 取得する期間(始まり)
    * @param beforeTimestamp 取得する期間(終わり)
    */
-  getUserCheckins(uuid: string, afterTimestamp: string, beforeTimestamp: string): Observable<UsersCheckins> {
-    let params = new HttpParams().set('uuid', uuid).set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);
+  getUserCheckins(afterTimestamp: string, beforeTimestamp: string): Observable<UsersCheckins> {
+    let params = new HttpParams().set('uuid', this.uuid).set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);
     return this.httpClient.get<UsersCheckins>(environment.backEndApi + '/foursquareapi/getCheckinsPerMonth', { params: params });
   }
 
@@ -52,5 +54,14 @@ export class HttpService {
   getVenuePhotos(venueId: string): Observable<Photos>{
     let params = new HttpParams().set('venueId', venueId);
     return this.httpClient.get<Photos>(environment.backEndApi + '/foursquareapi/getVenuePhotos', {params: params });
+  }
+
+  /**
+   * チェックインの詳細を取得
+   * @param checkinId 詳細を取得したいチェックインのID
+   */
+  getCheckinDetail(checkinId: string): Observable<Item4>{
+    let params = new HttpParams().set('uuid', this.uuid).set('checkinId', checkinId);
+    return this.httpClient.get<Item4>(environment.backEndApi + '/foursquareapi/getcheckindetail', {params: params});
   }
 }

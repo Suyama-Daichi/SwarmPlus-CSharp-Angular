@@ -54,7 +54,7 @@ export class DayViewComponent implements OnInit {
       this.selectedDate = this.momentApi.toDate();
       const afterBeforeTimestamp: AfterBeforeTimestamp = this.utilService.getTimestamp(this.selectedDate);
       this.blockUI.start();
-      this.httpService.getUserCheckins(localStorage.getItem('uuid'), afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp).subscribe(
+      this.httpService.getUserCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp).subscribe(
         (response: UsersCheckins) => {
           this.calendarEvents = this.utilService.generateEvents(response.response.checkins.items.filter(x => x.venue != null));
           this.blockUI.stop();
