@@ -104,7 +104,7 @@ export class DayViewComponent implements OnInit {
    */
   openDetail(e) {
     this.isDetailOpen = true;
-    this.checkinData = e['event']['_def']['extendedProps']['checkinData'];
+    this.checkinData = e['event']['_def']['extendedProps']['checkinData'].id;
   }
   /** サイドバーから検索条件を受けとる */
   catchSearchCondition(e: string[]) {

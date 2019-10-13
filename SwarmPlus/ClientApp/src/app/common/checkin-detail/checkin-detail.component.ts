@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef, AfterViewChecked, AfterContentChecked, AfterViewInit } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-checkin-detail',
@@ -12,47 +11,30 @@ export class CheckinDetailComponent implements OnInit {
   /** 取得対象のチェックインID */
   @Input() checkinId: string;
   /** チェックイン詳細データ */
-  checkinData: Observable<Item4>;
+  checkinData: Item4;
   /** べニューの写真(Publicなもの) */
-  venuePhotosUrl: Observable<Photos>
+  venuePhotosUrl: Photos
 
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
-  @ViewChild('checkinDetail', {static: true}) checkinDetailArea: ElementRef;
-  
+  @ViewChild('checkinDetail', { static: true }) checkinDetailArea: ElementRef;
+
   constructor(private httpService: HttpService) { }
 
   /** 値の変更を検知
    *  https://angular.jp/guide/lifecycle-hooks#onchanges
    */
-  ngOnChanges(changes: SimpleChanges){
-    this.checkinData = this.httpService.getCheckinDetail(this.checkinId);
-    this.checkinData.subscribe(s => {
-      this.venuePhotosUrl = this.httpService.getVenuePhotos(s.venue.id);
-      this.checkinDetailArea.nativeElement.scrollIntoView({ behavior: "smooth", block: "end" });
-      console.log(s)
+  ngOnChanges(changes: SimpleChanges) {
+    this.blockUI.start();
+    this.httpService.getCheckinDetail(this.checkinId).subscribe(s => {
+      this.httpService.getVenuePhotos(s.venue.id).subscribe(photo => {
+        this.venuePhotosUrl = photo;
+        this.checkinData = s;
+        console.log(s)
+        this.checkinDetailArea.nativeElement.scrollIntoView({ behavior: "smooth", block: "end" });
+        this.blockUI.stop();
+      });
     })
   }
-
-  ngOnInit() {}
-  // /** チェックイン日時 */
-  // get checkinDateTime(): Date {
-  //   return new Date(this.checkinData.createdAt * 1000);
-  // }
-
-  // /** 一緒にいたユーザ */
-  // get withWho(): string {
-  //   return this.checkinData.with.map(x => x.firstName).join(',');
-  // }
-
-  // /** お気に入りしたユーザ */
-  // get whoFavorite(): string {
-  //   return this.checkinData.likes.groups[0].items.map(x => x.firstName).join(',');
-  // }
-
-  // /** シャウト文字列の加工 */
-  // get modifiedShout(): string {
-  //   return this.checkinData.shout.replace(/— .+と一緒に$/, '');
-  // }
-
+  ngOnInit() { }
 }

@@ -14,6 +14,7 @@ interface Checkins {
 }
 
 interface Item4 {
+    checkinShortUrl: string;
     id: string;
     createdAt: number;
     type: string;
@@ -29,8 +30,14 @@ interface Item4 {
     isMayor: boolean;
     photos: Photos;
     posts: Posts;
+    score: Score;
     comments: Comments;
     source: Source;
+}
+
+interface Score {
+    total: number;
+    scores: {icon: string, message: string, points: number }[]
 }
 
 interface Comments {

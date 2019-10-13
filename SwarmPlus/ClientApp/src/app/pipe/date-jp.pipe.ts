@@ -6,9 +6,9 @@ import * as moment from 'moment';
 })
 export class DateJPPipe implements PipeTransform {
 
-  transform(value: Date, isEnableHour: boolean): any {
+  transform(value: Date | number, isEnableHour: boolean): any {
     moment.locale('ja');
-    return moment(value).format(`YYYY/M/D(ddd) ${isEnableHour ? 'hh:mm' : ''}`);
+    return moment(typeof value === 'object' ? value : new Date(value * 1000)).format(`YYYY/M/D(ddd) ${isEnableHour ? 'hh:mm' : ''}`);
   }
 
 }

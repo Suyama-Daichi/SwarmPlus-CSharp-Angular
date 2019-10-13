@@ -20,6 +20,7 @@ import { CheckinDetailComponent } from './common/checkin-detail/checkin-detail.c
 import { DateMinusPipe } from './pipe/date.pipe';
 import { DateJPPipe } from './pipe/date-jp.pipe';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
+import { StringJoinPipe } from './pipe/string-join.pipe';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { SidebarComponent } from './common/sidebar/sidebar.component';
     DateMinusPipe,
     DateJPPipe,
     SidebarComponent,
+    StringJoinPipe,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
