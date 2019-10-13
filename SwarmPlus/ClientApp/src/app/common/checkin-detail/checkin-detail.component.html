@@ -15,13 +15,13 @@
                         src="{{categoryIcon.icon.prefix}}bg_32{{categoryIcon.icon.suffix}}" class="icon"></span>
             </h4>
             <!-- チェックインした時間 -->
-            <p><i class="far fa-clock clock-icon"></i><span class="font-gray">{{checkinDateTime | dateJP: true}}</span></p>
+            <p><i class="far fa-clock clock-icon"></i><span class="font-gray">{{(checkinData | async)?.createdAt |dateJP: true}}</span></p>
             <!-- 一緒にいたユーザ -->
-            <p *ngIf="checkinData.with"><i class="fas fa-user-friends people-icon"></i>{{withWho}}</p>
+            <p *ngIf="(checkinData | async)?.with"><i class="fas fa-user-friends people-icon"></i>{{(checkinData | async)?.with}}</p>
             <!-- お気に入りしたユーザー -->
-            <p *ngIf="checkinData.likes.count"><i class="fas fa-heart heart-icon"></i>{{whoFavorite}}</p>
+            <p *ngIf="(checkinData | async)?.likes.count > 0"><i class="fas fa-heart heart-icon"></i><span *ngFor="let like of (checkinData | async)?.likes.groups">{{like | stringJoin}}</span></p>
             <!-- シャウト -->
-            <p *ngIf="checkinData.shout"><i class="fas fa-comment comment-icon"></i>{{modifiedShout}}</p>
+            <p *ngIf="(checkinData | async)?.shout"><i class="fas fa-comment comment-icon"></i>{{(checkinData | async)?.shout}}</p>
         </div>
     </div>
 </div>
