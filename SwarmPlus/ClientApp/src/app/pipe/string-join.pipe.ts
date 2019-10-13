@@ -5,8 +5,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class StringJoinPipe implements PipeTransform {
 
-  transform(value: Group, ...args: any[]): any {
-    return value.count >= 5 ? `${value.items.map(m => m.firstName).join(',')} とその他 ${value.count - value.items.length}人` : value.items.map(m => m.firstName).join(',');
+  transform(value: any, ...args: any[]): any {
+    // Todo: any型を排除したい
+    if (value.count) {
+      return value.count >= 5 ? `${value.items.map(m => m.firstName).join(',')} とその他 ${value.count - value.items.length}人` : value.items.map(m => m.firstName).join(',');
+    } else {
+    }
+    return value.map(m => m.firstName).join(',');
   }
 
 }

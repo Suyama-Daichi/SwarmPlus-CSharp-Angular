@@ -19,7 +19,7 @@
             <!-- チェックインした時間 -->
             <p><i class="far fa-clock clock-icon"></i><span class="font-gray">{{(checkinData)?.createdAt |dateJP: true}}</span></p>
             <!-- 一緒にいたユーザ -->
-            <p *ngIf="(checkinData)?.with"><i class="fas fa-user-friends people-icon"></i>{{(checkinData)?.with}}</p>
+            <p *ngIf="(checkinData)?.with"><i class="fas fa-user-friends people-icon"></i>{{(checkinData)?.with | stringJoin}}</p>
             <!-- お気に入りしたユーザー -->
             <p *ngIf="(checkinData)?.likes.count > 0"><i class="fas fa-heart heart-icon"></i><a target="_blank" href="{{checkinData.checkinShortUrl}}" *ngFor="let like of (checkinData)?.likes.groups">{{like | stringJoin}}</a></p>
             <!-- シャウト -->
