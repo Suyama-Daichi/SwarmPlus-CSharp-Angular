@@ -75,16 +75,5 @@ export class UtilService {
           checkinData: x
         });
     });
-
-    // return checkinItems.filter(f =>
-    //   f.venue.categories.some(s => selectedCategories.length === 0 || selectedCategories.includes(s.id))
-    // ).map((x, i) => {
-    //   return (
-    //     {
-    //       id: i + 1,
-    //       title: (x.isMayor ? '👑' : '') + (x.photos.count > 0 ? '📷' : '') + x.venue.name, date: new Date(x.createdAt * 1000),
-    //       checkinData: x
-    //     });
-    // });
   }
 }

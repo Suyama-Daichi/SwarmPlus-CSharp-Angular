@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
   ];
 
   restaurantList: SelectedCategory[] = [
-    { key: ['4d4b7105d754a06374d81259'], name: '飲食店全般', selected: false, isCategory: true },
+    { key: ['4bf58dd8d48988d142941735'], name: '飲食店全般', selected: false, isCategory: true },
     { key: ['4bf58dd8d48988d145941735'], name: '中華料理店', selected: false, isCategory: true },
     { key: ['55a59bace4b013909087cb24', '4bf58dd8d48988d1d1941735'], name: '麺類店', selected: false, isCategory: true },
     { key: ['55a59bace4b013909087cb2a'], name: 'うどん屋', selected: false, isCategory: true },
@@ -41,8 +41,7 @@ export class SidebarComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   search() {
     this.event.emit(
@@ -50,7 +49,6 @@ export class SidebarComponent implements OnInit {
         .concat(this.checkinStatusList.filter(x => x.selected))
         .concat(this.restaurantList.filter(x => x.selected))
         .concat(this.shopList.filter(x => x.selected))
-        // .map(m => {isCategory})
       );
   }
 }
