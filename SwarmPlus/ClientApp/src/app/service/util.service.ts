@@ -58,9 +58,15 @@ export class UtilService {
   }
 
   /** チェックインを絞り込み */
-  filterCheckin(checkinItems: Item4[], selectedCategories: string[]): CalendarEvent[] {
-    return checkinItems.filter(f =>
-      f.venue.categories.some(s => selectedCategories.length === 0 || selectedCategories.includes(s.id))
+  filterCheckin(checkinItems: Item4[], searchCondition: SelectedCategory[]): CalendarEvent[] {
+    let statusList = searchCondition.filter(f => !f.isCategory).map(m => m.key);
+    let categoryList = searchCondition.filter(f => f.isCategory).map(m => m.key);
+
+    return checkinItems.filter((f, i) =>
+      (statusList.length === 0 ? true : statusList.some(s => s === 'isMayor') ? f.isMayor : true)
+      && (statusList.length === 0 ? true : statusList.some(s => s === 'photos') ? f.photos.count > 0 : true)
+      && (statusList.length === 0 ? true : statusList.some(s => s === 'with') ? f.with : true)
+      && (categoryList.length === 0 ? true : f.venue.categories.some(s => categoryList.some(ss => ss.includes(s.id))))
     ).map((x, i) => {
       return (
         {
@@ -69,5 +75,16 @@ export class UtilService {
           checkinData: x
         });
     });
+
+    // return checkinItems.filter(f =>
+    //   f.venue.categories.some(s => selectedCategories.length === 0 || selectedCategories.includes(s.id))
+    // ).map((x, i) => {
+    //   return (
+    //     {
+    //       id: i + 1,
+    //       title: (x.isMayor ? '👑' : '') + (x.photos.count > 0 ? '📷' : '') + x.venue.name, date: new Date(x.createdAt * 1000),
+    //       checkinData: x
+    //     });
+    // });
   }
 }

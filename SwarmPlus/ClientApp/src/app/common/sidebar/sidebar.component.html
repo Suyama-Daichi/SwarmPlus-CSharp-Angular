@@ -15,10 +15,23 @@
     </div>
 </div>
 <hr>
-<h4 data-toggle="collapse">飲食店</h4>
+<h4 data-toggle="collapse" data-target="#restaurant">飲食店</h4>
+<div class="collapse" id="restaurant" aria-expanded="false" aria-controls="restaurant" *ngFor="let restaurant of restaurantList; index as i">
+    <div class="form-check">
+        <input type="checkbox" name="{{restaurant.key}}" id="{{restaurant.key}}" [(ngModel)]="restaurantList[i].selected" class="form-check-input" (change)="search()">
+        <label for="{{restaurant.key}}" class="form-check-label">{{restaurant.name}}</label>
+    </div>
+</div>
 <hr>
-<h4 data-toggle="collapse">ショッピング</h4>
+<h4 data-toggle="collapse" data-target="#shop">ショッピング</h4>
+<div class="collapse" id="shop" aria-expanded="false" aria-controls="shop" *ngFor="let shop of shopList; index as i">
+    <div class="form-check">
+        <input type="checkbox" name="{{shop.key}}" id="{{shop.key}}" [(ngModel)]="shopList[i].selected" class="form-check-input" (change)="search()">
+        <label for="{{shop.key}}" class="form-check-label">{{shop.name}}</label>
+    </div>
+</div>
 <hr>
 <h4 data-toggle="collapse">施設・建物</h4>
 <hr>
 <h4 data-toggle="collapse">アウトドア</h4>
+

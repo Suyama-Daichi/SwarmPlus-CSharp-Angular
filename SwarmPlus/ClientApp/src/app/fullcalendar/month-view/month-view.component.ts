@@ -81,7 +81,7 @@ export class MonthViewComponent implements OnInit {
   }
 
   /** フィルター */
-  filterCheckins(e: string[]) {
+  filterCheckins(e: SelectedCategory[]) {
     this.calendarEvents = this.utilService.filterCheckin((this.checkinHistory.response.checkins.items), e);
   }
 
@@ -146,8 +146,8 @@ export class MonthViewComponent implements OnInit {
   }
 
   /** サイドバーから検索条件を受けとる */
-  catchSearchCondition(e: string[]) {
+  catchSearchCondition(e: SelectedCategory[]) {
     // 二次元配列を一次元配列に変換
-    this.filterCheckins(Array.prototype.concat.apply([], e));
+    this.filterCheckins(e);
   }
 }
