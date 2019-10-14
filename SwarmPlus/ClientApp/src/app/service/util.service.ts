@@ -12,12 +12,14 @@ export class UtilService {
   /**
    * 月初と月末を取得
    * 参考： https://qiita.com/su_mi/items/2f086817a4dd0b05f304
+   * Todo: もう少しスマートに書き直したい
    */
   getFirstDateAndLastDateOfThisMonth(year: number, month: number): AfterBeforeTimestamp {
     let afterBeforeTimestamp = new AfterBeforeTimestamp();
     const nowDateTime = new Date(year, month);
     // 月末を取得
-    nowDateTime.setMonth(nowDateTime.getMonth() + 1)
+    nowDateTime.setMonth(nowDateTime.getMonth() + 1);
+    nowDateTime.setHours(23,59,59);
     afterBeforeTimestamp.beforeTimestamp = nowDateTime.setDate(0).toString().substring(0, 10);
     // 月初を取得
     nowDateTime.setDate(1)
