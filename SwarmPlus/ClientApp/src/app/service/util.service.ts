@@ -1,7 +1,7 @@
+import { SelectedCategory } from './../model/selectedCategory.type';
 import { Injectable } from '@angular/core';
 import { AfterBeforeTimestamp } from '../model/AfterBeforeTimestamp.type';
 import { CalendarEvent } from '../model/calendarEvent.type';
-import { SelectedCategory } from '../model/selectedCategory.type';
 
 @Injectable({
   providedIn: 'root'
@@ -59,8 +59,8 @@ export class UtilService {
 
   /** チェックインを絞り込み */
   filterCheckin(checkinItems: Item4[], searchCondition: SelectedCategory[]): CalendarEvent[] {
-    let statusList = searchCondition.filter(f => !f.isCategory).map(m => m.key);
-    let categoryList = searchCondition.filter(f => f.isCategory).map(m => m.key);
+    let statusList = !searchCondition === true ? [] : searchCondition.filter(f => !f.isCategory).map(m => m.key);
+    let categoryList = !searchCondition === true ? [] : searchCondition.filter(f => f.isCategory).map(m => m.key);
 
     return checkinItems.filter((f, i) =>
       (statusList.length === 0 ? true : statusList.some(s => s === 'isMayor') ? f.isMayor : true)

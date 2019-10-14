@@ -1,4 +1,4 @@
-import { StoreService } from './../../service/store.service';
+import { SelectedCategory } from './../../model/selectedCategory.type';
 import { Component, OnInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { UtilService } from '../../service/util.service';
@@ -13,7 +13,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar } from '@fullcalendar/core';
 import * as moment from 'moment';
-import { SelectedCategory } from '../../model/selectedCategory.type';
 
 @Component({
   selector: 'app-month-view',
@@ -42,6 +41,8 @@ export class MonthViewComponent implements OnInit {
   /** カレンダーのインスタンス */
   @ViewChild('calendar', { static: false }) calenderComponent: FullCalendarComponent;
   calendarApi: Calendar;
+  /** サイドバーコンポーネントから受け取った絞り込み条件を保持 */
+  searchCondition: SelectedCategory[]
   constructor(
     private httpService: HttpService,
     private utilService: UtilService,
@@ -74,6 +75,7 @@ export class MonthViewComponent implements OnInit {
           // 一部チェックインデータ欠損？
           // 例：2019年1月4日15：31にチェックインしたべニューデータがnull
           this.generateEvents(this.checkinHistory.response.checkins.items.filter(x => x.venue != null));
+          this.filterCheckins(this.searchCondition);
           this.blockUI.stop();
         }
       );
@@ -147,6 +149,7 @@ export class MonthViewComponent implements OnInit {
 
   /** サイドバーから検索条件を受けとる */
   catchSearchCondition(e: SelectedCategory[]) {
+    this.searchCondition = e;
     // 二次元配列を一次元配列に変換
     this.filterCheckins(e);
   }
