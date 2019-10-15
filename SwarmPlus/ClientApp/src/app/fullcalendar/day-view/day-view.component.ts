@@ -11,6 +11,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as moment from 'moment';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar } from '@fullcalendar/core';
+import { SelectedCategory } from '../../model/selectedCategory.type';
 
 @Component({
   selector: 'app-day-view',
@@ -64,7 +65,7 @@ export class DayViewComponent implements OnInit {
   }
 
   /** フィルター */
-  filterCheckins(e: string[]) {
+  filterCheckins(e: SelectedCategory[]) {
     this.calendarEvents = this.utilService.filterCheckin(([this.checkinData]), e);
   }
 

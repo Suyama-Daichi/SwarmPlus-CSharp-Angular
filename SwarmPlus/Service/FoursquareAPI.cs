@@ -54,6 +54,18 @@ namespace SwarmPlus.Service
             var result = await response.Content.ReadAsStringAsync();
             var deserialisedResult = JsonConvert.DeserializeObject<ResponseFromFoursquare>(result);
 
+            // 1リクエスト250チェックイン制限の対応
+            if (deserialisedResult.response.checkins.items.Length == 250)
+            {
+                CheckinInfo[] additionalCheckins = await getCheckinForOver250PerMonth(decryptAccessToken, afterTimestamp, deserialisedResult.response.checkins.items.Last().createdAt);
+                deserialisedResult.response.checkins.items = deserialisedResult.response.checkins.items.Concat(additionalCheckins).ToArray();
+                while (additionalCheckins.Length == 250)
+                {
+                    additionalCheckins = await getCheckinForOver250PerMonth(decryptAccessToken, afterTimestamp, deserialisedResult.response.checkins.items.Last().createdAt);
+                    deserialisedResult.response.checkins.items = deserialisedResult.response.checkins.items.Concat(additionalCheckins).ToArray();
+                }
+            }
+
             return new ResponseFromFoursquare
             {
                 meta = deserialisedResult.meta,
@@ -63,11 +75,10 @@ namespace SwarmPlus.Service
                     checkins = new Items
                     {
                         count = deserialisedResult.response.checkins.count,
-                        items = deserialisedResult.response.checkins.items.Length == 250 ? await getCheckinForOver250PerMonth(decryptAccessToken, afterTimestamp, deserialisedResult) : deserialisedResult.response.checkins.items.OrderBy(o => o.createdAt).ToArray()
+                        items = deserialisedResult.response.checkins.items
                     }
                 }
             };
-
         }
         /// <summary>
         /// 250チェックイン/月する場合の処理
@@ -76,13 +87,13 @@ namespace SwarmPlus.Service
         /// <param name="afterTimestamp">取得する期間(始まり)</param>
         /// <param name="deserialisedResult">途中までのチェックイン情報</param>
         /// <returns>結合されたチェックイン情報</returns>
-        private async Task<CheckinInfo[]> getCheckinForOver250PerMonth(string decryptAccessToken, int afterTimestamp, ResponseFromFoursquare deserialisedResult)
+        private async Task<CheckinInfo[]> getCheckinForOver250PerMonth(string decryptAccessToken, int afterTimestamp, int beforeTimestamp)
         {
             HttpResponseMessage moreResponse = await Client.GetAsync(
-            $"users/self/checkins?oauth_token={decryptAccessToken}&v=20180815&limit=250&afterTimestamp={afterTimestamp}&beforeTimestamp={deserialisedResult.response.checkins.items.Last().createdAt}");
+            $"users/self/checkins?oauth_token={decryptAccessToken}&v=20180815&limit=250&afterTimestamp={afterTimestamp}&beforeTimestamp={beforeTimestamp}");
             string moreResult = await moreResponse.Content.ReadAsStringAsync();
             ResponseFromFoursquare moreDeserialisedResult = JsonConvert.DeserializeObject<ResponseFromFoursquare>(moreResult);
-            return deserialisedResult.response.checkins.items.Concat(moreDeserialisedResult.response.checkins.items).OrderBy(o => o.createdAt).ToArray();
+            return moreDeserialisedResult.response.checkins.items;
         }
 
         /// <summary>
