@@ -31,7 +31,6 @@ export class CheckinDetailComponent implements OnInit {
         this.venuePhotosUrl = photo;
         this.checkinData = s;
         this.checkinData.shout = !this.checkinData.shout ? null : this.checkinData.shout.replace(/— .+と一緒に$/g, '')
-        console.log(s)
         this.checkinDetailArea.nativeElement.scrollIntoView({ behavior: "smooth", block: "end" });
         this.blockUI.stop();
       });

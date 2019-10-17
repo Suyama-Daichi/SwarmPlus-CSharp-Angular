@@ -19,7 +19,7 @@ export class UtilService {
     const nowDateTime = new Date(year, month);
     // 月末を取得
     nowDateTime.setMonth(nowDateTime.getMonth() + 1);
-    nowDateTime.setHours(23,59,59);
+    nowDateTime.setHours(23, 59, 59);
     afterBeforeTimestamp.beforeTimestamp = nowDateTime.setDate(0).toString().substring(0, 10);
     // 月初を取得
     nowDateTime.setDate(1)
@@ -54,12 +54,16 @@ export class UtilService {
   generateEvents(chackinItems: Item4[]): CalendarEvent[] {
     return chackinItems.map(
       (x: Item4, i) => {
-        return ({ id: i + 1, title: (x.isMayor ? '👑' : '') + (x.photos.count > 0 ? '📷' : '') + x.venue.name, date: new Date(x.createdAt * 1000), checkinData: x });
+        return this.calendarTitleGenerator(x, i);
       }
     );
   }
 
-  /** チェックインを絞り込み */
+  /**
+   * チェックインを絞り込み
+   * @param checkinItems 絞り込み対象のチェックインデータ群
+   * @param searchCondition 検索条件
+   */
   filterCheckin(checkinItems: Item4[], searchCondition: SelectedCategory[]): CalendarEvent[] {
     let statusList = !searchCondition === true ? [] : searchCondition.filter(f => !f.isCategory).map(m => m.key);
     let categoryList = !searchCondition === true ? [] : searchCondition.filter(f => f.isCategory).map(m => m.key);
@@ -70,12 +74,22 @@ export class UtilService {
       && (statusList.length === 0 ? true : statusList.some(s => s === 'with') ? f.with : true)
       && (categoryList.length === 0 ? true : f.venue.categories.some(s => categoryList.some(ss => ss.includes(s.id))))
     ).map((x, i) => {
-      return (
-        {
-          id: i + 1,
-          title: (x.isMayor ? '👑' : '') + (x.photos.count > 0 ? '📷' : '') + x.venue.name, date: new Date(x.createdAt * 1000),
-          checkinData: x
-        });
+      return this.calendarTitleGenerator(x, i);
     });
+  }
+
+  /**
+   * カレンダーのタイトルに表示する文字列を生成
+   * @param checkinData チェックインデータ
+   */
+  calendarTitleGenerator(checkinData: Item4, index: number): CalendarEvent {
+    return (
+      {
+        id: index + 1,
+        title: `${checkinData.isMayor ? '👑' : ''} ${checkinData.photos.count > 0 ? '📷' : ''} ${checkinData.with !== null ? '👯' : ''} ${checkinData.venue.name} ${checkinData.with !== null ? `with ${checkinData.with.map(m => m.firstName).join(', ')}` : ''}`,
+        date: new Date(checkinData.createdAt * 1000),
+        checkinData: checkinData
+      }
+    )
   }
 }

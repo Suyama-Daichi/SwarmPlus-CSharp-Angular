@@ -30,11 +30,14 @@ export class DayViewComponent implements OnInit {
   /** カレンダーのインスタンス */
   @ViewChild('calendar', { static: false }) calenderComponent: FullCalendarComponent;
   calendarApi: Calendar;
+  /** ユーザーのチェックイン履歴 */
+  checkinHistory: UsersCheckins;
   /** 詳細表示するチェックインデータ */
   checkinData: Item4;
   /** カレンダーイベントオブジェクト */
-  @Input() calendarEvents: CalendarEvent[] = [];
-
+  calendarEvents: CalendarEvent[] = [];
+  /** サイドバーコンポーネントから受け取った絞り込み条件を保持 */
+  searchCondition: SelectedCategory[]
   constructor(private httpService: HttpService, private utilService: UtilService, private activatedRoute: ActivatedRoute, private router: Router) { }
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
@@ -57,7 +60,8 @@ export class DayViewComponent implements OnInit {
       this.blockUI.start();
       this.httpService.getUserCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp).subscribe(
         (response: UsersCheckins) => {
-          this.calendarEvents = this.utilService.generateEvents(response.response.checkins.items.filter(x => x.venue != null));
+          this.checkinHistory = response;
+          this.calendarEvents = this.utilService.generateEvents(this.checkinHistory.response.checkins.items.filter(x => x.venue != null));
           this.blockUI.stop();
         }
       );
@@ -66,7 +70,7 @@ export class DayViewComponent implements OnInit {
 
   /** フィルター */
   filterCheckins(e: SelectedCategory[]) {
-    this.calendarEvents = this.utilService.filterCheckin(([this.checkinData]), e);
+    this.calendarEvents = this.utilService.filterCheckin((this.checkinHistory.response.checkins.items), e);
   }
 
   /** 日付操作 */
@@ -107,9 +111,11 @@ export class DayViewComponent implements OnInit {
     this.isDetailOpen = true;
     this.checkinData = e['event']['_def']['extendedProps']['checkinData'].id;
   }
+
   /** サイドバーから検索条件を受けとる */
-  catchSearchCondition(e: string[]) {
+  catchSearchCondition(e: SelectedCategory[]) {
+    this.searchCondition = e;
     // 二次元配列を一次元配列に変換
-    this.filterCheckins(Array.prototype.concat.apply([], e));
+    this.filterCheckins(e);
   }
 }
