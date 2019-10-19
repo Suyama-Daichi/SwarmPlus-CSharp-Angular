@@ -67,13 +67,14 @@ export class MonthViewComponent implements OnInit {
       const y = params.get('year'), m = params.get('month');
       this.momentApi = moment(y === null || m === null || !y.match(/19[0-9]{2}|20[0-9]{2}/g) || !m.match(/[1-9]|1[0-2]/g) ? new Date() : new Date(`${y}-${m}`));
       this.selectedDate = this.momentApi.toDate();
-      this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
+      this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth(this.selectedDate);
       this.blockUI.start();
       this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
         response => {
           this.checkinHistory = response;
-          this.generateEvents(this.checkinHistory.response.checkins.items);
+          this.calendarEvents = this.utilService.generateEvents(this.checkinHistory.response.checkins.items);
           this.filterCheckins(this.searchCondition);
+          this.calendarApi.gotoDate(this.selectedDate);
           this.blockUI.stop();
         }
       );
@@ -87,28 +88,35 @@ export class MonthViewComponent implements OnInit {
 
   /** 日付操作 */
   onLastYear() {
-    this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
-    this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`);
+    this.isDetailOpen = false;
+    let currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
+    currentDisplayDate.subtract(1, 'year');
+    this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onLastYearMonth() {
-    this.momentApi = moment();
-    this.calendarApi.gotoDate(this.momentApi.subtract(1, 'years').toDate());
-    this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`);
+    this.isDetailOpen = false;
+    let currentDisplayDate: moment.Moment = moment();
+    currentDisplayDate.subtract(1, 'year');
+    this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onThisMonth() {
-    this.calendarApi.today();
-    this.momentApi = moment();
-    this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`);
+    this.isDetailOpen = false;
+    let currentDisplayDate: moment.Moment = moment();
+    this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onPrevMonth() {
-    this.calendarApi.prev();
-    this.momentApi.subtract(1, 'months');
-    this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`);
+    this.isDetailOpen = false;
+    let currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
+    currentDisplayDate.subtract(1, 'months');
+    this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onNextMonth() {
-    this.calendarApi.next();
-    this.momentApi.add(1, 'months');
-    this.router.navigateByUrl(`top/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`);
+    this.isDetailOpen = false;
+    if (this.momentApi < moment(Number(this.utilService.getFirstDateAndLastDateOfThisMonth(new Date()).afterTimestamp) * 1000)) {
+      let currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
+      currentDisplayDate.add(1, 'months');
+      this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    };
   }
 
   /**
@@ -127,14 +135,6 @@ export class MonthViewComponent implements OnInit {
  */
   getCheckins(afterTimestamp: string = '1500218379', beforeTimestamp: string = '1502896779'): Observable<UsersCheckins> {
     return this.httpService.getUserCheckins(afterTimestamp, beforeTimestamp);
-  }
-
-  /** イベントデータを生成 */
-  generateEvents(items: Item4[]) {
-    // チェックインデータが0件の時はイベントデータを生成しない
-    if (items.length !== 0) {
-      this.calendarEvents = this.utilService.generateEvents(items);
-    }
   }
 
   /**

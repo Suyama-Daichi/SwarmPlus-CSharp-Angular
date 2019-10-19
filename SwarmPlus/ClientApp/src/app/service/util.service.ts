@@ -14,17 +14,16 @@ export class UtilService {
    * 参考： https://qiita.com/su_mi/items/2f086817a4dd0b05f304
    * Todo: もう少しスマートに書き直したい
    */
-  getFirstDateAndLastDateOfThisMonth(year: number, month: number): AfterBeforeTimestamp {
+  getFirstDateAndLastDateOfThisMonth(targetDate: Date): AfterBeforeTimestamp {
     let afterBeforeTimestamp = new AfterBeforeTimestamp();
-    const nowDateTime = new Date(year, month);
     // 月末を取得
-    nowDateTime.setMonth(nowDateTime.getMonth() + 1);
-    nowDateTime.setHours(23, 59, 59);
-    afterBeforeTimestamp.beforeTimestamp = nowDateTime.setDate(0).toString().substring(0, 10);
+    targetDate.setMonth(targetDate.getMonth() + 1);
+    targetDate.setHours(23, 59, 59);
+    afterBeforeTimestamp.beforeTimestamp = targetDate.setDate(0).toString().substring(0, 10);
     // 月初を取得
-    nowDateTime.setDate(1)
+    targetDate.setDate(1)
     // 月初においては、実行された時刻以前のデータが取れないため時刻を0時にしておく
-    afterBeforeTimestamp.afterTimestamp = nowDateTime.setHours(0, 0, 0).toString().substring(0, 10);
+    afterBeforeTimestamp.afterTimestamp = targetDate.setHours(0, 0, 0).toString().substring(0, 10);
     return afterBeforeTimestamp;
   }
 
@@ -52,14 +51,16 @@ export class UtilService {
 
   /** イベントデータを生成 */
   generateEvents(checkinItems: Item4[]): CalendarEvent[] {
-    // 一部チェックインデータ欠損？
-    // 例：2019年1月4日15：31にチェックインしたべニューデータがnull
-    return checkinItems.filter(x => x.venue != null).
-      map(
-        (x: Item4, i) => {
-          return this.calendarTitleGenerator(x, i);
-        }
-      );
+    if (checkinItems.length !== 0) {
+      // 一部チェックインデータ欠損？
+      // 例：2019年1月4日15：31にチェックインしたべニューデータがnull
+      return checkinItems.filter(x => x.venue != null).
+        map(
+          (x: Item4, i) => {
+            return this.calendarTitleGenerator(x, i);
+          }
+        );
+    }
   }
 
   /**
