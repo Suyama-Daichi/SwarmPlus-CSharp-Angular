@@ -2,12 +2,13 @@ import { SelectedCategory } from './../model/selectedCategory.type';
 import { Injectable } from '@angular/core';
 import { AfterBeforeTimestamp } from '../model/AfterBeforeTimestamp.type';
 import { CalendarEvent } from '../model/calendarEvent.type';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService {
-  constructor() { }
+  constructor(private router: Router) { }
 
   /**
    * 月初と月末を取得
@@ -96,5 +97,13 @@ export class UtilService {
         checkinData: checkinData
       }
     )
+  }
+
+  /**
+   * 表示しているページのトップにスクロールする相対URLを生成する
+   */
+  nomalizeCurrentUrl(): string {
+    const currentUrl = this.router.url;
+    return currentUrl.indexOf("#") !== -1 ? currentUrl.slice(0, currentUrl.indexOf("#")) + '#top' : currentUrl + '#top';
   }
 }
