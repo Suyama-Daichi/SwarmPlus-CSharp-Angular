@@ -151,4 +151,5 @@ export class MonthViewComponent implements OnInit {
     // 二次元配列を一次元配列に変換
     this.filterCheckins(e);
   }
+
 }

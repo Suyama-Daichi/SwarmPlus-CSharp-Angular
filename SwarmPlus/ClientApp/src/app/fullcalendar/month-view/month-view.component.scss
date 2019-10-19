@@ -1,0 +1,16 @@
+.toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.fc-button-group{
+    width: 100%;
+    justify-content: space-between;
+}
+
+.icon{
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    color: orange;
+}
