@@ -72,9 +72,7 @@ export class MonthViewComponent implements OnInit {
       this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
         response => {
           this.checkinHistory = response;
-          // 一部チェックインデータ欠損？
-          // 例：2019年1月4日15：31にチェックインしたべニューデータがnull
-          this.generateEvents(this.checkinHistory.response.checkins.items.filter(x => x.venue != null));
+          this.generateEvents(this.checkinHistory.response.checkins.items);
           this.filterCheckins(this.searchCondition);
           this.blockUI.stop();
         }

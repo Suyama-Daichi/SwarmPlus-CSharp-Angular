@@ -51,12 +51,15 @@ export class UtilService {
   }
 
   /** イベントデータを生成 */
-  generateEvents(chackinItems: Item4[]): CalendarEvent[] {
-    return chackinItems.map(
-      (x: Item4, i) => {
-        return this.calendarTitleGenerator(x, i);
-      }
-    );
+  generateEvents(checkinItems: Item4[]): CalendarEvent[] {
+    // 一部チェックインデータ欠損？
+    // 例：2019年1月4日15：31にチェックインしたべニューデータがnull
+    return checkinItems.filter(x => x.venue != null).
+      map(
+        (x: Item4, i) => {
+          return this.calendarTitleGenerator(x, i);
+        }
+      );
   }
 
   /**
@@ -69,7 +72,8 @@ export class UtilService {
     let categoryList = !searchCondition === true ? [] : searchCondition.filter(f => f.isCategory).map(m => m.key);
 
     return checkinItems.filter((f, i) =>
-      (statusList.length === 0 ? true : statusList.some(s => s === 'isMayor') ? f.isMayor : true)
+      f.venue != null
+      && (statusList.length === 0 ? true : statusList.some(s => s === 'isMayor') ? f.isMayor : true)
       && (statusList.length === 0 ? true : statusList.some(s => s === 'photos') ? f.photos.count > 0 : true)
       && (statusList.length === 0 ? true : statusList.some(s => s === 'with') ? f.with : true)
       && (categoryList.length === 0 ? true : f.venue.categories.some(s => categoryList.some(ss => ss.includes(s.id))))
