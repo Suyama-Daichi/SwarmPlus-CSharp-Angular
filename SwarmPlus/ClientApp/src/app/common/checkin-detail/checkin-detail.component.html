@@ -3,10 +3,10 @@
         <!-- 写真付きチェックインではその写真、写真なしでは公開されている写真を表示する -->
         <span
             *ngFor="let photo of (checkinData)?.photos.count !== 0 ? (checkinData)?.photos.items : (venuePhotosUrl)?.items; index as i">
-            <img class="card-img-top" src="{{photo.prefix}}original{{photo.suffix}}" alt="Upload Photo {{i}}">
+            <img class="card-img-top" src="{{photo.prefix}}original{{photo.suffix}}" alt="Upload Photo {{i}}" (load)="onloadImage()">
         </span>
         <img *ngIf="(checkinData)?.photos.count === 0 && (venuePhotosUrl)?.count === 0" width="500px"
-            height="500px" class="card-img-top" src="../../../assets/image/l_e_others_500.png" alt="Photo is not found">
+            height="500px" class="card-img-top" [src]="defaultImagePath" alt="Photo is not found" (load)="onloadImage()">
         <div class="card-body">
             <!-- チェックインしたべニュー -->
             <h4 class="card-title">
