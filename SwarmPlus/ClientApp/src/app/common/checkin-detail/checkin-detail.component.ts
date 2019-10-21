@@ -1,5 +1,5 @@
 import { UtilService } from './../../service/util.service';
-import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './checkin-detail.component.html',
   styleUrls: ['./checkin-detail.component.scss']
 })
-export class CheckinDetailComponent implements OnInit{
+export class CheckinDetailComponent implements OnInit, OnChanges {
   /** 取得対象のチェックインID */
   @Input() checkinId: string;
   /** チェックイン詳細データ */
@@ -37,14 +37,14 @@ export class CheckinDetailComponent implements OnInit{
         this.checkinData.shout = !this.checkinData.shout ? null : this.checkinData.shout.replace(/— .+と一緒に$/g, '');
         this.blockUI.stop();
       });
-    })
+    });
   }
-  
+
   /**
    * 下部にスクロールする
    */
-  onloadImage(){
-    this.checkinDetailArea.nativeElement.scrollIntoView({ behavior: "smooth", block: "end" });
+  onloadImage() {
+    this.checkinDetailArea.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }
 
   ngOnInit() { }
