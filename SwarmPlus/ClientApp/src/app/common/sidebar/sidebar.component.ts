@@ -14,6 +14,11 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {}
 
+  /** 画面幅が1024px以上ならアコーディオン展開 */
+  get showAttrebute (): string{
+    return window.innerWidth > 992 ? 'show' : ''
+  }
+
   search() {
     this.event.emit(
       this.searchConditons.traficList.filter(x => x.selected)
