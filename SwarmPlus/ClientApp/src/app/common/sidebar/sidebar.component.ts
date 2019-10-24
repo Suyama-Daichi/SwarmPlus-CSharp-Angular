@@ -24,6 +24,8 @@ export class SidebarComponent implements OnInit {
       this.searchConditons.traficList.filter(x => x.selected)
         .concat(this.searchConditons.checkinStatusList.filter(x => x.selected))
         .concat(this.searchConditons.restaurantList.filter(x => x.selected))
+        .concat(this.searchConditons.landmarkActivity.filter(x => x.selected))
+        .concat(this.searchConditons.buildings.filter(x => x.selected))
         .concat(this.searchConditons.shopList.filter(x => x.selected))
       );
   }

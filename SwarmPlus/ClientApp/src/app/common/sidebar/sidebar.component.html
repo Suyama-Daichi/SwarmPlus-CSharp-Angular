@@ -41,7 +41,23 @@
         </div>
     </div>
     <hr>
-    <h5 data-toggle="collapse">施設・建物</h5>
+    <h5 data-toggle="collapse" data-target="#buildings">施設・建物</h5>
+    <div class="collapse" id="buildings" aria-expanded="false" aria-controls="buildings"
+        *ngFor="let buildings of searchConditons.buildings; index as i">
+        <div class="form-check">
+            <input type="checkbox" name="{{buildings.key}}" id="{{buildings.key}}"
+                [(ngModel)]="searchConditons.buildings[i].selected" class="form-check-input" (change)="search()">
+            <label for="{{buildings.key}}" class="form-check-label">{{buildings.name}}</label>
+        </div>
+    </div>
     <hr>
-    <h5 data-toggle="collapse">アウトドア</h5>
+    <h5 data-toggle="collapse" data-target="#landmarkActivity">ランドマーク・アクティビティ</h5>
+    <div class="collapse" id="landmarkActivity" aria-expanded="false" aria-controls="landmarkActivity"
+        *ngFor="let landmarkActivity of searchConditons.landmarkActivity; index as i">
+        <div class="form-check">
+            <input type="checkbox" name="{{landmarkActivity.key}}" id="{{landmarkActivity.key}}"
+                [(ngModel)]="searchConditons.landmarkActivity[i].selected" class="form-check-input" (change)="search()">
+            <label for="{{landmarkActivity.key}}" class="form-check-label">{{landmarkActivity.name}}</label>
+        </div>
+    </div>
 </div>
