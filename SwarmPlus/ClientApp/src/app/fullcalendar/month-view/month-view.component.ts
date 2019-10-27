@@ -1,5 +1,5 @@
 import { SelectedCategory } from './../../model/selectedCategory.type';
-import { Component, OnInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { UtilService } from '../../service/util.service';
 import { AfterBeforeTimestamp } from '../../model/AfterBeforeTimestamp.type';
@@ -19,7 +19,7 @@ import * as moment from 'moment';
   templateUrl: './month-view.component.html',
   styleUrls: ['./month-view.component.scss']
 })
-export class MonthViewComponent implements OnInit {
+export class MonthViewComponent implements OnInit, AfterViewInit {
   /** 表示対象の年月日 */
   selectedDate: Date;
   /** Momentのインスタンス */
@@ -42,7 +42,7 @@ export class MonthViewComponent implements OnInit {
   @ViewChild('calendar', { static: false }) calenderComponent: FullCalendarComponent;
   calendarApi: Calendar;
   /** サイドバーコンポーネントから受け取った絞り込み条件を保持 */
-  searchCondition: SelectedCategory[]
+  searchCondition: SelectedCategory[];
   constructor(
     private httpService: HttpService,
     private utilService: UtilService,
@@ -89,34 +89,34 @@ export class MonthViewComponent implements OnInit {
   /** 日付操作 */
   onLastYear() {
     this.isDetailOpen = false;
-    let currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
+    const currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
     currentDisplayDate.subtract(1, 'year');
     this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onLastYearMonth() {
     this.isDetailOpen = false;
-    let currentDisplayDate: moment.Moment = moment();
+    const currentDisplayDate: moment.Moment = moment();
     currentDisplayDate.subtract(1, 'year');
     this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onThisMonth() {
     this.isDetailOpen = false;
-    let currentDisplayDate: moment.Moment = moment();
+    const currentDisplayDate: moment.Moment = moment();
     this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onPrevMonth() {
     this.isDetailOpen = false;
-    let currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
+    const currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
     currentDisplayDate.subtract(1, 'months');
     this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onNextMonth() {
     this.isDetailOpen = false;
     if (this.momentApi < moment(Number(this.utilService.getFirstDateAndLastDateOfThisMonth(new Date()).afterTimestamp) * 1000)) {
-      let currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
+      const currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
       currentDisplayDate.add(1, 'months');
       this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
-    };
+    }
   }
 
   /**

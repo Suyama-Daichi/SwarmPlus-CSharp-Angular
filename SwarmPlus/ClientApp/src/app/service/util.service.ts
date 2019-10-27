@@ -16,13 +16,13 @@ export class UtilService {
    * Todo: もう少しスマートに書き直したい
    */
   getFirstDateAndLastDateOfThisMonth(targetDate: Date): AfterBeforeTimestamp {
-    let afterBeforeTimestamp = new AfterBeforeTimestamp();
+    const afterBeforeTimestamp = new AfterBeforeTimestamp();
     // 月末を取得
     targetDate.setMonth(targetDate.getMonth() + 1);
     targetDate.setHours(23, 59, 59);
     afterBeforeTimestamp.beforeTimestamp = targetDate.setDate(0).toString().substring(0, 10);
     // 月初を取得
-    targetDate.setDate(1)
+    targetDate.setDate(1);
     // 月初においては、実行された時刻以前のデータが取れないため時刻を0時にしておく
     afterBeforeTimestamp.afterTimestamp = targetDate.setHours(0, 0, 0).toString().substring(0, 10);
     return afterBeforeTimestamp;
@@ -33,7 +33,7 @@ export class UtilService {
    * @param date 日時
    */
   getTimestamp(date: Date): AfterBeforeTimestamp {
-    let afterBeforeTimestamp = new AfterBeforeTimestamp();
+    const afterBeforeTimestamp = new AfterBeforeTimestamp();
     date.setHours(0, 0, 0);
     afterBeforeTimestamp.afterTimestamp = (date.getTime()).toString().substring(0, 10);
     afterBeforeTimestamp.beforeTimestamp = date.setDate(date.getDate() + 1).toString().substring(0, 10);
@@ -46,7 +46,7 @@ export class UtilService {
    */
   getDateStringFromTimestamp(timestamp: number = new Date().getTime()) {
     const parsedDate: Date = new Date(timestamp * 1000);
-    const dateString = parsedDate.getFullYear() + '-' + ("0" + (parsedDate.getMonth() + 1)).slice(-2) + '-' + ("0" + parsedDate.getDate()).slice(-2);
+    const dateString = parsedDate.getFullYear() + '-' + ('0' + (parsedDate.getMonth() + 1)).slice(-2) + '-' + ('0' + parsedDate.getDate()).slice(-2);
     return dateString;
   }
 
@@ -70,8 +70,8 @@ export class UtilService {
    * @param searchCondition 検索条件
    */
   filterCheckin(checkinItems: Item4[], searchCondition: SelectedCategory[]): CalendarEvent[] {
-    let statusList = !searchCondition === true ? [] : searchCondition.filter(f => !f.isCategory).map(m => m.key);
-    let categoryList = !searchCondition === true ? [] : searchCondition.filter(f => f.isCategory).map(m => m.key);
+    const statusList = !searchCondition === true ? [] : searchCondition.filter(f => !f.isCategory).map(m => m.key);
+    const categoryList = !searchCondition === true ? [] : searchCondition.filter(f => f.isCategory).map(m => m.key);
 
     return checkinItems.filter((f, i) =>
       f.venue != null
@@ -96,7 +96,7 @@ export class UtilService {
         date: new Date(checkinData.createdAt * 1000),
         checkinData: checkinData
       }
-    )
+    );
   }
 
   /**
@@ -104,6 +104,6 @@ export class UtilService {
    */
   nomalizeCurrentUrl(): string {
     const currentUrl = this.router.url;
-    return currentUrl.indexOf("#") !== -1 ? currentUrl.slice(0, currentUrl.indexOf("#")) + '#top' : currentUrl + '#top';
+    return currentUrl.indexOf('#') !== -1 ? currentUrl.slice(0, currentUrl.indexOf('#')) + '#top' : currentUrl + '#top';
   }
 }
