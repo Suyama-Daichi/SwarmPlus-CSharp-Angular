@@ -14,14 +14,9 @@ namespace SwarmPlus.Controllers
     [ApiController]
     public class FoursquareAPIController : ControllerBase
     {
-        /// <summary>
-        /// 環境変数
-        /// </summary>
-        private readonly Foursquare _foursquare = null;
         private readonly FoursquareAPIService _foursquareAPIService;
-        public FoursquareAPIController(IOptions<Foursquare> setting, FoursquareAPIService foursquareAPIService)
+        public FoursquareAPIController(FoursquareAPIService foursquareAPIService)
         {
-            this._foursquare = setting.Value;
             _foursquareAPIService = foursquareAPIService;
         }
 

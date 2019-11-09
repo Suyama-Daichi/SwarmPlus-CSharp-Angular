@@ -33,7 +33,7 @@ namespace SwarmPlus
         {
             services.AddMvc();
             // appSetting.jsonÇÃì«Ç›çûÇ›
-            services.Configure<Foursquare>(this.Configuration.GetSection("Foursquare"));
+            services.Configure<Foursquare>(Configuration.GetSection("Foursquare"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // HttpClientí«â¡(https://docs.microsoft.com/ja-jp/aspnet/core/fundamentals/http-requests?view=aspnetcore-2.2#basic-usage)

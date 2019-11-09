@@ -35,7 +35,7 @@ namespace SwarmPlus.Service
 
             _db = db;
 
-            this._foursquare = setting.Value;
+            _foursquare = setting.Value;
         }
 
         /// <summary>
