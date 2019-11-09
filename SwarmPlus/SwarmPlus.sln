@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwarmPlus", "SwarmPlus.csproj", "{C3B1B32D-F364-4259-89BA-7FADAB3F5D44}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SwarmPlusDev", "..\SwarmPlusDev\SwarmPlusDev.sqlproj", "{49DAAB50-A037-4405-92D7-41EE1E8C7D87}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SwarmPlusDBDev", "..\SwarmPlusDev\SwarmPlusDBDev.sqlproj", "{49DAAB50-A037-4405-92D7-41EE1E8C7D87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
