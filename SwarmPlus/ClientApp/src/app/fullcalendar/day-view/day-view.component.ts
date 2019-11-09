@@ -62,6 +62,7 @@ export class DayViewComponent implements OnInit {
         (response: UsersCheckins) => {
           this.checkinHistory = response;
           this.calendarEvents = this.utilService.generateEvents(this.checkinHistory.response.checkins.items.filter(x => x.venue != null));
+          this.calendarApi.gotoDate(this.selectedDate);
           this.blockUI.stop();
         }
       );
