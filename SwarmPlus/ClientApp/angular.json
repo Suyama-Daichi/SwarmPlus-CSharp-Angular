@@ -23,7 +23,9 @@
             "styles": [
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "./node_modules/flatpickr/dist/flatpickr.min.css",
+              "./node_modules/flatpickr/dist/themes/material_blue.css"
             ],
             "scripts": [
               "node_modules/@fortawesome/fontawesome-free/js/all.min.js"
@@ -96,7 +98,9 @@
             "styles": [
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "./node_modules/flatpickr/dist/flatpickr.min.css",
+              "./node_modules/flatpickr/dist/themes/material_orange.css"
             ],
             "assets": [
               "src/assets"
