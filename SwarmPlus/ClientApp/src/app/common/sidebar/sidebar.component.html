@@ -1,0 +1,63 @@
+<h4 data-toggle="collapse" data-target="#checkinStatus">ステータス</h4>
+<div class="collapse {{showAttrebute}}" id="checkinStatus" aria-expanded="false" aria-controls="checkinStatus"
+    *ngFor="let checkinStatus of searchConditons.checkinStatusList; index as i">
+    <div class="form-check">
+        <input type="checkbox" name="{{checkinStatus.key}}" id="{{checkinStatus.key}}"
+            [(ngModel)]="searchConditons.checkinStatusList[i].selected" class="form-check-input" (change)="search()">
+        <label for="{{checkinStatus.key}}" class="form-check-label">{{checkinStatus.name}}</label>
+    </div>
+</div>
+<hr>
+
+<h4 role="button" data-toggle="collapse" aria-expanded="false" data-target="#categories">カテゴリー</h4>
+<div class="collapse {{showAttrebute}}" id="categories" aria-controls="trafic">
+    <h5 data-toggle="collapse" data-target="#trafic">交通</h5>
+    <div class="collapse" id="trafic" aria-expanded="false" aria-controls="trafic"
+        *ngFor="let trafic of searchConditons.traficList; index as i">
+        <div class="form-check">
+            <input type="checkbox" name="{{trafic.key}}" id="{{trafic.key}}"
+                [(ngModel)]="searchConditons.traficList[i].selected" class="form-check-input" (change)="search()">
+            <label for="{{trafic.key}}" class="form-check-label">{{trafic.name}}</label>
+        </div>
+    </div>
+    <hr>
+    <h5 data-toggle="collapse" data-target="#restaurant">飲食店</h5>
+    <div class="collapse" id="restaurant" aria-expanded="false" aria-controls="restaurant"
+        *ngFor="let restaurant of searchConditons.restaurantList; index as i">
+        <div class="form-check">
+            <input type="checkbox" name="{{restaurant.key}}" id="{{restaurant.key}}"
+                [(ngModel)]="searchConditons.restaurantList[i].selected" class="form-check-input" (change)="search()">
+            <label for="{{restaurant.key}}" class="form-check-label">{{restaurant.name}}</label>
+        </div>
+    </div>
+    <hr>
+    <h5 data-toggle="collapse" data-target="#shop">ショッピング</h5>
+    <div class="collapse" id="shop" aria-expanded="false" aria-controls="shop"
+        *ngFor="let shop of searchConditons.shopList; index as i">
+        <div class="form-check">
+            <input type="checkbox" name="{{shop.key}}" id="{{shop.key}}"
+                [(ngModel)]="searchConditons.shopList[i].selected" class="form-check-input" (change)="search()">
+            <label for="{{shop.key}}" class="form-check-label">{{shop.name}}</label>
+        </div>
+    </div>
+    <hr>
+    <h5 data-toggle="collapse" data-target="#buildings">施設・建物</h5>
+    <div class="collapse" id="buildings" aria-expanded="false" aria-controls="buildings"
+        *ngFor="let buildings of searchConditons.buildings; index as i">
+        <div class="form-check">
+            <input type="checkbox" name="{{buildings.key}}" id="{{buildings.key}}"
+                [(ngModel)]="searchConditons.buildings[i].selected" class="form-check-input" (change)="search()">
+            <label for="{{buildings.key}}" class="form-check-label">{{buildings.name}}</label>
+        </div>
+    </div>
+    <hr>
+    <h5 data-toggle="collapse" data-target="#landmarkActivity">ランドマーク・アクティビティ</h5>
+    <div class="collapse" id="landmarkActivity" aria-expanded="false" aria-controls="landmarkActivity"
+        *ngFor="let landmarkActivity of searchConditons.landmarkActivity; index as i">
+        <div class="form-check">
+            <input type="checkbox" name="{{landmarkActivity.key}}" id="{{landmarkActivity.key}}"
+                [(ngModel)]="searchConditons.landmarkActivity[i].selected" class="form-check-input" (change)="search()">
+            <label for="{{landmarkActivity.key}}" class="form-check-label">{{landmarkActivity.name}}</label>
+        </div>
+    </div>
+</div>

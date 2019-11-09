@@ -1,0 +1,30 @@
+<div #checkinDetail>
+    <div class="card" >
+        <!-- 写真付きチェックインではその写真、写真なしでは公開されている写真を表示する -->
+        <span
+            *ngFor="let photo of (checkinData)?.photos.count !== 0 ? (checkinData)?.photos.items : (venuePhotosUrl)?.items; index as i">
+            <img class="card-img-top" src="{{photo.prefix}}original{{photo.suffix}}" alt="Upload Photo {{i}}" (load)="onloadImage()">
+        </span>
+        <img *ngIf="(checkinData)?.photos.count === 0 && (venuePhotosUrl)?.count === 0" width="500px"
+            height="500px" class="card-img-top" [src]="defaultImagePath" alt="Photo is not found" (load)="onloadImage()">
+        <div class="card-body">
+            <!-- チェックインしたべニュー -->
+            <h4 class="card-title">
+                <i class="fas fa-map-marker-alt icon"></i>{{(checkinData)?.venue.name}}<span
+                    *ngFor="let categoryIcon of (checkinData)?.venue.categories"><img
+                        src="{{categoryIcon.icon.prefix}}bg_32{{categoryIcon.icon.suffix}}" class="icon"></span>
+            </h4>
+            <!-- 獲得コイン -->
+            <p *ngIf="(checkinData)?.score"><i class="fas fa-coins coin-icon"></i>{{(checkinData)?.score.total}}枚獲得</p>
+            <!-- チェックインした時間 -->
+            <p><i class="far fa-clock clock-icon"></i><span class="font-gray">{{(checkinData)?.createdAt |dateJP: true}}</span></p>
+            <!-- 一緒にいたユーザ -->
+            <p *ngIf="(checkinData)?.with"><i class="fas fa-user-friends people-icon"></i>{{(checkinData)?.with | stringJoin}}</p>
+            <!-- お気に入りしたユーザー -->
+            <p *ngIf="(checkinData)?.likes.count > 0"><i class="fas fa-heart heart-icon"></i><a target="_blank" href="{{checkinData.checkinShortUrl}}" *ngFor="let like of (checkinData)?.likes.groups">{{like | stringJoin}}</a></p>
+            <!-- シャウト -->
+            <p *ngIf="(checkinData)?.shout"><i class="fas fa-comment comment-icon"></i>{{(checkinData)?.shout}}</p>
+        </div>
+    <div id="page_top"><a [href]="toTopUrl"></a></div>        
+    </div>
+</div>
