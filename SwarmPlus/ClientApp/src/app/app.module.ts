@@ -21,8 +21,7 @@ import { DateMinusPipe } from './pipe/date.pipe';
 import { DateJPPipe } from './pipe/date-jp.pipe';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { StringJoinPipe } from './pipe/string-join.pipe';
-import { FlatpickrModule } from 'angularx-flatpickr';
-import Japanese from 'flatpickr/dist/l10n/ja.js';
+import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 
 @NgModule({
   declarations: [
@@ -49,9 +48,7 @@ import Japanese from 'flatpickr/dist/l10n/ja.js';
     AngularFirestoreModule,
     FullCalendarModule,
     BlockUIModule.forRoot(),
-    FlatpickrModule.forRoot({
-      locale: 'Japanese',
-    })
+    Ng2FlatpickrModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],
