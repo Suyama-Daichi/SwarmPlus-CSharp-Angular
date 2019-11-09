@@ -1,7 +1,10 @@
 import { SearchConditions } from './../../../assets/SearchConditions';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import Japanese from 'flatpickr/dist/l10n/ja.js';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,20 +14,33 @@ import Japanese from 'flatpickr/dist/l10n/ja.js';
 export class SidebarComponent implements OnInit {
   @Output() event = new EventEmitter();
   searchConditons = new SearchConditions();
-  
+  /** Momentのインスタンス */
+  momentApi: moment.Moment;
   // datepickerの設定
   options: FlatpickrOptions = {
     locale: Japanese.ja,
     maxDate: new Date(),
+    defaultDate: new Date(),
+    dateFormat: 'Y/m/d(D)'
   }
 
-  constructor() { }
+  date: Date[] = [new Date()];
 
-  ngOnInit() {}
+  constructor(private router: Router) { }
+
+  ngOnInit() { }
 
   /** 画面幅が1024px以上ならアコーディオン展開 */
-  get showAttrebute (): string{
+  get showAttrebute(): string {
     return window.innerWidth > 992 ? 'show' : ''
+  }
+
+  /**
+   * 指定された日付の詳細に移動
+   */
+  pageToDate() {
+    this.momentApi = moment(this.date[0]);
+    this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`)
   }
 
   search() {
@@ -35,6 +51,6 @@ export class SidebarComponent implements OnInit {
         .concat(this.searchConditons.landmarkActivity.filter(x => x.selected))
         .concat(this.searchConditons.buildings.filter(x => x.selected))
         .concat(this.searchConditons.shopList.filter(x => x.selected))
-      );
+    );
   }
 }

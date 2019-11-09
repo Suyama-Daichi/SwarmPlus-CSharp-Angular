@@ -23,7 +23,7 @@ export class CheckinDetailComponent implements OnInit, OnChanges {
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('checkinDetail', { static: true }) checkinDetailArea: ElementRef;
 
-  constructor(private httpService: HttpService, private router: Router, private utilService: UtilService) { }
+  constructor(private httpService: HttpService, private utilService: UtilService) { }
 
   /** 値の変更を検知
    *  https://angular.jp/guide/lifecycle-hooks#onchanges
