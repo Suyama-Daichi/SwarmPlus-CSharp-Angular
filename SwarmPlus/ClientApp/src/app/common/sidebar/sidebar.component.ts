@@ -16,7 +16,6 @@ export class SidebarComponent implements OnInit {
   options: FlatpickrOptions = {
     locale: Japanese.ja,
     maxDate: new Date(),
-    altFormat: 'YYYY/MM/DD'
   }
 
   constructor() { }
