@@ -45,23 +45,21 @@ namespace SwarmPlus.Service
         /// <param name="afterTimestamp">取得する期間(始まり)</param>
         /// <param name="beforeTimestamp">取得する期間(終わり)</param>
         /// <returns></returns>
-        public async Task<ResponseFromFoursquare> GetUsersCheckinsAsync(string uuid, int afterTimestamp, int beforeTimestamp)
+        public async Task<ResponseFromFoursquare> GetUsersCheckinsAsync(string accessToken, int afterTimestamp, int beforeTimestamp)
         {
-            string encryptAccessToken = _db.User.FirstOrDefault(f => f.UserID == uuid).AccessToken;
-            string decryptAccessToken = Security.DecryptString(encryptAccessToken, uuid);
             var response = await Client.GetAsync(
-                $"users/self/checkins?oauth_token={decryptAccessToken}&v=20180815&limit=250&afterTimestamp={afterTimestamp}&beforeTimestamp={beforeTimestamp}");
+                $"users/self/checkins?oauth_token={accessToken}&v=20180815&limit=250&afterTimestamp={afterTimestamp}&beforeTimestamp={beforeTimestamp}");
             var result = await response.Content.ReadAsStringAsync();
             var deserialisedResult = JsonConvert.DeserializeObject<ResponseFromFoursquare>(result);
 
             // 1リクエスト250チェックイン制限の対応
             if (deserialisedResult.response.checkins.items.Length == 250)
             {
-                CheckinInfo[] additionalCheckins = await getCheckinForOver250PerMonth(decryptAccessToken, afterTimestamp, deserialisedResult.response.checkins.items.Last().createdAt);
+                CheckinInfo[] additionalCheckins = await getCheckinForOver250PerMonth(accessToken, afterTimestamp, deserialisedResult.response.checkins.items.Last().createdAt);
                 deserialisedResult.response.checkins.items = deserialisedResult.response.checkins.items.Concat(additionalCheckins).ToArray();
                 while (additionalCheckins.Length == 250)
                 {
-                    additionalCheckins = await getCheckinForOver250PerMonth(decryptAccessToken, afterTimestamp, deserialisedResult.response.checkins.items.Last().createdAt);
+                    additionalCheckins = await getCheckinForOver250PerMonth(accessToken, afterTimestamp, deserialisedResult.response.checkins.items.Last().createdAt);
                     deserialisedResult.response.checkins.items = deserialisedResult.response.checkins.items.Concat(additionalCheckins).ToArray();
                 }
             }

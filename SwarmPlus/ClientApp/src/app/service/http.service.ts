@@ -25,12 +25,21 @@ export class HttpService {
     return localStorage.getItem('uuid');
   }
 
+  getAccessToken(): string{
+    return localStorage.getItem('token');
+  }
+
   /**
-   * アクセストークンを保存
+   * アクセストークンを取得
    * @param authInfo 認証コードとUUID
    */
-  saveaccesstoken(authInfo: AuthInfo) {
-    return this.httpClient.post(environment.backEndApi + '/login/saveaccesstoken', authInfo, this.httpOptions);
+  async GetAccessTokenPromise(code: string): Promise<AccessToken> {
+    // return this.httpClient.post(environment.backEndApi + '/login/saveaccesstoken', authInfo, this.httpOptions);
+    return this.httpClient.get<AccessToken>(`https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/authenticate-test/authenticate?code=${code}`).toPromise();
+  }
+
+  GetAccessTokenObservable(code: string): Observable<AccessToken> {
+    return this.httpClient.get<AccessToken>(`https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/authenticate-test/authenticate?code=${code}`);
   }
 
   /**
@@ -38,7 +47,8 @@ export class HttpService {
    * @param uuid ユーザーID(UUID)
    */
   hasaccesstoken(uuid: string): Observable<boolean> {
-    return this.httpClient.get<any>(environment.backEndApi + '/login/hasaccesstoken', { params: { uuid: uuid } })
+    return new Observable();
+    // return this.httpClient.get<any>(environment.backEndApi + '/login/hasaccesstoken', { params: { uuid: uuid } })
   }
 
   /**
@@ -47,16 +57,16 @@ export class HttpService {
    * @param beforeTimestamp 取得する期間(終わり)
    */
   getUserCheckins(afterTimestamp: string, beforeTimestamp: string): Observable<UsersCheckins> {
-    let params = new HttpParams().set('uuid', this.getUuid()).set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);
+    const params = new HttpParams().set('uuid', this.getAccessToken()).set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);
     return this.httpClient.get<UsersCheckins>(environment.backEndApi + '/foursquareapi/getCheckinsPerMonth', { params: params });
   }
-  
+
   /**
    * チェックインの詳細を取得
    * @param checkinId 詳細を取得したいチェックインのID
    */
   getCheckinDetail(checkinId: string): Observable<Item4>{
-    let params = new HttpParams().set('uuid', this.getUuid()).set('checkinId', checkinId);
+    const params = new HttpParams().set('uuid', this.getUuid()).set('checkinId', checkinId);
     return this.httpClient.get<Item4>(environment.backEndApi + '/foursquareapi/getcheckindetail', {params: params});
   }
 
@@ -65,7 +75,7 @@ export class HttpService {
    * @param venueId べニューID
    */
   getVenuePhotos(venueId: string): Observable<Photos>{
-    let params = new HttpParams().set('venueId', venueId);
+    const params = new HttpParams().set('venueId', venueId);
     return this.httpClient.get<Photos>(environment.backEndApi + '/foursquareapi/getVenuePhotos', {params: params });
   }
 

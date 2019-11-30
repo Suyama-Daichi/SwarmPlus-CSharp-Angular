@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { HttpService } from '../../service/http.service';
-import { AuthInfo } from '../../model/auth.type';
 import { AuthService } from '../../service/auth.service';
 
 @Component({
@@ -23,21 +22,15 @@ export class LoginComponent implements OnInit {
   getCode() {
     this.route.queryParamMap
       .subscribe((params: ParamMap) => {
-        const queryParam = this.route.snapshot.queryParamMap.get('code');
-        this.saveAccessToken(queryParam);
+        this.GetAccessTokenObservable(this.route.snapshot.queryParamMap.get('code'));
       });
   }
 
-  /**
-   * アクセストークンを保存
-   * @param queryParam 認可コード
-   */
-  saveAccessToken(queryParam: string) {
-    const authInfo: AuthInfo = { Code: queryParam, Uuid: localStorage.getItem('uuid') };
-    this.httpService.saveaccesstoken(authInfo).subscribe(
-      response => {
-        this.router.navigateByUrl('/top')
-      }
-    );
+  GetAccessTokenObservable(code: string) {
+    this.httpService.GetAccessTokenObservable(code).subscribe(
+      (response: AccessToken) => {
+        localStorage.setItem('token', response.access_token);
+        this.router.navigateByUrl('/top');
+      });
   }
 }

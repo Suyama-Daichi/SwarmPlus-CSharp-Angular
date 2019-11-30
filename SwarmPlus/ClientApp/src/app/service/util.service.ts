@@ -1,3 +1,4 @@
+import { HttpService } from './http.service';
 import { SelectedCategory } from './../model/selectedCategory.type';
 import { Injectable } from '@angular/core';
 import { AfterBeforeTimestamp } from '../model/AfterBeforeTimestamp.type';
@@ -8,7 +9,15 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class UtilService {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private httpService: HttpService) { }
+
+    /**
+   * アクセストークンを取得
+   * @param queryParam 認可コード
+   */
+  async GetAccesstokenPromise(queryParam: string): Promise<AccessToken> {
+    return await this.httpService.GetAccessTokenPromise(queryParam);
+  }
 
   /**
    * 月初と月末を取得
