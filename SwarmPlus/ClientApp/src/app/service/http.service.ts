@@ -57,7 +57,7 @@ export class HttpService {
    * @param beforeTimestamp 取得する期間(終わり)
    */
   getUserCheckins(afterTimestamp: string, beforeTimestamp: string): Observable<UsersCheckins> {
-    const params = new HttpParams().set('uuid', this.getAccessToken()).set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);
+    const params = new HttpParams().set('accessToken', this.getAccessToken()).set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);
     return this.httpClient.get<UsersCheckins>(environment.backEndApi + '/foursquareapi/getCheckinsPerMonth', { params: params });
   }
 
@@ -66,7 +66,7 @@ export class HttpService {
    * @param checkinId 詳細を取得したいチェックインのID
    */
   getCheckinDetail(checkinId: string): Observable<Item4> {
-    const params = new HttpParams().set('uuid', this.getUuid()).set('checkinId', checkinId);
+    const params = new HttpParams().set('accessToken', this.getAccessToken()).set('checkinId', checkinId);
     return this.httpClient.get<Item4>(environment.backEndApi + '/foursquareapi/getcheckindetail', { params: params });
   }
 

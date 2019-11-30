@@ -29,9 +29,9 @@ namespace SwarmPlus.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("getCheckinsPerMonth")]
-        public async Task<ActionResult> getCheckinsPerMonth(string uuid, int afterTimestamp, int beforeTimestamp)
+        public async Task<ActionResult> getCheckinsPerMonth(string accessToken, int afterTimestamp, int beforeTimestamp)
         {
-            return Ok(await _foursquareAPIService.GetUsersCheckinsAsync(uuid, afterTimestamp, beforeTimestamp));
+            return Ok(await _foursquareAPIService.GetUsersCheckinsAsync(accessToken, afterTimestamp, beforeTimestamp));
         }
 
         /// <summary>
@@ -54,9 +54,9 @@ namespace SwarmPlus.Controllers
         /// <returns>チェックイン詳細データ</returns>
         [HttpGet]
         [Route("getCheckinDetail")]
-        public async Task<ActionResult> getCheckinDetail(string uuid, string checkinId)
+        public async Task<ActionResult> getCheckinDetail(string accessToken, string checkinId)
         {
-            return Ok(await _foursquareAPIService.getCheckinDetail(uuid, checkinId));
+            return Ok(await _foursquareAPIService.getCheckinDetail(accessToken, checkinId));
         }
     }
 }

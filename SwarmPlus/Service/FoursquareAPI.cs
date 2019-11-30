@@ -41,7 +41,7 @@ namespace SwarmPlus.Service
         /// <summary>
         /// ユーザーのチェックインを取得する
         /// </summary>
-        /// <param name="uuid">UUID</param>
+        /// <param name="accessToken">アクセストークン</param>
         /// <param name="afterTimestamp">取得する期間(始まり)</param>
         /// <param name="beforeTimestamp">取得する期間(終わり)</param>
         /// <returns></returns>
@@ -81,14 +81,15 @@ namespace SwarmPlus.Service
         /// <summary>
         /// 250チェックイン/月する場合の処理
         /// </summary>
-        /// <param name="decryptAccessToken">アクセストークン</param>
+        /// <param name="accessToken">アクセストークン</param>
         /// <param name="afterTimestamp">取得する期間(始まり)</param>
+        /// <param name="beforeTimestamp">取得する期間(終わり)</param>
         /// <param name="deserialisedResult">途中までのチェックイン情報</param>
         /// <returns>結合されたチェックイン情報</returns>
-        private async Task<CheckinInfo[]> getCheckinForOver250PerMonth(string decryptAccessToken, int afterTimestamp, int beforeTimestamp)
+        private async Task<CheckinInfo[]> getCheckinForOver250PerMonth(string accessToken, int afterTimestamp, int beforeTimestamp)
         {
             HttpResponseMessage moreResponse = await Client.GetAsync(
-            $"users/self/checkins?oauth_token={decryptAccessToken}&v=20180815&limit=250&afterTimestamp={afterTimestamp}&beforeTimestamp={beforeTimestamp}");
+            $"users/self/checkins?oauth_token={accessToken}&v=20180815&limit=250&afterTimestamp={afterTimestamp}&beforeTimestamp={beforeTimestamp}");
             string moreResult = await moreResponse.Content.ReadAsStringAsync();
             ResponseFromFoursquare moreDeserialisedResult = JsonConvert.DeserializeObject<ResponseFromFoursquare>(moreResult);
             return moreDeserialisedResult.response.checkins.items;
@@ -118,12 +119,10 @@ namespace SwarmPlus.Service
         /// </summary>
         /// <param name="checkinId">チェックインID</param>
         /// <returns>チェックインデータ</returns>
-        public async Task<CheckinInfo> getCheckinDetail(string uuid, string checkinId)
+        public async Task<CheckinInfo> getCheckinDetail(string accessToken, string checkinId)
         {
-            string encryptAccessToken = _db.User.FirstOrDefault(f => f.UserID == uuid).AccessToken;
-            string decryptAccessToken = Security.DecryptString(encryptAccessToken, uuid);
             var response = await Client.GetAsync(
-                $"https://api.foursquare.com/v2/checkins/{checkinId}?oauth_token={decryptAccessToken}&v=20180815");
+                $"https://api.foursquare.com/v2/checkins/{checkinId}?oauth_token={accessToken}&v=20180815");
             var result = await response.Content.ReadAsStringAsync();
             var deserialisedResult = JsonConvert.DeserializeObject<ResponseFromFoursquare>(result);
             return new CheckinInfo
