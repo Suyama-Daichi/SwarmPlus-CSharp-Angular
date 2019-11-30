@@ -7,5 +7,5 @@ export class CalendarEvent {
     /** イベントの日付 */
     public date: Date;
     /** チェックインデータ */
-    public checkinData: Item4
+    public checkinData: Item4;
 }

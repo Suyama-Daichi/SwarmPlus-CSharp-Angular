@@ -21,11 +21,11 @@ export class HttpService {
   /**
    * ローカルストレージからUUIDを取得
    */
-  getUuid(): string{
+  getUuid(): string {
     return localStorage.getItem('uuid');
   }
 
-  getAccessToken(): string{
+  getAccessToken(): string {
     return localStorage.getItem('token');
   }
 
@@ -65,18 +65,18 @@ export class HttpService {
    * チェックインの詳細を取得
    * @param checkinId 詳細を取得したいチェックインのID
    */
-  getCheckinDetail(checkinId: string): Observable<Item4>{
+  getCheckinDetail(checkinId: string): Observable<Item4> {
     const params = new HttpParams().set('uuid', this.getUuid()).set('checkinId', checkinId);
-    return this.httpClient.get<Item4>(environment.backEndApi + '/foursquareapi/getcheckindetail', {params: params});
+    return this.httpClient.get<Item4>(environment.backEndApi + '/foursquareapi/getcheckindetail', { params: params });
   }
 
   /**
    * べニューの写真を返す
    * @param venueId べニューID
    */
-  getVenuePhotos(venueId: string): Observable<Photos>{
+  getVenuePhotos(venueId: string): Observable<Photos> {
     const params = new HttpParams().set('venueId', venueId);
-    return this.httpClient.get<Photos>(environment.backEndApi + '/foursquareapi/getVenuePhotos', {params: params });
+    return this.httpClient.get<Photos>(environment.backEndApi + '/foursquareapi/getVenuePhotos', { params: params });
   }
 
 }
