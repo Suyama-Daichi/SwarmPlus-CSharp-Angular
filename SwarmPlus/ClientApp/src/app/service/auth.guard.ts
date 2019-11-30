@@ -14,18 +14,19 @@ export class AuthGuard implements CanActivate {
   /**
    * 参考：https://www.freakyjolly.com/angular-7-6-use-auth-guards-canactivate-and-resolve-in-angular-routing-quick-example/
    */
-  canActivate(): Observable<boolean> {
-    return this.authService.isAuthedFoursquare(localStorage.getItem('uuid')).pipe(
-      map(response => {
-        if(response){
-          return true;
-        }
-      }),
-      catchError((err) => {
-        this.router.navigate(['']);
-        return of(false);
-      })
-    );
+  canActivate() {
+    return true;
+  //   return this.authService.isAuthedFoursquare(localStorage.getItem('uuid')).pipe(
+  //     map(response => {
+  //       if(response){
+  //         return true;
+  //       }
+  //     }),
+  //     catchError((err) => {
+  //       this.router.navigate(['']);
+  //       return of(false);
+  //     })
+  //   );
+  // }
   }
-
 }
