@@ -30,6 +30,14 @@ export class HttpService {
   }
 
   /**
+   * アクセストークンを検証する
+   * @param targetAccessToken 検証対象のアクセストークン
+   */
+  VerifyAccessToken(targetAccessToken: string): Observable<any> {
+    return this.httpClient.get<any>(`https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/request-to-foursquare-test/foursquareapi?oauth_token=${targetAccessToken}`);
+  }
+
+  /**
    * アクセストークンを取得
    * @param authInfo 認証コードとUUID
    */
