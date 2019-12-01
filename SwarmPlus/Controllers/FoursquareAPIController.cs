@@ -23,7 +23,7 @@ namespace SwarmPlus.Controllers
         /// <summary>
         /// ユーザーのチェックイン履歴を返す
         /// </summary>
-        /// <param name="uuid">UUID</param>
+        /// <param name="accessToken">アクセストークン</param>
         /// <param name="afterTimestamp">取得する期間(終わり)</param>
         /// <param name="beforeTimestamp">取得する期間(始まり)</param>
         /// <returns></returns>
@@ -49,7 +49,7 @@ namespace SwarmPlus.Controllers
         /// <summary>
         /// チェックインの詳細を取得
         /// </summary>
-        /// <param name="uuid">uuid</param>
+        /// <param name="accessToken">アクセストークン</param>
         /// <param name="checkinId">チェックインID</param>
         /// <returns>チェックイン詳細データ</returns>
         [HttpGet]

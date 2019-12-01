@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { HttpService } from '../../service/http.service';
-import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +8,9 @@ import { AuthService } from '../../service/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router, private httpService: HttpService, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private httpService: HttpService) { }
 
   ngOnInit() {
-    localStorage.setItem('uuid', this.authService.getUuid().replace(/-/g, ''));
     this.getCode();
   }
 
