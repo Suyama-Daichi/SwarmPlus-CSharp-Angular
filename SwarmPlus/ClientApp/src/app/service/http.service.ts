@@ -18,13 +18,6 @@ export class HttpService {
     })
   };
 
-  /**
-   * ローカルストレージからUUIDを取得
-   */
-  getUuid(): string {
-    return localStorage.getItem('uuid');
-  }
-
   getAccessToken(): string {
     return localStorage.getItem('token');
   }
@@ -37,26 +30,8 @@ export class HttpService {
     return this.httpClient.get<any>(`https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/request-to-foursquare-test/foursquareapi?oauth_token=${targetAccessToken}`);
   }
 
-  /**
-   * アクセストークンを取得
-   * @param authInfo 認証コードとUUID
-   */
-  async GetAccessTokenPromise(code: string): Promise<AccessToken> {
-    // return this.httpClient.post(environment.backEndApi + '/login/saveaccesstoken', authInfo, this.httpOptions);
-    return this.httpClient.get<AccessToken>(`https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/authenticate-test/authenticate?code=${code}`).toPromise();
-  }
-
   GetAccessTokenObservable(code: string): Observable<AccessToken> {
     return this.httpClient.get<AccessToken>(`https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/authenticate-test/authenticate?code=${code}`);
-  }
-
-  /**
-   * アクセストークンを取得しているか確認
-   * @param uuid ユーザーID(UUID)
-   */
-  hasaccesstoken(uuid: string): Observable<boolean> {
-    return new Observable();
-    // return this.httpClient.get<any>(environment.backEndApi + '/login/hasaccesstoken', { params: { uuid: uuid } })
   }
 
   /**

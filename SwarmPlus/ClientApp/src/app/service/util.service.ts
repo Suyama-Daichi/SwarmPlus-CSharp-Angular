@@ -11,14 +11,6 @@ import { Router } from '@angular/router';
 export class UtilService {
   constructor(private router: Router, private httpService: HttpService) { }
 
-    /**
-   * アクセストークンを取得
-   * @param queryParam 認可コード
-   */
-  async GetAccesstokenPromise(queryParam: string): Promise<AccessToken> {
-    return await this.httpService.GetAccessTokenPromise(queryParam);
-  }
-
   /**
    * 月初と月末を取得
    * 参考： https://qiita.com/su_mi/items/2f086817a4dd0b05f304
