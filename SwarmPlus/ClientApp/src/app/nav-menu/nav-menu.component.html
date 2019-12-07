@@ -35,8 +35,8 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-                <a class="nav-link" [routerLink]='["/"]'><span class='fas fa-calendar'></span> ログイン画面へ</a>
+            <li class="nav-item active" (click)="logOut()">
+                <a class="nav-link"><span class='fas fa-calendar'></span> ログイン画面へ</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" [routerLink]='["/top"]'><span class='fas fa-calendar'></span> カレンダー</a>
