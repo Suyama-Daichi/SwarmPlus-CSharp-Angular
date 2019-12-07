@@ -1,28 +1,16 @@
-<ul class="topnav">
-    <li><a class="active" [routerLink]='[""]'>SwarmPlus</a></li>
-    <li><a [routerLink]='["/top"]'>カレンダー</a></li>
-    <li><a [routerLink]='["/day"]'>今日のチェックイン</a></li>
-    <li class="right"><a (click)="logOut()">ログアウト</a></li>
-</ul>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class='navbar-brand' [routerLink]='["/top"]'>SwarmPlus</a>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active" (click)="logOut()">
-                <a class="nav-link"><span class='fas fa-calendar'></span> ログイン画面へ</a>
+<header id="luxbar" class="luxbar-fixed">
+    <input type="checkbox" class="luxbar-checkbox" id="luxbar-checkbox" />
+    <div class="luxbar-menu luxbar-menu-left luxbar-menu-material-amber">
+        <ul class="luxbar-navigation">
+            <li class="luxbar-header">
+                <a [routerLink]='["/top"]' class="luxbar-brand">SwarmPlus</a>
+                <label class="luxbar-hamburger luxbar-hamburger-doublespin" id="luxbar-hamburger" for="luxbar-checkbox">
+                    <span></span> </label>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" [routerLink]='["/top"]'><span class='fas fa-calendar'></span> カレンダー</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]='["/day"]'><span class='fas fa-database'></span> 今日のチェックイン</a>
-            </li>
+            <li class="luxbar-item" [routerLink]='["/top"]'><a>カレンダー</a></li>
+            <li class="luxbar-item" [routerLink]='["/day"]'><a>今日のチェックイン</a></li>
+            <li class="luxbar-item right" (click)="logOut()"><a>ログアウト</a></li>
         </ul>
     </div>
-</nav>
+</header>
+<div id="space"></div>
