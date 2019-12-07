@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit {
     maxDate: new Date(),
     defaultDate: new Date(),
     dateFormat: 'Y/m/d(D)'
-  }
+  };
 
   date: Date[] = [new Date()];
 
@@ -32,7 +32,7 @@ export class SidebarComponent implements OnInit {
 
   /** 画面幅が1024px以上ならアコーディオン展開 */
   get showAttrebute(): string {
-    return window.innerWidth > 992 ? 'show' : ''
+    return window.innerWidth > 992 ? 'show' : '';
   }
 
   /**
@@ -40,7 +40,7 @@ export class SidebarComponent implements OnInit {
    */
   pageToDate() {
     this.momentApi = moment(this.date[0]);
-    this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`)
+    this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
   }
 
   search() {

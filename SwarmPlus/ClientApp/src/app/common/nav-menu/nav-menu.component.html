@@ -1,37 +1,16 @@
-<!-- <div class='main-nav'>
-    <nav class='navbar navbar-expand-lg navbar-dark bg-dark d-flex flex-column'>
-        <div class="navbar-header p-0">
-            <a class='navbar-brand' [routerLink]='["/top"]'>SwarmPlus</a>
-            <button type='button' class='navbar-toggler' data-toggle='collapse' data-target='#navbarNav'
-                [attr.aria-expanded]='isExpanded' (click)='toggle()'>
-                <span class='sr-only'>Toggle navigation</span>
-                <span class='navbar-toggler-icon'></span>
-            </button>
-            <div id="navbarNav" class='navbar-collapse collapse p-0' [ngClass]='{ "in": isExpanded }'>
-                <ul class='nav navbar-nav flex-column'>
-                    <li class="nav-item" [routerLinkActive]='["link-active"]'
-                        [routerLinkActiveOptions]='{ exact: true }'>
-                        <a [routerLink]='["/top"]' class="nav-link" (click)='collapse()'>
-                            <span class='fas fa-calendar'></span> カレンダー
-                        </a>
-                    </li>
-                    <li class="nav-item" [routerLinkActive]='["link-active"]'>
-                        <a [routerLink]='["/day"]' class="nav-link" (click)='collapse()'>
-                            <span class='fas fa-database'></span> 今日のチェックイン
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div> -->
+<ul class="topnav">
+    <li><a class="active" [routerLink]='[""]'>SwarmPlus</a></li>
+    <li><a [routerLink]='["/top"]'>カレンダー</a></li>
+    <li><a [routerLink]='["/day"]'>今日のチェックイン</a></li>
+    <li class="right"><a (click)="logOut()">ログアウト</a></li>
+</ul>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class='navbar-brand' [routerLink]='["/top"]'>SwarmPlus</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+    <a class='navbar-brand' [routerLink]='["/top"]'>SwarmPlus</a>
 
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -44,13 +23,6 @@
             <li class="nav-item">
                 <a class="nav-link" [routerLink]='["/day"]'><span class='fas fa-database'></span> 今日のチェックイン</a>
             </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li> -->
         </ul>
-        <!-- <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </!-->
     </div>
 </nav>
