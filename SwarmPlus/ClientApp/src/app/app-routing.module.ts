@@ -1,20 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LoginComponent } from './common/login/login.component';
-import { ToppageComponent } from './page/toppage/toppage.component';
 import { AuthGuard } from './service/auth.guard';
 import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
+import { MainComponent } from './CommonComponent/main/main.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: '*', redirectTo: '' },
-  { path: 'top', component: ToppageComponent, canActivate: [AuthGuard] },
-  { path: 'top/:year/:month', component: ToppageComponent, canActivate: [AuthGuard] },
-  { path: 'counter', component: CounterComponent },
-  { path: 'fetch-data', component: FetchDataComponent },
+  { path: 'top', component: MainComponent, canActivate: [AuthGuard] },
+  { path: 'top/:year/:month', component: MainComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'day/:year/:month/:date', component: DayViewComponent, canActivate: [AuthGuard] },
   { path: 'day', component: DayViewComponent, canActivate: [AuthGuard] }

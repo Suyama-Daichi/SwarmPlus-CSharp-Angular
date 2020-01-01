@@ -7,12 +7,9 @@ import { BlockUIModule } from 'ng-block-ui';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './common/nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { LoginComponent } from './common/login/login.component';
-import { ToppageComponent } from './page/toppage/toppage.component';
 import { AuthGuard } from './service/auth.guard';
 import { MonthViewComponent } from './fullcalendar/month-view/month-view.component';
 import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
@@ -22,16 +19,15 @@ import { DateJPPipe } from './pipe/date-jp.pipe';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { StringJoinPipe } from './pipe/string-join.pipe';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
+import { MainComponent } from './CommonComponent/main/main.component';
+import { ListViewComponent } from './fullcalendar/list-view/list-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     LoginComponent,
-    ToppageComponent,
     MonthViewComponent,
     DayViewComponent,
     CheckinDetailComponent,
@@ -39,6 +35,8 @@ import { Ng2FlatpickrModule } from 'ng2-flatpickr';
     DateJPPipe,
     SidebarComponent,
     StringJoinPipe,
+    MainComponent,
+    ListViewComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
