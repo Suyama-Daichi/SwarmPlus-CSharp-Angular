@@ -5,7 +5,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { UtilService } from '../../service/util.service';
 import { CalendarEvent } from '../../model/calendarEvent.type';
 import { HttpService } from '../../service/http.service';
-import { Observable } from 'rxjs/internal/Observable';
 import { AfterBeforeTimestamp } from '../../model/AfterBeforeTimestamp.type';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
@@ -37,14 +36,6 @@ export class ListViewComponent implements OnInit {
   ngOnInit() {
     this.getUserCheckins();
   }
-  /**
- * 特定期間のチェックインを取得する
- * @param afterTimestamp 取得する期間(始まり)
- * @param beforeTimestamp 取得する期間(終わり)
- */
-  getCheckins(afterTimestamp: string = '1575165124', beforeTimestamp: string = '1577843576'): Observable<UsersCheckins> {
-    return this.httpService.getUserCheckins(afterTimestamp, beforeTimestamp);
-  }
 
   /**
    * 初期データ取得
@@ -56,7 +47,7 @@ export class ListViewComponent implements OnInit {
       this.selectedDate = this.momentApi.toDate();
       this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth(this.selectedDate);
       this.blockUI.start();
-      this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
+      this.httpService.getUserCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
         response => {
           this.calendarEvents = this.utilService.generateEvents(response.response.checkins.items);
           console.log(this.calendarEvents);

@@ -69,7 +69,7 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
       this.selectedDate = this.momentApi.toDate();
       this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth(this.selectedDate);
       this.blockUI.start();
-      this.getCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
+      this.httpService.getUserCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
         response => {
           this.checkinHistory = response;
           this.calendarEvents = this.utilService.generateEvents(this.checkinHistory.response.checkins.items);
@@ -126,15 +126,6 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
    */
   onDateClick(event) {
     this.router.navigateByUrl(`day/${event.dateStr.replace(/-/g, '/')}`);
-  }
-
-  /**
- * 特定期間のチェックインを取得する
- * @param afterTimestamp 取得する期間(始まり)
- * @param beforeTimestamp 取得する期間(終わり)
- */
-  getCheckins(afterTimestamp: string = '1500218379', beforeTimestamp: string = '1502896779'): Observable<UsersCheckins> {
-    return this.httpService.getUserCheckins(afterTimestamp, beforeTimestamp);
   }
 
   /**
