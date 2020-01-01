@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() { }
 
-  /** 画面幅が1024px以上ならアコーディオン展開 */
+  /** 画面幅が992px以上ならアコーディオン展開 */
   get showAttrebute(): string {
     return window.innerWidth > 992 ? 'show' : '';
   }
