@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.httpService.GetAccessTokenObservable(code).subscribe(
       (response: AccessToken) => {
         localStorage.setItem('token', response.access_token);
-        this.router.navigateByUrl('/top');
+        this.router.navigateByUrl('/month');
       });
   }
 }

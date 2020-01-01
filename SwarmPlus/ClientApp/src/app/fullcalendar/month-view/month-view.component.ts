@@ -91,31 +91,31 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
     this.isDetailOpen = false;
     const currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
     currentDisplayDate.subtract(1, 'year');
-    this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onLastYearMonth() {
     this.isDetailOpen = false;
     const currentDisplayDate: moment.Moment = moment();
     currentDisplayDate.subtract(1, 'year');
-    this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onThisMonth() {
     this.isDetailOpen = false;
     const currentDisplayDate: moment.Moment = moment();
-    this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onPrevMonth() {
     this.isDetailOpen = false;
     const currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
     currentDisplayDate.subtract(1, 'months');
-    this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onNextMonth() {
     this.isDetailOpen = false;
     if (this.momentApi < moment(Number(this.utilService.getFirstDateAndLastDateOfThisMonth(new Date()).afterTimestamp) * 1000)) {
       const currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
       currentDisplayDate.add(1, 'months');
-      this.router.navigateByUrl(`top/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
     }
   }
 
