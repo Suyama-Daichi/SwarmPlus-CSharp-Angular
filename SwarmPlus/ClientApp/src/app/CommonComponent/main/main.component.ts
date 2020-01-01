@@ -7,7 +7,7 @@ import { Threshold } from '../../const';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  isMobile: boolean = window.innerWidth < Threshold.SMARTPHONE_WIDTH;
+  isMobile: boolean = window.innerWidth <= Threshold.SMARTPHONE_WIDTH;
   constructor() { }
 
   ngOnInit() { }
