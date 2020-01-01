@@ -1,0 +1,7 @@
+<app-nav-menu></app-nav-menu>
+<div *ngIf="!isMobile">
+    <app-month-view></app-month-view>
+</div>
+<div *ngIf="isMobile">
+    <app-list-view></app-list-view>
+</div>
