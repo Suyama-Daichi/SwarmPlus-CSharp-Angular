@@ -2,9 +2,9 @@ import { SearchConditions } from './../../../assets/SearchConditions';
 import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import Japanese from 'flatpickr/dist/l10n/ja.js';
-import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { Threshold } from '../../const';
 
 @Component({
   selector: 'app-sidebar',
@@ -32,7 +32,7 @@ export class SidebarComponent implements OnInit {
 
   /** 画面幅が992px以上ならアコーディオン展開 */
   get showAttrebute(): string {
-    return window.innerWidth > 992 ? 'show' : '';
+    return window.innerWidth > Threshold.TABLET_WIDTH ? 'show' : '';
   }
 
   /**
