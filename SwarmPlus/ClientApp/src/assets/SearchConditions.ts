@@ -1,13 +1,13 @@
-import { SelectedCategory } from "../app/model/selectedCategory.type";
+import { SelectedCategory } from '../app/model/selectedCategory.type';
 
 export class SearchConditions {
     constructor() { }
     traficList: SelectedCategory[] = [
-        { name: '鉄道駅', key: ['4bf58dd8d48988d129951735','4f4531504b9074f6e4fb0102','4bf58dd8d48988d12a951735','52f2ab2ebcbc57f1066b8b51','4bf58dd8d48988d1fd931735'], selected: false, isCategory: true },
+        { name: '鉄道駅', key: ['4bf58dd8d48988d129951735', '4f4531504b9074f6e4fb0102', '4bf58dd8d48988d12a951735', '52f2ab2ebcbc57f1066b8b51', '4bf58dd8d48988d1fd931735'], selected: false, isCategory: true },
         { name: 'バス停', key: ['52f2ab2ebcbc57f1066b8b4f'], selected: false, isCategory: true },
-        { name: '空港', key: ['4bf58dd8d48988d1ed931735','4bf58dd8d48988d1f0931735','4eb1bc533b7b2c5b1d4306cb','56aa371be4b08b9a8d57352f','4bf58dd8d48988d1eb931735','4bf58dd8d48988d1f7931735'], selected: false, isCategory: true },
+        { name: '空港', key: ['4bf58dd8d48988d1ed931735', '4bf58dd8d48988d1f0931735', '4eb1bc533b7b2c5b1d4306cb', '56aa371be4b08b9a8d57352f', '4bf58dd8d48988d1eb931735', '4bf58dd8d48988d1f7931735'], selected: false, isCategory: true },
         { name: '港', key: ['56aa371be4b08b9a8d57353e', '4bf58dd8d48988d12d951735'], selected: false, isCategory: true },
-        { name: '道路・交差点・トンネル', key: ['4bf58dd8d48988d1f9931735', '52f2ab2ebcbc57f1066b8b4c','52f2ab2ebcbc57f1066b8b4a'], selected: false, isCategory: true }
+        { name: '道路・交差点・トンネル', key: ['4bf58dd8d48988d1f9931735', '52f2ab2ebcbc57f1066b8b4c', '52f2ab2ebcbc57f1066b8b4a'], selected: false, isCategory: true }
     ];
 
     restaurantList: SelectedCategory[] = [
@@ -44,7 +44,7 @@ export class SearchConditions {
                 '4bf58dd8d48988d10d941735',
                 '4bf58dd8d48988d10e941735',
                 '4bf58dd8d48988d110941735',
-                '4bf58dd8d48988d1c0941​​735',
+                '4bf58dd8d48988d1c0941735',
                 '4bf58dd8d48988d1c4941735',
                 '4bf58dd8d48988d1ce941735',
                 '4f04af1f2fb6e1c99f3db0bb',
@@ -66,9 +66,9 @@ export class SearchConditions {
         { name: '定食屋', key: ['4bf58dd8d48988d147941735'], selected: false, isCategory: true },
         { name: 'ファーストフード店', key: ['4bf58dd8d48988d16e941735', '4bf58dd8d48988d16c941735', '4bf58dd8d48988d1c7941735'], selected: false, isCategory: true },
         { name: 'フードコート', key: ['4bf58dd8d48988d120951735'], selected: false, isCategory: true },
-        { name: '洋レストラン', key: ['4bf58dd8d48988d150941735', '4bf58dd8d48988d14e941735', '4bf58dd8d48988d169941735', '52e81612bcbc57f1066b7a02', '52e81612bcbc57f1066b79f1', '52e81612bcbc57f1066b79f4', '5744ccdfe4b0c0459246b4d0', '52e81612bcbc57f1066b7a05', '4bf58dd8d48988d10c941735', '4bf58dd8d48988d10d941735', '4bf58dd8d48988d10e941735', '4bf58dd8d48988d110941735', '4bf58dd8d48988d1c0941​​735', '4bf58dd8d48988d1c4941735', '4bf58dd8d48988d1ce941735'], selected: false, isCategory: true },
+        { name: '洋レストラン', key: ['4bf58dd8d48988d150941735', '4bf58dd8d48988d14e941735', '4bf58dd8d48988d169941735', '52e81612bcbc57f1066b7a02', '52e81612bcbc57f1066b79f1', '52e81612bcbc57f1066b79f4', '5744ccdfe4b0c0459246b4d0', '52e81612bcbc57f1066b7a05', '4bf58dd8d48988d10c941735', '4bf58dd8d48988d10d941735', '4bf58dd8d48988d10e941735', '4bf58dd8d48988d110941735', '4bf58dd8d48988d1c0941735', '4bf58dd8d48988d1c4941735', '4bf58dd8d48988d1ce941735'], selected: false, isCategory: true },
         { name: 'Bar・居酒屋', key: ['4bf58dd8d48988d11f941735', '4bf58dd8d48988d121941735', '56aa371ce4b08b9a8d57356c', '4bf58dd8d48988d120941735', '4f04af1f2fb6e1c99f3db0bb', '4bf58dd8d48988d116941735', '4bf58dd8d48988d11c941735'], selected: false, isCategory: true }
-    ]
+    ];
 
     checkinStatusList: SelectedCategory[] = [
         { name: 'メイヤー', key: 'isMayor', selected: false, isCategory: false },
@@ -78,16 +78,16 @@ export class SearchConditions {
 
     shopList: SelectedCategory[] = [
         { name: 'コンビニ', key: ['4d954b0ea243a5684a65b473'], selected: false, isCategory: true },
-        { name: '薬局・ドラッグストア', key: ['5745c2e4498e11e7bccabdbd','4bf58dd8d48988d10f951735'], selected: false, isCategory: true },
-        { name: '書店', key: ['52f2ab2ebcbc57f1066b8b30','52f2ab2ebcbc57f1066b8b18', '4bf58dd8d48988d114951735'], selected: false, isCategory: true },
-        { name: 'インテリア', key: ['4bf58dd8d48988d1f8941735', '55888a5a498e782e3303b43a','4eb1c0253b7b52c0e1adc2e9'], selected: false, isCategory: true },
-        { name: '食料品店', key: ['50be8ee891d4fa8dcc7199a7','4bf58dd8d48988d1f9941735', '5370f356bcbc57f1066c94c2','4bf58dd8d48988d11d951735','4bf58dd8d48988d11e951735','58daa1558bbb0b01f18ec1ca','4bf58dd8d48988d1fa941735','4bf58dd8d48988d10e951735','56aa371be4b08b9a8d573550','4bf58dd8d48988d1f5941735','4bf58dd8d48988d118951735','50aa9e744b90af0d42d5de0e','4bf58dd8d48988d186941735','52f2ab2ebcbc57f1066b8b45','56aa371be4b08b9a8d573564','52f2ab2ebcbc57f1066b8b46','53e0feef498e5aac066fd8a9','4bf58dd8d48988d119951735','52f2ab2ebcbc57f1066b8b1c'], selected: false, isCategory: true },
-        { name: '複合店', key: ['5744ccdfe4b0c0459246b4dc','4bf58dd8d48988d1fd941735','5744ccdfe4b0c0459246b4df','52f2ab2ebcbc57f1066b8b42', '4bf58dd8d48988d1f6941735', '52dea92d3cf9994f4e043dbb'], selected: false, isCategory: true },
+        { name: '薬局・ドラッグストア', key: ['5745c2e4498e11e7bccabdbd', '4bf58dd8d48988d10f951735'], selected: false, isCategory: true },
+        { name: '書店', key: ['52f2ab2ebcbc57f1066b8b30', '52f2ab2ebcbc57f1066b8b18', '4bf58dd8d48988d114951735'], selected: false, isCategory: true },
+        { name: 'インテリア', key: ['4bf58dd8d48988d1f8941735', '55888a5a498e782e3303b43a', '4eb1c0253b7b52c0e1adc2e9'], selected: false, isCategory: true },
+        { name: '食料品店', key: ['50be8ee891d4fa8dcc7199a7', '4bf58dd8d48988d1f9941735', '5370f356bcbc57f1066c94c2', '4bf58dd8d48988d11d951735', '4bf58dd8d48988d11e951735', '58daa1558bbb0b01f18ec1ca', '4bf58dd8d48988d1fa941735', '4bf58dd8d48988d10e951735', '56aa371be4b08b9a8d573550', '4bf58dd8d48988d1f5941735', '4bf58dd8d48988d118951735', '50aa9e744b90af0d42d5de0e', '4bf58dd8d48988d186941735', '52f2ab2ebcbc57f1066b8b45', '56aa371be4b08b9a8d573564', '52f2ab2ebcbc57f1066b8b46', '53e0feef498e5aac066fd8a9', '4bf58dd8d48988d119951735', '52f2ab2ebcbc57f1066b8b1c'], selected: false, isCategory: true },
+        { name: '複合店', key: ['5744ccdfe4b0c0459246b4dc', '4bf58dd8d48988d1fd941735', '5744ccdfe4b0c0459246b4df', '52f2ab2ebcbc57f1066b8b42', '4bf58dd8d48988d1f6941735', '52dea92d3cf9994f4e043dbb'], selected: false, isCategory: true },
         { name: '金融', key: ['503287a291d4c4b30a586d65', '52f2ab2ebcbc57f1066b8b1d', '52f2ab2ebcbc57f1066b8b56', '4bf58dd8d48988d10a951735', '5032850891d4c4b30a586d62', '5744ccdfe4b0c0459246b4be'], selected: false, isCategory: true },
         { name: 'アパレル関連', key: ['52f2ab2ebcbc57f1066b8b17', '4bf58dd8d48988d103951735', '4bf58dd8d48988d102951735', '4bf58dd8d48988d104951735', '4bf58dd8d48988d105951735', '4bf58dd8d48988d109951735', '4bf58dd8d48988d106951735', '4bf58dd8d48988d107951735', '4bf58dd8d48988d108951735'], selected: false, isCategory: true },
-        { name: '自動車関連', key: ['4bf58dd8d48988d113951735','4eb1c1623b7b52c0e1adc2ec', '56aa371be4b08b9a8d5734d3', '4bf58dd8d48988d124951735', '4f04ae1f2fb6e1c99f3db0ba'], selected: false, isCategory: true },
-        { name: 'サービス', key: ['4bf58dd8d48988d113951735','4eb1c1623b7b52c0e1adc2ec', '56aa371be4b08b9a8d5734d3', '4bf58dd8d48988d124951735', '4f04ae1f2fb6e1c99f3db0ba'], selected: false, isCategory: true },
-        { name: 'その他ショップ', key: ['52f2ab2ebcbc57f1066b8b3d','4bf58dd8d48988d1ff941735','5267e446e4b0ec79466e48c4', '4bf58dd8d48988d116951735', '4bf58dd8d48988d127951735'], selected: false, isCategory: true },
+        { name: '自動車関連', key: ['4bf58dd8d48988d113951735', '4eb1c1623b7b52c0e1adc2ec', '56aa371be4b08b9a8d5734d3', '4bf58dd8d48988d124951735', '4f04ae1f2fb6e1c99f3db0ba'], selected: false, isCategory: true },
+        { name: 'サービス', key: ['4bf58dd8d48988d113951735', '4eb1c1623b7b52c0e1adc2ec', '56aa371be4b08b9a8d5734d3', '4bf58dd8d48988d124951735', '4f04ae1f2fb6e1c99f3db0ba'], selected: false, isCategory: true },
+        { name: 'その他ショップ', key: ['52f2ab2ebcbc57f1066b8b3d', '4bf58dd8d48988d1ff941735', '5267e446e4b0ec79466e48c4', '4bf58dd8d48988d116951735', '4bf58dd8d48988d127951735'], selected: false, isCategory: true },
     ];
 
     landmarkActivity: SelectedCategory[] = [
@@ -98,7 +98,7 @@ export class SearchConditions {
         { name: '城', key: ['50aaa49e4b90af0d42d5de11'], selected: false, isCategory: true },
         { name: '記念碑・ランドマーク', key: ['4bf58dd8d48988d12d941735'], selected: false, isCategory: true },
         { name: '県境・市境', key: ['52f2ab2ebcbc57f1066b8b4b'], selected: false, isCategory: true },
-        { name: 'サービスエリア・道路', key: ['4d954b16a243a5684b65b473','4bf58dd8d48988d1f9931735','52f2ab2ebcbc57f1066b8b4d','52f2ab2ebcbc57f1066b8b4e'], selected: false, isCategory: true },
+        { name: 'サービスエリア・道路', key: ['4d954b16a243a5684b65b473', '4bf58dd8d48988d1f9931735', '52f2ab2ebcbc57f1066b8b4d', '52f2ab2ebcbc57f1066b8b4e'], selected: false, isCategory: true },
         { name: '山岳・森林・野原', key: ['5032848691d4c4b30a586d61', '52e81612bcbc57f1066b7a24', '52e81612bcbc57f1066b7a23', '4bf58dd8d48988d15f941735', '4eb1d4d54b900d56c88a45fc'], selected: false, isCategory: true },
         { name: '庭園', key: ['4bf58dd8d48988d15a941735'], selected: false, isCategory: true },
         { name: '洞窟', key: ['56aa371be4b08b9a8d573511'], selected: false, isCategory: true },
