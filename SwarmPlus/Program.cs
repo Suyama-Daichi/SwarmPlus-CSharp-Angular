@@ -23,8 +23,8 @@ namespace SwarmPlus
 
                 try
                 {
-                    var context = services.GetRequiredService<SwarmPlusContext>();
-                    DbInitializer.Initialize(context);
+                    //var context = services.GetRequiredService<SwarmPlusContext>();
+                    //DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)
                 {
