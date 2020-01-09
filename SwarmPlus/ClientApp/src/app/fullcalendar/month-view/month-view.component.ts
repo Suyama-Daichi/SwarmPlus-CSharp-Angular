@@ -20,18 +20,18 @@ import * as moment from 'moment';
   styleUrls: ['./month-view.component.scss']
 })
 export class MonthViewComponent implements OnInit, AfterViewInit {
-  /** 表示対象の年月日 */
-  selectedDate: Date;
-  /** Momentのインスタンス */
-  momentApi: moment.Moment;
-  /** ユーザーのチェックイン履歴 */
-  checkinHistory: UsersCheckins;
-  /** 初月と月末のタイムスタンプインスタンス */
-  afterBeforeTimestamp: AfterBeforeTimestamp;
   /** FullCalenderライブラリのインポート */
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
   /** カレンダーイベントオブジェクト */
   calendarEvents: CalendarEvent[] = [];
+  /** 表示対象の年月日 */
+  selectedDate: Date;
+  /** Momentのインスタンス */
+  momentApi: moment.Moment;
+  /** 初月と月末のタイムスタンプインスタンス */
+  afterBeforeTimestamp: AfterBeforeTimestamp;
+  /** ユーザーのチェックイン履歴 */
+  checkinHistory: UsersCheckins;
   /** 詳細コンポーネントが開かれているか */
   isDetailOpen: boolean;
   /** 詳細表示するチェックインデータ */

@@ -16,14 +16,14 @@ import * as moment from 'moment';
   styleUrls: ['./list-view.component.scss']
 })
 export class ListViewComponent implements OnInit {
+  calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
+  /** カレンダーイベントオブジェクト */
+  calendarEvents: CalendarEvent[] = [];
   selectedDate = new Date();
   /** Momentのインスタンス */
   momentApi: moment.Moment;
   /** 初月と月末のタイムスタンプインスタンス */
   afterBeforeTimestamp: AfterBeforeTimestamp;
-  /** カレンダーイベントオブジェクト */
-  calendarEvents: CalendarEvent[] = [];
-  calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
 
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;

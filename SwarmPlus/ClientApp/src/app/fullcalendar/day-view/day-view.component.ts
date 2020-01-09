@@ -21,6 +21,8 @@ import { SelectedCategory } from '../../model/selectedCategory.type';
 export class DayViewComponent implements OnInit {
   /** FullCalenderライブラリのインポート */
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
+  /** カレンダーイベントオブジェクト */
+  calendarEvents: CalendarEvent[] = [];
   /** 選択された日付 */
   selectedDate: Date;
   /** Momentのインスタンス */
@@ -34,10 +36,8 @@ export class DayViewComponent implements OnInit {
   checkinHistory: UsersCheckins;
   /** 詳細表示するチェックインデータ */
   checkinData: Item4;
-  /** カレンダーイベントオブジェクト */
-  calendarEvents: CalendarEvent[] = [];
   /** サイドバーコンポーネントから受け取った絞り込み条件を保持 */
-  searchCondition: SelectedCategory[]
+  searchCondition: SelectedCategory[];
   constructor(private httpService: HttpService, private utilService: UtilService, private activatedRoute: ActivatedRoute, private router: Router) { }
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
