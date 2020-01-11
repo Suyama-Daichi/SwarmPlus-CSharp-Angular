@@ -2,7 +2,6 @@ import { UtilService } from './../../service/util.service';
 import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkin-detail',
