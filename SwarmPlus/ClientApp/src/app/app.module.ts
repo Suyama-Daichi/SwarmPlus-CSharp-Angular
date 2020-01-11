@@ -14,7 +14,6 @@ import { AuthGuard } from './service/auth.guard';
 import { MonthViewComponent } from './fullcalendar/month-view/month-view.component';
 import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
 import { CheckinDetailComponent } from './common/checkin-detail/checkin-detail.component';
-import { DateMinusPipe } from './pipe/date.pipe';
 import { DateJPPipe } from './pipe/date-jp.pipe';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { StringJoinPipe } from './pipe/string-join.pipe';
@@ -32,7 +31,6 @@ import { DateSelectorComponent } from './parts/date-selector/date-selector.compo
     MonthViewComponent,
     DayViewComponent,
     CheckinDetailComponent,
-    DateMinusPipe,
     DateJPPipe,
     SidebarComponent,
     StringJoinPipe,
