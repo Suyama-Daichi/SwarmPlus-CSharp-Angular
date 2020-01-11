@@ -4,13 +4,16 @@
     flex-wrap: wrap;
 }
 
-.icon{
+.icon {
     margin-right: 0.5rem;
     margin-left: 0.5rem;
     color: orange;
 }
 
-.f-container{
-    display: flex;
-    justify-content: flex-end;
+@media screen and (min-width: 768px) {
+    /*　画面サイズが1024pxからはここを読み込む　*/
+    .f-container {
+        display: flex;
+        justify-content: flex-end;
+    }
 }

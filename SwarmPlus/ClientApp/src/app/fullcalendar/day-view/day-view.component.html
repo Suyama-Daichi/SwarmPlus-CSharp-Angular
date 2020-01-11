@@ -7,11 +7,11 @@
         <div class="app-dayView">
             <block-ui>
                 <div class="fc-toolbar row">
-                    <div class="col-6">
+                    <div class="col-12 col-lg-6 col-md-6">
                         <h2 class="d-inline">{{selectedDate | dateMinus | dateJP}}</h2>
                         <i class="fas fa-map-marker-alt icon"></i>{{calendarEvents?.length}}
                     </div>
-                    <div class="col-6 f-container">
+                    <div class="col-12 col-lg-6 col-md-6 f-container">
                         <button type="button" class="fc-today-button fc-button fc-button-primary"
                             (click)="onLastYear()">去年</button>
                         <button type="button" class="fc-today-button fc-button fc-button-primary"
