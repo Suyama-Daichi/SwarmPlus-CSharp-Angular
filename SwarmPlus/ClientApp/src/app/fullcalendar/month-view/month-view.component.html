@@ -6,13 +6,8 @@
         <div class="app-calendar">
             <block-ui>
                 <div class="toolbar">
-                    <div class="">
-                        <h2>{{calendarApi?.getDate() | date: 'yyyy年M月'}}</h2>
-                        <!-- <h2>{{selectedDate | date: 'yyyy年M月'}}</h2> -->
-                    </div>
-                    <div class="">
-                        <i class="fas fa-map-marker-alt icon"></i>{{calendarEvents?.length}}
-                    </div>
+                    <h2>{{calendarApi?.getDate() | date: 'yyyy年M月'}}</h2>
+                    <i class="fas fa-map-marker-alt icon"></i>{{calendarEvents?.length}}
                     <div class="fc-button-group">
                         <button type="button" class="fc-today-button fc-button fc-button-primary"
                             (click)="onLastYear()">一年前</button>
