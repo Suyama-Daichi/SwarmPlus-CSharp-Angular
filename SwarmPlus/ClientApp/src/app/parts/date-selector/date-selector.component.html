@@ -1,4 +1,9 @@
 <form (submit)="pageToDate()">
-    <ng2-flatpickr name="date" [(ngModel)]="date" placeholder="日付から検索" [config]="options"></ng2-flatpickr>
-    <button type="submit">に移動</button>
+    <ng2-flatpickr
+        name="date"
+        (input)="pageToDate()"
+        [(ngModel)]="date"
+        placeholder="日付から検索"
+        [config]="options">
+    </ng2-flatpickr>
 </form>

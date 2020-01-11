@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import Japanese from 'flatpickr/dist/l10n/ja.js';
+import { Threshold } from '../../const';
 
 @Component({
   selector: 'app-date-selector',
@@ -12,8 +15,17 @@ export class DateSelectorComponent implements OnInit {
   momentApi: moment.Moment;
 
   date: Date[] = [new Date()];
+  // datepickerの設定
+  options: FlatpickrOptions = {
+    locale: Japanese.ja,
+    maxDate: new Date(),
+    defaultDate: new Date(),
+    dateFormat: 'Y/m/d(D)'
+  };
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.options.defaultDate = !this.router.url.match(Threshold.DATE_REG_EXPRESSION) ? new Date() : new Date(this.router.url.match(Threshold.DATE_REG_EXPRESSION)[0]);
+  }
 
   ngOnInit() {
   }
