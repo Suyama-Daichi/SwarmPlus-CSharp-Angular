@@ -6,12 +6,12 @@
     <div class='col-sm-12 col-lg-8 offset-lg-0 body-content'>
         <div class="app-dayView">
             <block-ui>
-                <div class="fc-toolbar fc-header-toolbar">
-                    <div class="fc-left">
-                        <h2>{{selectedDate | dateMinus | dateJP}}</h2>
+                <div class="fc-toolbar row">
+                    <div class="col-6">
+                        <h2 class="d-inline">{{selectedDate | dateMinus | dateJP}}</h2>
+                        <i class="fas fa-map-marker-alt icon"></i>{{calendarEvents?.length}}
                     </div>
-                    <div class="fc-center"></div>
-                    <div class="fc-right">
+                    <div class="col-6 f-container">
                         <button type="button" class="fc-today-button fc-button fc-button-primary"
                             (click)="onLastYear()">去年</button>
                         <button type="button" class="fc-today-button fc-button fc-button-primary"

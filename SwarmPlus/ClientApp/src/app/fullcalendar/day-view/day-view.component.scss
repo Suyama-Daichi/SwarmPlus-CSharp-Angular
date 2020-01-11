@@ -1,0 +1,16 @@
+.toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.icon{
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    color: orange;
+}
+
+.f-container{
+    display: flex;
+    justify-content: flex-end;
+}
