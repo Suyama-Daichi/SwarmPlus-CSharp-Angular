@@ -1,8 +1,7 @@
 import { SearchConditions } from './../../../assets/SearchConditions';
-import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import Japanese from 'flatpickr/dist/l10n/ja.js';
-import { Router } from '@angular/router';
 import { Threshold } from '../../const';
 
 @Component({

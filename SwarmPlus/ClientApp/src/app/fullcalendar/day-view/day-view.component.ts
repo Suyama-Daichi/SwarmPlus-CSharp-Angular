@@ -2,7 +2,7 @@ import { AfterBeforeTimestamp } from './../../model/AfterBeforeTimestamp.type';
 import { UtilService } from './../../service/util.service';
 import { HttpService } from './../../service/http.service';
 import { CalendarEvent } from './../../model/calendarEvent.type';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
