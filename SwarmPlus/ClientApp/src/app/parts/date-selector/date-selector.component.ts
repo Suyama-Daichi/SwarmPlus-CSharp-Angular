@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { FlatpickrOptions } from 'ng2-flatpickr';
@@ -11,6 +11,12 @@ import { Threshold } from '../../const';
   styleUrls: ['./date-selector.component.scss']
 })
 export class DateSelectorComponent implements OnInit {
+  _selectedDate: Date;
+
+  @Input() set selectedDate(value: Date) {
+    value.setDate(value.getDate() - 1);
+    this._selectedDate = value;
+  }
   /** Momentのインスタンス */
   momentApi: moment.Moment;
 

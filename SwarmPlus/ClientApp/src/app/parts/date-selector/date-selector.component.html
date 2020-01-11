@@ -4,6 +4,7 @@
         (input)="pageToDate()"
         [(ngModel)]="date"
         placeholder="日付から検索"
+        [setDate]="_selectedDate"
         [config]="options">
     </ng2-flatpickr>
 </form>

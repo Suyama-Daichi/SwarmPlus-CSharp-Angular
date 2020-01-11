@@ -7,8 +7,10 @@
         <div class="app-dayView">
             <block-ui>
                 <div class="fc-toolbar row">
-                    <div class="col-12 col-lg-6 col-md-6">
-                        <app-date-selector></app-date-selector>
+                    <div class="col-6 col-lg-3 col-md-3">
+                        <app-date-selector [selectedDate]="selectedDate"></app-date-selector>
+                    </div>
+                    <div class="col-6 col-lg-3 col-md-3">
                         <i class="fas fa-map-marker-alt icon"></i>{{calendarEvents?.length}}
                     </div>
                     <div class="col-12 col-lg-6 col-md-6 f-container">
