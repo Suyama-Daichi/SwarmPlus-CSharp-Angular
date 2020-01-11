@@ -2,7 +2,7 @@ import { AfterBeforeTimestamp } from './../../model/AfterBeforeTimestamp.type';
 import { UtilService } from './../../service/util.service';
 import { HttpService } from './../../service/http.service';
 import { CalendarEvent } from './../../model/calendarEvent.type';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -18,7 +18,7 @@ import { SelectedCategory } from '../../model/selectedCategory.type';
   templateUrl: './day-view.component.html',
   styleUrls: ['./day-view.component.scss']
 })
-export class DayViewComponent implements OnInit {
+export class DayViewComponent implements OnInit, AfterViewInit {
   /** FullCalenderライブラリのインポート */
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
   /** カレンダーイベントオブジェクト */
