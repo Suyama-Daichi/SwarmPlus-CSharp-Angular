@@ -21,6 +21,7 @@ import { StringJoinPipe } from './pipe/string-join.pipe';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 import { MainComponent } from './CommonComponent/main/main.component';
 import { ListViewComponent } from './fullcalendar/list-view/list-view.component';
+import { DateSelectorComponent } from './parts/date-selector/date-selector.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ListViewComponent } from './fullcalendar/list-view/list-view.component'
     StringJoinPipe,
     MainComponent,
     ListViewComponent,
+    DateSelectorComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

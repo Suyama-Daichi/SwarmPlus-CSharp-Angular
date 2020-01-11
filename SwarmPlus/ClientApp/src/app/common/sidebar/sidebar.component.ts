@@ -3,7 +3,6 @@ import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } fro
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import Japanese from 'flatpickr/dist/l10n/ja.js';
 import { Router } from '@angular/router';
-import * as moment from 'moment';
 import { Threshold } from '../../const';
 
 @Component({
@@ -14,8 +13,6 @@ import { Threshold } from '../../const';
 export class SidebarComponent implements OnInit {
   @Output() event = new EventEmitter();
   searchConditons = new SearchConditions();
-  /** Momentのインスタンス */
-  momentApi: moment.Moment;
   // datepickerの設定
   options: FlatpickrOptions = {
     locale: Japanese.ja,
@@ -24,23 +21,13 @@ export class SidebarComponent implements OnInit {
     dateFormat: 'Y/m/d(D)'
   };
 
-  date: Date[] = [new Date()];
-
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() { }
 
   /** 画面幅が992px以上ならアコーディオン展開 */
   get showAttrebute(): string {
     return window.innerWidth > Threshold.TABLET_WIDTH ? 'show' : '';
-  }
-
-  /**
-   * 指定された日付の詳細に移動
-   */
-  pageToDate() {
-    this.momentApi = moment(this.date[0]);
-    this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
   }
 
   search() {
