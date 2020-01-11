@@ -2,3 +2,17 @@
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
 @import '~@fullcalendar/list/main.css';
+
+.custom-input{
+    font-size: 26px;
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    // padding-bottom: 8px;
+    box-sizing: border-box; /*横幅の解釈をpadding, borderまでとする*/
+}
+
+.custom-input:hover{
+    background-color: papayawhip;
+}

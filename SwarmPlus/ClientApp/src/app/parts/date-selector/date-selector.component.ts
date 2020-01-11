@@ -24,9 +24,11 @@ export class DateSelectorComponent implements OnInit {
   // datepickerの設定
   options: FlatpickrOptions = {
     locale: Japanese.ja,
+    altInput: true,
+    altFormat: 'Y/m/d(D)',
+    altInputClass: 'custom-input',
     maxDate: new Date(),
     defaultDate: new Date(),
-    dateFormat: 'Y/m/d(D)'
   };
 
   constructor(private router: Router) {
