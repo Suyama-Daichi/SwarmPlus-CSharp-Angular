@@ -4,11 +4,15 @@ import { Injectable } from '@angular/core';
 import { AfterBeforeTimestamp } from '../model/AfterBeforeTimestamp.type';
 import { CalendarEvent } from '../model/calendarEvent.type';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
+import { Calendar } from '@fullcalendar/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService {
+  /** Momentのインスタンス */
+  momentApi: moment.Moment;
   constructor(private router: Router, private httpService: HttpService) { }
 
   /**
@@ -107,4 +111,32 @@ export class UtilService {
     const currentUrl = this.router.url;
     return currentUrl.indexOf('#') !== -1 ? currentUrl.slice(0, currentUrl.indexOf('#')) + '#top' : currentUrl + '#top';
   }
+
+    /** 日付操作 */
+    onLastYear(calendarApi: Calendar) {
+      const currentDisplayDate: moment.Moment = moment(calendarApi.getDate());
+      currentDisplayDate.subtract(1, 'year');
+      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    }
+    onLastYearMonth() {
+      const currentDisplayDate: moment.Moment = moment();
+      currentDisplayDate.subtract(1, 'year');
+      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    }
+    onThisMonth() {
+      const currentDisplayDate: moment.Moment = moment();
+      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    }
+    onPrevMonth(calendarApi: Calendar) {
+      const currentDisplayDate: moment.Moment = moment(calendarApi.getDate());
+      currentDisplayDate.subtract(1, 'months');
+      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    }
+    onNextMonth(calendarApi: Calendar) {
+      if (this.momentApi < moment(Number(this.getFirstDateAndLastDateOfThisMonth(new Date()).afterTimestamp) * 1000)) {
+        const currentDisplayDate: moment.Moment = moment(calendarApi.getDate());
+        currentDisplayDate.add(1, 'months');
+        this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+      }
+    }
 }

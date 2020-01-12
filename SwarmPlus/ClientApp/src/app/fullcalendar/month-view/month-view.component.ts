@@ -89,34 +89,23 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
   /** 日付操作 */
   onLastYear() {
     this.isDetailOpen = false;
-    const currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
-    currentDisplayDate.subtract(1, 'year');
-    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    this.utilService.onLastYear(this.calendarApi);
   }
   onLastYearMonth() {
     this.isDetailOpen = false;
-    const currentDisplayDate: moment.Moment = moment();
-    currentDisplayDate.subtract(1, 'year');
-    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    this.utilService.onLastYearMonth();
   }
   onThisMonth() {
     this.isDetailOpen = false;
-    const currentDisplayDate: moment.Moment = moment();
-    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    this.utilService.onThisMonth();
   }
   onPrevMonth() {
     this.isDetailOpen = false;
-    const currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
-    currentDisplayDate.subtract(1, 'months');
-    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    this.utilService.onPrevMonth(this.calendarApi);
   }
   onNextMonth() {
     this.isDetailOpen = false;
-    if (this.momentApi < moment(Number(this.utilService.getFirstDateAndLastDateOfThisMonth(new Date()).afterTimestamp) * 1000)) {
-      const currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
-      currentDisplayDate.add(1, 'months');
-      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
-    }
+    this.utilService.onNextMonth(this.calendarApi);
   }
 
   /**
