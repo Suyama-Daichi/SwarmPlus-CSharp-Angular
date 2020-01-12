@@ -89,7 +89,7 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
   /** 日付操作 */
   onLastYear() {
     this.isDetailOpen = false;
-    this.utilService.onLastYear(this.calendarApi);
+    this.utilService.onLastYear();
   }
   onLastYearMonth() {
     this.isDetailOpen = false;
@@ -101,11 +101,11 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
   }
   onPrevMonth() {
     this.isDetailOpen = false;
-    this.utilService.onPrevMonth(this.calendarApi);
+    this.utilService.onPrevMonth();
   }
   onNextMonth() {
     this.isDetailOpen = false;
-    this.utilService.onNextMonth(this.calendarApi);
+    this.utilService.onNextMonth();
   }
 
   /**
