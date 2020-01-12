@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import moment = require('moment');
+import * as moment from 'moment';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import Japanese from 'flatpickr/dist/l10n/ja.js';
 import { Router } from '@angular/router';
@@ -15,7 +15,6 @@ export class MonthSelectorComponent implements OnInit {
   _selectedDate: Date;
 
   @Input() set selectedDate(value: Date) {
-    value.setDate(value.getDate() - 1);
     this._selectedDate = value;
   }
   /** Momentのインスタンス */
@@ -26,14 +25,14 @@ export class MonthSelectorComponent implements OnInit {
   options: FlatpickrOptions = {
     locale: Japanese.ja,
     altInput: true,
-    altFormat: 'Y/m/',
+    altFormat: 'Y年m月',
     altInputClass: 'custom-input',
     maxDate: new Date(),
     defaultDate: new Date(),
   };
 
   constructor(private router: Router) {
-    this.options.defaultDate = !this.router.url.match(Threshold.DATE_REG_EXPRESSION) ? new Date() : new Date(this.router.url.match(Threshold.DATE_REG_EXPRESSION)[0]);
+    this.options.defaultDate = !this.router.url.match(Threshold.MONTH_REG_EXPRESSION) ? new Date() : new Date(this.router.url.match(Threshold.MONTH_REG_EXPRESSION)[0]);
   }
 
   ngOnInit() {
@@ -44,6 +43,6 @@ export class MonthSelectorComponent implements OnInit {
    */
   pageToDate() {
     this.momentApi = moment(this.date[0]);
-    this.router.navigateByUrl(`day/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}/${this.momentApi.format('DD')}`);
+    this.router.navigateByUrl(`month/${this.momentApi.format('YYYY')}/${this.momentApi.format('MM')}`);
   }
 }

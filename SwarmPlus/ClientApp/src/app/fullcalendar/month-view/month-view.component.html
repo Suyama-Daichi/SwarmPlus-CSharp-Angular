@@ -6,7 +6,7 @@
         <div class="app-calendar">
             <block-ui>
                 <div class="toolbar">
-                    <h2>{{calendarApi?.getDate() | date: 'yyyy年M月'}}</h2>
+                    <app-month-selector [selectedDate]="selectedDate"></app-month-selector>
                     <i class="fas fa-map-marker-alt icon"></i>{{calendarEvents?.length}}
                     <div class="fc-button-group">
                         <button type="button" class="fc-today-button fc-button fc-button-primary"
