@@ -1,24 +1,22 @@
 <div class="toolbar">
     <h2>{{calendarApi?.getDate() | date: 'yyyy年M月'}}</h2>
     <i class="fas fa-map-marker-alt icon"></i>{{calendarEvents?.length}}
-        <div class="fc-button-group">
-            <button type="button" class="fc-today-button fc-button fc-button-primary"
-            (click)="onLastYear()">一年前</button>
-            <button type="button" class="fc-today-button fc-button fc-button-primary"
-                (click)="onLastYearMonth()">一年前の今月</button>
-                <button type="button" class="fc-today-button fc-button fc-button-primary"
-                (click)="onThisMonth()">今月</button>
-                <button type="button" class="fc-prev-button fc-button fc-button-primary" aria-label="prev"
-                (click)="onPrevMonth()">
-                <span class="fc-icon fc-icon-chevron-left"></span>
-            </button>
-            <button type="button" class="fc-next-button fc-button fc-button-primary" aria-label="next"
+    <div class="fc-button-group">
+        <button type="button" class="fc-today-button fc-button fc-button-primary" (click)="onLastYear()">一年前</button>
+        <button type="button" class="fc-today-button fc-button fc-button-primary"
+            (click)="onLastYearMonth()">一年前の今月</button>
+        <button type="button" class="fc-today-button fc-button fc-button-primary" (click)="onThisMonth()">今月</button>
+        <button type="button" class="fc-prev-button fc-button fc-button-primary" aria-label="prev"
+            (click)="onPrevMonth()">
+            <span class="fc-icon fc-icon-chevron-left"></span>
+        </button>
+        <button type="button" class="fc-next-button fc-button fc-button-primary" aria-label="next"
             (click)="onNextMonth()">
             <span class="fc-icon fc-icon-chevron-right"></span>
-            </button>
-        </div>
+        </button>
     </div>
-                                                                    <block-ui>
+</div>
+<block-ui>
     <full-calendar #calendar [events]="calendarEvents" defaultView="listMonth" deepChangeDetection="true"
         [plugins]="calendarPlugins" [defaultDate]="selectedDate" locale="jaLocale" height="auto" [header]=false>
     </full-calendar>
