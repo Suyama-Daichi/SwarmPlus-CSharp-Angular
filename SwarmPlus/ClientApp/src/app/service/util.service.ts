@@ -6,6 +6,7 @@ import { CalendarEvent } from '../model/calendarEvent.type';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Calendar } from '@fullcalendar/core';
+import { Threshold } from '../const';
 
 @Injectable({
   providedIn: 'root'
@@ -112,31 +113,33 @@ export class UtilService {
     return currentUrl.indexOf('#') !== -1 ? currentUrl.slice(0, currentUrl.indexOf('#')) + '#top' : currentUrl + '#top';
   }
 
-    /** 日付操作 */
-    onLastYear(calendarApi: Calendar) {
-      const currentDisplayDate: moment.Moment = moment(calendarApi.getDate());
-      currentDisplayDate.subtract(1, 'year');
+  /** 日付操作 */
+  onLastYear(calendarApi: Calendar) {
+    const currentDisplayDate: moment.Moment = !this.router.url.match(Threshold.MONTH_REG_EXPRESSION) ? moment() : moment(this.router.url.match(Threshold.MONTH_REG_EXPRESSION)[0], 'YYYY/MM');
+    currentDisplayDate.subtract(1, 'year');
+    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+  }
+  onLastYearMonth() {
+    const currentDisplayDate: moment.Moment = moment();
+    currentDisplayDate.subtract(1, 'year');
+    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+  }
+  onThisMonth() {
+    const currentDisplayDate: moment.Moment = moment();
+    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+  }
+  onPrevMonth(calendarApi: Calendar) {
+    // const currentDisplayDate: moment.Moment = moment(calendarApi.getDate());
+    // const hoge = moment(this.router.url.match(Threshold.MONTH_REG_EXPRESSION)[0], 'YYYY/MM');
+    const currentDisplayDate: moment.Moment = !this.router.url.match(Threshold.MONTH_REG_EXPRESSION) ? moment() : moment(this.router.url.match(Threshold.MONTH_REG_EXPRESSION)[0], 'YYYY/MM');
+    currentDisplayDate.subtract(1, 'months');
+    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+  }
+  onNextMonth(calendarApi: Calendar) {
+    if (this.momentApi < moment(Number(this.getFirstDateAndLastDateOfThisMonth(new Date()).afterTimestamp) * 1000)) {
+      const currentDisplayDate: moment.Moment = !this.router.url.match(Threshold.MONTH_REG_EXPRESSION) ? moment() : moment(this.router.url.match(Threshold.MONTH_REG_EXPRESSION)[0], 'YYYY/MM');
+      currentDisplayDate.add(1, 'months');
       this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
     }
-    onLastYearMonth() {
-      const currentDisplayDate: moment.Moment = moment();
-      currentDisplayDate.subtract(1, 'year');
-      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
-    }
-    onThisMonth() {
-      const currentDisplayDate: moment.Moment = moment();
-      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
-    }
-    onPrevMonth(calendarApi: Calendar) {
-      const currentDisplayDate: moment.Moment = moment(calendarApi.getDate());
-      currentDisplayDate.subtract(1, 'months');
-      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
-    }
-    onNextMonth(calendarApi: Calendar) {
-      if (this.momentApi < moment(Number(this.getFirstDateAndLastDateOfThisMonth(new Date()).afterTimestamp) * 1000)) {
-        const currentDisplayDate: moment.Moment = moment(calendarApi.getDate());
-        currentDisplayDate.add(1, 'months');
-        this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
-      }
-    }
+  }
 }
