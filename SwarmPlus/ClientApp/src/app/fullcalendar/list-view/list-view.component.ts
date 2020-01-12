@@ -59,7 +59,7 @@ export class ListViewComponent implements OnInit, AfterViewInit {
       this.httpService.getUserCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
         response => {
           this.calendarEvents = this.utilService.generateEvents(response.response.checkins.items);
-          console.log(this.calendarEvents);
+          this.calendarApi.gotoDate(this.selectedDate);
           this.blockUI.stop();
         }
       );
@@ -67,34 +67,18 @@ export class ListViewComponent implements OnInit, AfterViewInit {
   }
     /** 日付操作 */
     onLastYear() {
-      this.isDetailOpen = false;
-      const currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
-      currentDisplayDate.subtract(1, 'year');
-      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+      this.utilService.onLastYear();
     }
     onLastYearMonth() {
-      this.isDetailOpen = false;
-      const currentDisplayDate: moment.Moment = moment();
-      currentDisplayDate.subtract(1, 'year');
-      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+      this.utilService.onLastYear();
     }
     onThisMonth() {
-      this.isDetailOpen = false;
-      const currentDisplayDate: moment.Moment = moment();
-      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+      this.utilService.onThisMonth();
     }
     onPrevMonth() {
-      this.isDetailOpen = false;
-      const currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
-      currentDisplayDate.subtract(1, 'months');
-      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+      this.utilService.onPrevMonth();
     }
     onNextMonth() {
-      this.isDetailOpen = false;
-      if (this.momentApi < moment(Number(this.utilService.getFirstDateAndLastDateOfThisMonth(new Date()).afterTimestamp) * 1000)) {
-        const currentDisplayDate: moment.Moment = moment(this.calendarApi.getDate());
-        currentDisplayDate.add(1, 'months');
-        this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
-      }
+      this.utilService.onNextMonth();
     }
 }
