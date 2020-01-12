@@ -34,7 +34,7 @@
                 </div>
                 <full-calendar #calendar defaultView="listDay" (eventClick)="openDetail($event)"
                     [events]="calendarEvents" deepChangeDetection="true" [plugins]="calendarPlugins"
-                    [defaultDate]="selectedDate" locale="jaLocale" [header]=false>
+                    [defaultDate]="selectedDate" height="auto" locale="jaLocale" [header]=false>
                 </full-calendar>
             </block-ui>
         </div>

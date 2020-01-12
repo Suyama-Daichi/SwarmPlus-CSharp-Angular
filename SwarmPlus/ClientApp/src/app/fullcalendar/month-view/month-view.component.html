@@ -28,7 +28,7 @@
                 <full-calendar defaultView="dayGridMonth" #calendar (dateClick)="onDateClick($event)"
                     (eventClick)="openDetail($event)" [events]="calendarEvents" deepChangeDetection="true"
                     [plugins]="calendarPlugins" locale="jaLocale" nextDayThreshold="01:00:00" eventLimit="true"
-                    eventColor="orange" eventTextColor="white" [validRange]="nowDate" [defaultDate]="selectedDate"
+                    eventColor="orange" eventTextColor="white" [validRange]="nowDate" [defaultDate]="selectedDate" height="auto"
                     [header]=false>
                 </full-calendar>
             </block-ui>
