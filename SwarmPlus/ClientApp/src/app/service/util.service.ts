@@ -136,8 +136,8 @@ export class UtilService {
     this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
   }
   onNextMonth(calendarApi: Calendar) {
-    if (this.momentApi < moment(Number(this.getFirstDateAndLastDateOfThisMonth(new Date()).afterTimestamp) * 1000)) {
-      const currentDisplayDate: moment.Moment = !this.router.url.match(Threshold.MONTH_REG_EXPRESSION) ? moment() : moment(this.router.url.match(Threshold.MONTH_REG_EXPRESSION)[0], 'YYYY/MM');
+    const currentDisplayDate: moment.Moment = !this.router.url.match(Threshold.MONTH_REG_EXPRESSION) ? moment() : moment(this.router.url.match(Threshold.MONTH_REG_EXPRESSION)[0], 'YYYY/MM');
+    if (currentDisplayDate.format('MM') > moment().format('MM')) {
       currentDisplayDate.add(1, 'months');
       this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
     }
