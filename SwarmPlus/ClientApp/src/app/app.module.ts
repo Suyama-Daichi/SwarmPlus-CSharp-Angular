@@ -21,6 +21,7 @@ import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 import { MainComponent } from './CommonComponent/main/main.component';
 import { ListViewComponent } from './fullcalendar/list-view/list-view.component';
 import { DateSelectorComponent } from './parts/date-selector/date-selector.component';
+import { MonthSelectorComponent } from './parts/month-selector/month-selector.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { DateSelectorComponent } from './parts/date-selector/date-selector.compo
     MainComponent,
     ListViewComponent,
     DateSelectorComponent,
+    MonthSelectorComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
