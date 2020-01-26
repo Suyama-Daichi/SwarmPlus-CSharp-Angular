@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-nav-menu',
@@ -8,10 +9,14 @@ import { Router } from '@angular/router';
 })
 export class NavMenuComponent implements OnInit {
 
+  thisTimeLastYearPath: string;
+
   constructor(private router: Router) { }
   isExpanded = false;
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.thisTimeLastYearPath = `/day/${moment().subtract(1, 'year').format('YYYY/MM/DDD')}`;
+  }
 
   collapse() {
     this.isExpanded = false;
