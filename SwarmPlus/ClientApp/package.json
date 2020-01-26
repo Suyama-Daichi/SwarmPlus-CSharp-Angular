@@ -29,6 +29,7 @@
     "@fullcalendar/daygrid": "^4.3.0",
     "@fullcalendar/interaction": "^4.3.0",
     "@fullcalendar/list": "^4.3.0",
+    "@ng-bootstrap/ng-bootstrap": "^5.2.1",
     "@nguniversal/module-map-ngfactory-loader": "^7.1.1",
     "ajv": "^6.10.0",
     "aspnet-prerendering": "^3.0.1",

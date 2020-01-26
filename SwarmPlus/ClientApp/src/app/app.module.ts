@@ -22,6 +22,7 @@ import { MainComponent } from './CommonComponent/main/main.component';
 import { ListViewComponent } from './fullcalendar/list-view/list-view.component';
 import { DateSelectorComponent } from './parts/date-selector/date-selector.component';
 import { MonthSelectorComponent } from './parts/month-selector/month-selector.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MonthSelectorComponent } from './parts/month-selector/month-selector.co
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    NgbModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
