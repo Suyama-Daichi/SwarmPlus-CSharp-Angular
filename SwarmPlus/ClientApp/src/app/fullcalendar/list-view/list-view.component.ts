@@ -11,6 +11,7 @@ import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import * as moment from 'moment';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar } from '@fullcalendar/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-list-view',
@@ -20,7 +21,7 @@ import { Calendar } from '@fullcalendar/core';
 export class ListViewComponent implements OnInit, AfterViewInit {
   calendarPlugins = [interactionPlugin, dayGridPlugin, listPlugin];
   /** カレンダーイベントオブジェクト */
-  calendarEvents: CalendarEvent[] = [];
+  calendarEvents: CalendarEvent[] = [new CalendarEvent];
   selectedDate = new Date();
   /** Momentのインスタンス */
   momentApi: moment.Moment;
@@ -28,7 +29,8 @@ export class ListViewComponent implements OnInit, AfterViewInit {
   afterBeforeTimestamp: AfterBeforeTimestamp;
   @ViewChild('calendar', { static: false }) calenderComponent: FullCalendarComponent;
   calendarApi: Calendar;
-  isDetailOpen: boolean;
+
+  checkinId: string;
 
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
@@ -36,8 +38,7 @@ export class ListViewComponent implements OnInit, AfterViewInit {
     private utilService: UtilService,
     private httpService: HttpService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
-
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -65,20 +66,29 @@ export class ListViewComponent implements OnInit, AfterViewInit {
       );
     });
   }
-    /** 日付操作 */
-    onLastYear() {
-      this.utilService.onLastYear();
-    }
-    onLastYearMonth() {
-      this.utilService.onLastYear();
-    }
-    onThisMonth() {
-      this.utilService.onThisMonth();
-    }
-    onPrevMonth() {
-      this.utilService.onPrevMonth();
-    }
-    onNextMonth() {
-      this.utilService.onNextMonth();
-    }
+
+  /**
+   * モーダルを開く
+   * @param checkinDetail モーダル
+   */
+  openModal(checkinDetail, e) {
+    this.checkinId = e['event']['_def']['extendedProps']['checkinData'].id;
+    this.modalService.open(checkinDetail);
+  }
+  /** 日付操作 */
+  onLastYear() {
+    this.utilService.onLastYear();
+  }
+  onLastYearMonth() {
+    this.utilService.onLastYear();
+  }
+  onThisMonth() {
+    this.utilService.onThisMonth();
+  }
+  onPrevMonth() {
+    this.utilService.onPrevMonth();
+  }
+  onNextMonth() {
+    this.utilService.onNextMonth();
+  }
 }
