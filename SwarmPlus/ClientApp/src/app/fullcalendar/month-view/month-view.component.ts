@@ -13,6 +13,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar } from '@fullcalendar/core';
 import * as moment from 'moment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-month-view',
@@ -48,6 +49,8 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
     private utilService: UtilService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private modalService: NgbModal
+
   ) { }
 
   /** BlockUI */
@@ -79,6 +82,11 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
         }
       );
     });
+  }
+
+  openModal(checkinDetail, e) {
+    this.checkinId = e['event']['_def']['extendedProps']['checkinData'].id;
+    this.modalService.open(checkinDetail);
   }
 
   /** フィルター */
@@ -115,14 +123,6 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
    */
   onDateClick(event) {
     this.router.navigateByUrl(`day/${event.dateStr.replace(/-/g, '/')}`);
-  }
-
-  /**
-   * 詳細表示する
-   */
-  openDetail(e) {
-    this.isDetailOpen = true;
-    this.checkinId = e['event']['_def']['extendedProps']['checkinData'].id;
   }
 
   /** サイドバーから検索条件を受けとる */
