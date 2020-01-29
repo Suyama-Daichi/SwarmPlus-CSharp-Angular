@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar } from '@fullcalendar/core';
 import { SelectedCategory } from '../../model/selectedCategory.type';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-day-view',
@@ -35,10 +36,16 @@ export class DayViewComponent implements OnInit, AfterViewInit {
   /** ユーザーのチェックイン履歴 */
   checkinHistory: UsersCheckins;
   /** 詳細表示するチェックインデータ */
-  checkinData: Item4;
+  checkinId: string;
   /** サイドバーコンポーネントから受け取った絞り込み条件を保持 */
   searchCondition: SelectedCategory[];
-  constructor(private httpService: HttpService, private utilService: UtilService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(
+    private httpService: HttpService,
+    private utilService: UtilService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private modalService: NgbModal
+    ) { }
   /** BlockUI */
   @BlockUI() blockUI: NgBlockUI;
 
@@ -108,9 +115,9 @@ export class DayViewComponent implements OnInit, AfterViewInit {
   /**
    * 詳細表示する
    */
-  openDetail(e) {
-    this.isDetailOpen = true;
-    this.checkinData = e['event']['_def']['extendedProps']['checkinData'].id;
+  openModal(checkinDetail, e) {
+    this.checkinId = e['event']['_def']['extendedProps']['checkinData'].id;
+    this.modalService.open(checkinDetail);
   }
 
   /** サイドバーから検索条件を受けとる */

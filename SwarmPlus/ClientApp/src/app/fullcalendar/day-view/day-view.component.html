@@ -32,15 +32,15 @@
                         </div>
                     </div>
                 </div>
-                <full-calendar #calendar defaultView="listDay" (eventClick)="openDetail($event)"
+                <full-calendar #calendar defaultView="listDay" (eventClick)="openModal(checkinDetail, $event)"
                     [events]="calendarEvents" deepChangeDetection="true" [plugins]="calendarPlugins"
                     [defaultDate]="selectedDate" height="auto" locale="jaLocale" [header]=false>
                 </full-calendar>
             </block-ui>
         </div>
-
-        <div *ngIf="isDetailOpen">
-            <app-checkin-detail [checkinId]="checkinData"></app-checkin-detail>
-        </div>
     </div>
 </div>
+
+<ng-template #checkinDetail>
+    <app-checkin-detail [checkinId]="checkinId"></app-checkin-detail>
+</ng-template>
