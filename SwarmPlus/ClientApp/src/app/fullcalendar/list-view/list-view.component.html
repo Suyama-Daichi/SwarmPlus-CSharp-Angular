@@ -17,7 +17,11 @@
     </div>
 </div>
 <block-ui>
-    <full-calendar #calendar [events]="calendarEvents" defaultView="listMonth" deepChangeDetection="true"
+    <full-calendar #calendar [events]="calendarEvents" (eventClick)="openModal(checkinDetail, $event)" defaultView="listMonth" deepChangeDetection="true"
         [plugins]="calendarPlugins" [defaultDate]="selectedDate" locale="jaLocale" height="auto" [header]=false>
     </full-calendar>
 </block-ui>
+
+<ng-template #checkinDetail>
+    <app-checkin-detail [checkinId]="checkinId"></app-checkin-detail>
+</ng-template>
