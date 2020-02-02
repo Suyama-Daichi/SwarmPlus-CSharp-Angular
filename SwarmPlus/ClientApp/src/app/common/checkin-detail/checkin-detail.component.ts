@@ -2,6 +2,7 @@ import { UtilService } from './../../service/util.service';
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-checkin-detail',
@@ -22,7 +23,11 @@ export class CheckinDetailComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('checkinDetail', { static: true }) checkinDetailArea: ElementRef;
 
-  constructor(private httpService: HttpService, private utilService: UtilService) { }
+  constructor(
+    private httpService: HttpService, 
+    private utilService: UtilService, 
+    public activeModal: NgbActiveModal
+    ) { }
 
   /**
    * 下部にスクロールする
