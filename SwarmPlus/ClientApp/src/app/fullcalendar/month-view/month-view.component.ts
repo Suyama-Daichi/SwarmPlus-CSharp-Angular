@@ -34,8 +34,6 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
   afterBeforeTimestamp: AfterBeforeTimestamp;
   /** ユーザーのチェックイン履歴 */
   checkinHistory: UsersCheckins;
-  /** 詳細コンポーネントが開かれているか */
-  isDetailOpen: boolean;
   /** 詳細表示するチェックインデータ */
   checkinId: string;
   /** 今日の日付(未来の日付を選択させないため) */
@@ -102,23 +100,18 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
 
   /** 日付操作 */
   onLastYear() {
-    this.isDetailOpen = false;
     this.utilService.onLastYear();
   }
   onLastYearMonth() {
-    this.isDetailOpen = false;
     this.utilService.onLastYearMonth();
   }
   onThisMonth() {
-    this.isDetailOpen = false;
     this.utilService.onThisMonth();
   }
   onPrevMonth() {
-    this.isDetailOpen = false;
     this.utilService.onPrevMonth();
   }
   onNextMonth() {
-    this.isDetailOpen = false;
     this.utilService.onNextMonth();
   }
 
