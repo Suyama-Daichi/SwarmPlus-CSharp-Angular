@@ -1,3 +1,4 @@
+import { CheckinDetailComponent } from './../../common/checkin-detail/checkin-detail.component';
 import { AfterBeforeTimestamp } from './../../model/AfterBeforeTimestamp.type';
 import { UtilService } from './../../service/util.service';
 import { HttpService } from './../../service/http.service';
@@ -115,9 +116,9 @@ export class DayViewComponent implements OnInit, AfterViewInit {
   /**
    * 詳細表示する
    */
-  openModal(checkinDetail, e) {
-    this.checkinId = e['event']['_def']['extendedProps']['checkinData'].id;
-    this.modalService.open(checkinDetail);
+  openModal(e) {
+    const modalRef = this.modalService.open(CheckinDetailComponent);
+    modalRef.componentInstance.checkinId = e['event']['_def']['extendedProps']['checkinData'].id;
   }
 
   /** サイドバーから検索条件を受けとる */

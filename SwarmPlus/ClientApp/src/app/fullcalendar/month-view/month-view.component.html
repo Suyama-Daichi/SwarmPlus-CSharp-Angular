@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <full-calendar defaultView="dayGridMonth" #calendar (dateClick)="onDateClick($event)"
-                    (eventClick)="openModal(checkinDetail, $event)" [events]="calendarEvents" deepChangeDetection="true"
+                    (eventClick)="openModal($event)" [events]="calendarEvents" deepChangeDetection="true"
                     [plugins]="calendarPlugins" locale="jaLocale" nextDayThreshold="01:00:00" eventLimit="true"
                     eventColor="orange" eventTextColor="white" [validRange]="nowDate" [defaultDate]="selectedDate" height="auto"
                     [header]=false>
@@ -35,7 +35,3 @@
         </div>
     </div>
 </div>
-
-<ng-template #checkinDetail>
-    <app-checkin-detail [checkinId]="checkinId"></app-checkin-detail>
-</ng-template>

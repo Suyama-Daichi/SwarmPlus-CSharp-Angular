@@ -1,3 +1,4 @@
+import { CheckinDetailComponent } from './../../common/checkin-detail/checkin-detail.component';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
@@ -71,9 +72,9 @@ export class ListViewComponent implements OnInit, AfterViewInit {
    * モーダルを開く
    * @param checkinDetail モーダル
    */
-  openModal(checkinDetail, e) {
-    this.checkinId = e['event']['_def']['extendedProps']['checkinData'].id;
-    this.modalService.open(checkinDetail);
+  openModal(e) {
+    const modalRef = this.modalService.open(CheckinDetailComponent);
+    modalRef.componentInstance.checkinId = e['event']['_def']['extendedProps']['checkinData'].id;
   }
   /** 日付操作 */
   onLastYear() {

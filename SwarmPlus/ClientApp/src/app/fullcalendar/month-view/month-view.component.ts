@@ -14,6 +14,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar } from '@fullcalendar/core';
 import * as moment from 'moment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CheckinDetailComponent } from '../../common/checkin-detail/checkin-detail.component';
 
 @Component({
   selector: 'app-month-view',
@@ -84,9 +85,14 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openModal(checkinDetail, e) {
-    this.checkinId = e['event']['_def']['extendedProps']['checkinData'].id;
-    this.modalService.open(checkinDetail);
+  /**
+   * モーダルを開く
+   * @param checkinDetail モーダルコンポーネント
+   * @param e イベントオブジェクト
+   */
+  openModal(e) {
+    const modalRef = this.modalService.open(CheckinDetailComponent);
+    modalRef.componentInstance.checkinId = this.checkinId = e['event']['_def']['extendedProps']['checkinData'].id;
   }
 
   /** フィルター */
