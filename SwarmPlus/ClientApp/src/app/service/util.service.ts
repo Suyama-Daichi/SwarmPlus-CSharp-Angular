@@ -130,12 +130,14 @@ export class UtilService {
   }
   onPrevMonth() {
     const currentDisplayDate: moment.Moment = !this.router.url.match(Threshold.MONTH_REG_EXPRESSION) ? moment() : moment(this.router.url.match(Threshold.MONTH_REG_EXPRESSION)[0], 'YYYY/MM');
-    currentDisplayDate.subtract(1, 'months');
-    this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    if (currentDisplayDate.isAfter('2009-03', 'month')) {
+      currentDisplayDate.subtract(1, 'months');
+      this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
+    }
   }
   onNextMonth() {
     const currentDisplayDate: moment.Moment = !this.router.url.match(Threshold.MONTH_REG_EXPRESSION) ? moment() : moment(this.router.url.match(Threshold.MONTH_REG_EXPRESSION)[0], 'YYYY/MM');
-    if (currentDisplayDate.format('MM') > moment().format('MM')) {
+    if (currentDisplayDate.isBefore(moment(), 'month')) {
       currentDisplayDate.add(1, 'months');
       this.router.navigateByUrl(`month/${currentDisplayDate.format('YYYY')}/${currentDisplayDate.format('MM')}`);
     }

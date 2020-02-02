@@ -67,7 +67,7 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
   getUserCheckins() {
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       const y = params.get('year'), m = params.get('month');
-      this.momentApi = moment(y === null || m === null || !y.match(/19[0-9]{2}|20[0-9]{2}/g) || !m.match(/[1-9]|1[0-2]/g) ? new Date() : new Date(`${y}-${m}`));
+      this.momentApi = moment(y === null || m === null || !y.match(/20[0-9]{2}/g) || !m.match(/[1-9]|1[0-2]/g) ? new Date() : new Date(`${y}-${m}`));
       this.selectedDate = this.momentApi.toDate();
       this.afterBeforeTimestamp = this.utilService.getFirstDateAndLastDateOfThisMonth(this.selectedDate);
       this.blockUI.start();
