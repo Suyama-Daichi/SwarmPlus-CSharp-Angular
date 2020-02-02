@@ -30,8 +30,8 @@
             <!-- シャウト -->
             <p *ngIf="(checkinData)?.shout"><i class="fas fa-comment comment-icon"></i>{{(checkinData)?.shout}}</p>
         </div>
-        <div class="card-footer">
-            <button class="btn-sm btn-orange" (click)="activeModal.dismiss()">閉じる</button>
+        <div (click)="activeModal.dismiss()" class="card-footer d-flex justify-content-center">
+            <span><i class="fas fa-times"></i></span>
         </div>
     </div>
 </div>
