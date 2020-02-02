@@ -1,5 +1,5 @@
 import { UtilService } from './../../service/util.service';
-import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
 
@@ -8,7 +8,7 @@ import { NgBlockUI, BlockUI } from 'ng-block-ui';
   templateUrl: './checkin-detail.component.html',
   styleUrls: ['./checkin-detail.component.scss']
 })
-export class CheckinDetailComponent implements OnInit, OnChanges {
+export class CheckinDetailComponent implements OnInit {
   /** 取得対象のチェックインID */
   @Input() checkinId: string;
   /** チェックイン詳細データ */
@@ -24,12 +24,16 @@ export class CheckinDetailComponent implements OnInit, OnChanges {
 
   constructor(private httpService: HttpService, private utilService: UtilService) { }
 
-  /** 値の変更を検知
-   *  https://angular.jp/guide/lifecycle-hooks#onchanges
+  /**
+   * 下部にスクロールする
    */
-  ngOnChanges(changes: SimpleChanges) {
+  onloadImage() {
+    this.checkinDetailArea.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+
+  ngOnInit() { 
     this.blockUI.start();
-    this.httpService.getCheckinDetail(changes['checkinId'].currentValue).subscribe(s => {
+    this.httpService.getCheckinDetail(this.checkinId).subscribe(s => {
       this.httpService.getVenuePhotos(s.venue.id).subscribe(photo => {
         this.venuePhotosUrl = photo;
         this.checkinData = s;
@@ -38,13 +42,4 @@ export class CheckinDetailComponent implements OnInit, OnChanges {
       });
     });
   }
-
-  /**
-   * 下部にスクロールする
-   */
-  onloadImage() {
-    this.checkinDetailArea.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
-  }
-
-  ngOnInit() { }
 }
