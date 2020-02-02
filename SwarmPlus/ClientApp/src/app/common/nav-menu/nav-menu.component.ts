@@ -15,7 +15,7 @@ export class NavMenuComponent implements OnInit {
   isExpanded = false;
 
   ngOnInit() {
-    this.thisTimeLastYearPath = `/day/${moment().subtract(1, 'year').format('YYYY/MM/DDD')}`;
+    this.thisTimeLastYearPath = `/day/${moment().subtract(1, 'year').format('YYYY/MM/DD')}`;
   }
 
   collapse() {
