@@ -1,13 +1,14 @@
 <div #checkinDetail>
     <div class="card">
         <!-- 写真付きチェックインではその写真、写真なしでは公開されている写真を表示する -->
-        <span
-            *ngFor="let photo of (checkinData)?.photos.count !== 0 ? (checkinData)?.photos.items : (venuePhotosUrl)?.items; index as i">
-            <img class="card-img-top" src="{{photo.prefix}}original{{photo.suffix}}" alt="Upload Photo {{i}}"
-                (load)="onloadImage()">
-        </span>
-        <img *ngIf="(checkinData)?.photos.count === 0 && (venuePhotosUrl)?.count === 0" width="500px" height="500px"
-            class="card-img-top" [src]="defaultImagePath" alt="Photo is not found" (load)="onloadImage()">
+        <ngb-carousel>
+            <ng-template ngbSlide
+                *ngFor="let photo of (checkinData)?.photos.count !== 0 ? (checkinData)?.photos.items : (venuePhotosUrl)?.items; index as i">
+                <div>
+                    <img src="{{photo.prefix}}original{{photo.suffix}}" alt="Upload Photo {{i}}" class="w-100">
+                </div>
+            </ng-template>
+        </ngb-carousel>
         <div class="card-body">
             <!-- チェックインしたべニュー -->
             <h4 class="card-title">
@@ -28,7 +29,8 @@
                     href="{{checkinData.checkinShortUrl}}"
                     *ngFor="let like of (checkinData)?.likes.groups">{{like | stringJoin}}</a></p>
             <!-- シャウト -->
-            <p *ngIf="(checkinData)?.shout"><i class="fas fa-comment comment-icon"></i>{{(checkinData)?.shout}}</p>
+            <p *ngIf="(checkinData)?.shout"><i class="fas fa-comment comment-icon"></i>{{(checkinData)?.shout}}
+            </p>
         </div>
         <div (click)="activeModal.dismiss()" class="card-footer d-flex justify-content-center">
             <span><i class="fas fa-times"></i></span>
