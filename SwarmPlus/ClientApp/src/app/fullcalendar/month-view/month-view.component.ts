@@ -84,6 +84,11 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * モーダルを開く
+   * @param checkinDetail モーダルコンポーネント
+   * @param e イベントオブジェクト
+   */
   openModal(checkinDetail, e) {
     this.checkinId = e['event']['_def']['extendedProps']['checkinData'].id;
     this.modalService.open(checkinDetail);
