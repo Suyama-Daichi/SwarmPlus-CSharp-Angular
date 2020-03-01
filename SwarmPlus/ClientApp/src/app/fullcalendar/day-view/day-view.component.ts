@@ -14,6 +14,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar } from '@fullcalendar/core';
 import { SelectedCategory } from '../../model/selectedCategory.type';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UsersCheckins } from '../../model/UserCheckins.type';
 
 @Component({
   selector: 'app-day-view',
@@ -30,7 +31,7 @@ export class DayViewComponent implements OnInit, AfterViewInit {
   /** Momentのインスタンス */
   momentApi: moment.Moment;
   /** カレンダーのインスタンス */
-  @ViewChild('calendar', { static: false }) calenderComponent: FullCalendarComponent;
+  @ViewChild('calendar') calenderComponent: FullCalendarComponent;
   calendarApi: Calendar;
   /** ユーザーのチェックイン履歴 */
   checkinHistory: UsersCheckins;

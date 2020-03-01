@@ -3,6 +3,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { HttpService } from '../../service/http.service';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Photos, Item4 } from '../../model/UserCheckins.type';
 
 @Component({
   selector: 'app-checkin-detail',

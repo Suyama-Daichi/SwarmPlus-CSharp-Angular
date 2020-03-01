@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Calendar } from '@fullcalendar/core';
 import { Threshold } from '../const';
+import { Item4 } from '../model/UserCheckins.type';
 
 @Injectable({
   providedIn: 'root'

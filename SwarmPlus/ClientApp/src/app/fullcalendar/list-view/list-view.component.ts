@@ -28,7 +28,7 @@ export class ListViewComponent implements OnInit, AfterViewInit {
   momentApi: moment.Moment;
   /** 初月と月末のタイムスタンプインスタンス */
   afterBeforeTimestamp: AfterBeforeTimestamp;
-  @ViewChild('calendar', { static: false }) calenderComponent: FullCalendarComponent;
+  @ViewChild('calendar') calenderComponent: FullCalendarComponent;
   calendarApi: Calendar;
 
   checkinId: string;

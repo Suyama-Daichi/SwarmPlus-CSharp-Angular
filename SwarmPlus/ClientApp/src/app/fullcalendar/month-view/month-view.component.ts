@@ -15,6 +15,7 @@ import { Calendar } from '@fullcalendar/core';
 import * as moment from 'moment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CheckinDetailComponent } from '../../common/checkin-detail/checkin-detail.component';
+import { UsersCheckins } from '../../model/UserCheckins.type';
 
 @Component({
   selector: 'app-month-view',
@@ -39,7 +40,7 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
   /** 今日の日付(未来の日付を選択させないため) */
   nowDate = { end: new Date() };
   /** カレンダーのインスタンス */
-  @ViewChild('calendar', { static: false }) calenderComponent: FullCalendarComponent;
+  @ViewChild('calendar') calenderComponent: FullCalendarComponent;
   calendarApi: Calendar;
   /** サイドバーコンポーネントから受け取った絞り込み条件を保持 */
   searchCondition: SelectedCategory[];
