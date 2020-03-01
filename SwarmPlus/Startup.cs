@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SwarmPlus.Data;
 using SwarmPlus.Models;
 using SwarmPlus.Service;
@@ -15,7 +16,7 @@ namespace SwarmPlus
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             // 構成ファイル、環境変数等から、構成情報をロード
             var builder = new ConfigurationBuilder()
@@ -53,7 +54,7 @@ namespace SwarmPlus
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -64,16 +65,15 @@ namespace SwarmPlus
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+            app.UseRouting();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                routes.MapControllerRoute("default", "controller=Home/{action=Index}/id");
             });
 
             app.UseSpa(spa =>
