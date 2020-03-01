@@ -1,4 +1,4 @@
-interface UsersCheckins {
+export interface UsersCheckins {
     meta: Meta;
     notifications: Notification[];
     response: Response;
@@ -13,7 +13,7 @@ interface Checkins {
     items: Item4[];
 }
 
-interface Item4 {
+export interface Item4 {
     checkinShortUrl: string;
     id: string;
     createdAt: number;
@@ -49,7 +49,7 @@ interface Posts {
     textCount: number;
 }
 
-interface Photos {
+export interface Photos {
     count: number;
     items: Item3[];
     layout?: Layout;

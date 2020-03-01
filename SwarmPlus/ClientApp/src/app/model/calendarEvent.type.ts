@@ -1,3 +1,5 @@
+import { Item4 } from "./UserCheckins.type";
+
 export class CalendarEvent {
     constructor() {}
     /** イベントID */

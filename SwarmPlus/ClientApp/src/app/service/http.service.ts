@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AuthInfo } from '../model/auth.type';
 import { Observable } from 'rxjs';
+import { AccessToken } from '../model/AccessToken.type';
+import { UsersCheckins, Item4, Photos } from '../model/UserCheckins.type';
 
 @Injectable({
   providedIn: 'root'

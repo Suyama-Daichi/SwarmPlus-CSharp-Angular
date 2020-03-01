@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { HttpService } from '../../service/http.service';
+import { AccessToken } from '../../model/AccessToken.type';
 
 @Component({
   selector: 'app-login',
