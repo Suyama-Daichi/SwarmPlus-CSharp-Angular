@@ -23,15 +23,15 @@ namespace SwarmPlus.Controllers
         /// <summary>
         /// ユーザーのチェックイン履歴を返す
         /// </summary>
-        /// <param name="accessToken">アクセストークン</param>
         /// <param name="afterTimestamp">取得する期間(終わり)</param>
         /// <param name="beforeTimestamp">取得する期間(始まり)</param>
         /// <returns></returns>
         [HttpGet]
         [Route("getCheckinsPerMonth")]
-        public async Task<ActionResult> getCheckinsPerMonth(string accessToken, int afterTimestamp, int beforeTimestamp)
+        public async Task<ActionResult> getCheckinsPerMonth(int afterTimestamp, int beforeTimestamp)
         {
-            return Ok(await _foursquareAPIService.GetUsersCheckinsAsync(accessToken, afterTimestamp, beforeTimestamp));
+            var token = Util.GetTokenFromBearer(Request.Headers.FirstOrDefault(f => f.Key == "Authorization").Value);
+            return Ok(await _foursquareAPIService.GetUsersCheckinsAsync(token, afterTimestamp, beforeTimestamp));
         }
 
         /// <summary>
@@ -49,14 +49,14 @@ namespace SwarmPlus.Controllers
         /// <summary>
         /// チェックインの詳細を取得
         /// </summary>
-        /// <param name="accessToken">アクセストークン</param>
         /// <param name="checkinId">チェックインID</param>
         /// <returns>チェックイン詳細データ</returns>
         [HttpGet]
         [Route("getCheckinDetail")]
-        public async Task<ActionResult> getCheckinDetail(string accessToken, string checkinId)
+        public async Task<ActionResult> getCheckinDetail(string checkinId)
         {
-            return Ok(await _foursquareAPIService.getCheckinDetail(accessToken, checkinId));
+            var token = Util.GetTokenFromBearer(Request.Headers.FirstOrDefault(f => f.Key == "Authorization").Value);
+            return Ok(await _foursquareAPIService.getCheckinDetail(token, checkinId));
         }
     }
 }

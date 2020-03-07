@@ -11,14 +11,14 @@ import { UsersCheckins, Item4, Photos } from '../model/UserCheckins.type';
   providedIn: 'root'
 })
 export class HttpService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   /** ヘッダー情報 */
-  readonly httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    })
-  };
+  headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'bearer ' + this.getAccessToken()
+  })
 
   getAccessToken(): string {
     return localStorage.getItem('token');
@@ -42,8 +42,8 @@ export class HttpService {
    * @param beforeTimestamp 取得する期間(終わり)
    */
   getUserCheckins(afterTimestamp: string, beforeTimestamp: string): Observable<UsersCheckins> {
-    const params = new HttpParams().set('accessToken', this.getAccessToken()).set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);
-    return this.httpClient.get<UsersCheckins>(environment.backEndApi + '/foursquareapi/getCheckinsPerMonth', { params: params });
+    const params = new HttpParams().set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);
+    return this.httpClient.get<UsersCheckins>(environment.backEndApi + '/foursquareapi/getCheckinsPerMonth', { headers: this.headers, params: params });
   }
 
   /**
@@ -51,8 +51,8 @@ export class HttpService {
    * @param checkinId 詳細を取得したいチェックインのID
    */
   getCheckinDetail(checkinId: string): Observable<Item4> {
-    const params = new HttpParams().set('accessToken', this.getAccessToken()).set('checkinId', checkinId);
-    return this.httpClient.get<Item4>(environment.backEndApi + '/foursquareapi/getcheckindetail', { params: params });
+    const params = new HttpParams().set('checkinId', checkinId);
+    return this.httpClient.get<Item4>(environment.backEndApi + '/foursquareapi/getcheckindetail', { headers: this.headers, params: params });
   }
 
   /**
