@@ -6,16 +6,24 @@ import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls: [
+    './animate.scss',
+    './icomoon.scss',
+    './magnific-popup.scss',
+    // './owl.carousel.min.scss',
+    './owl.theme.default.min.scss',
+    './style.scss'
+  ]
 })
 export class HomeComponent implements OnInit {
-    /** 認可URL */
-    authenticateURL = environment.authenticateURL;
-    /** リダイレクトURL */
-    redirectUrl = environment.redirectUrl;
+  /** 認可URL */
+  authenticateURL = environment.authenticateURL;
+  /** リダイレクトURL */
+  redirectUrl = environment.redirectUrl;
   constructor(
     private router: Router,
     private httpService: HttpService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.httpService.VerifyAccessToken(localStorage.getItem('token')).subscribe(
