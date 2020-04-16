@@ -1,9 +1,70 @@
-<div class="home">
-  <div class="caption">
-    <p>あの日、どこにいた？</p>
-    <p>あの日のお店なんだっけ？</p>
-  </div>
-  <div class="login-button">
-    <button class="btn btn-lg border-success"><a href="{{authenticateURL}}&redirect_uri={{redirectUrl}}">ログイン</a></button>
-  </div>
+<div id="page">
+  <nav class="colorlib-nav" role="navigation">
+    <div class="top-menu">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-2">
+            <div id="colorlib-logo"><a href="index.html">SwarmPlus</a></div>
+          </div>
+          <div class="col-md-10 text-right menu-1">
+            <ul>
+              <!-- <li class="active"><a href="index.html">Home</a></li>
+              <li class="has-dropdown">
+                <a href="work.html">Works</a>
+                <ul class="dropdown">
+                  <li><a href="work-grid.html">Works grid with text</a></li>
+                  <li><a href="work-grid-without-text.html">Works grid w/o text</a></li>
+                </ul>
+              </li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="blog.html">Blog</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="shop.html">Shop</a></li> -->
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section id="home" class="video-hero"
+    style="height: 700px; background-image: url(../../assets/images/カレンダーモック.png);  background-size:cover; background-position: center center;background-attachment:fixed;"
+    data-section="home">
+    <div class="overlay"></div>
+    <div class="display-t text-center">
+      <div class="display-tc">
+        <div class="container">
+          <div class="col-md-12 col-md-offset-0">
+            <div class="animate-box">
+              <h2>あの日どこにいた？</h2>
+              <p>あの日を忘れないための、Swarmerのためのカレンダー</p>
+              <p><a href="{{authenticateURL}}&redirect_uri={{redirectUrl}}" class="btn btn-primary btn-lg btn-custom">ログイン</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="colorlib-footer">
+    <div class="copy">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              Copyright &copy;
+              <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+              with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                target="_blank">Colorlib</a>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br>
+              Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a>, <a href="http://pexels.com/"
+                target="_blank">Pexels</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>
