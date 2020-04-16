@@ -44,12 +44,27 @@ namespace SwarmPlus
             services.AddDbContext<SwarmPlusContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
-
-            // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
+            services.AddCors(options =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                options.AddDefaultPolicy(
+                    builder => builder
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins(new string[] { "http://localhost:4200" })
+                );
+
+                options.AddPolicy("SwarmplusPolicy",
+                     builder => builder
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins(new string[] { "https://swarmplus.net/" })
+                    );
             });
+            // In production, the Angular files will be served from this directory
+            //services.AddSpaStaticFiles(configuration =>
+            //{
+            //    configuration.RootPath = "ClientApp/dist";
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,25 +83,27 @@ namespace SwarmPlus
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            //app.UseSpaStaticFiles();
 
             app.UseEndpoints(routes =>
             {
                 routes.MapControllerRoute("default", "controller=Home/{action=Index}/id");
             });
 
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
+            app.UseCors("SwarmplusPolicy");
 
-                spa.Options.SourcePath = "ClientApp";
+            //app.UseSpa(spa =>
+            //{
+            //    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+            //    // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+            //    spa.Options.SourcePath = "ClientApp";
+
+            //    if (env.IsDevelopment())
+            //    {
+            //        spa.UseAngularCliServer(npmScript: "start");
+            //    }
+            //});
         }
     }
 }
