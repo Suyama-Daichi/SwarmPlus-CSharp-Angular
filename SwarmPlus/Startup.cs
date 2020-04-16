@@ -46,20 +46,14 @@ namespace SwarmPlus
             );
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(
-                    builder => builder
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .WithOrigins(new string[] { "http://localhost:4200" })
-                );
-
                 options.AddPolicy("SwarmplusPolicy",
                      builder => builder
                         .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .WithOrigins(new string[] { "https://swarmplus.net/" })
+                        .WithOrigins(new string[] { "https://swarmplus.net" })
                     );
             });
+            services.AddApplicationInsightsTelemetry();
             // In production, the Angular files will be served from this directory
             //services.AddSpaStaticFiles(configuration =>
             //{
@@ -80,6 +74,7 @@ namespace SwarmPlus
                 app.UseHsts();
             }
             app.UseRouting();
+            app.UseCors("SwarmplusPolicy");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -90,7 +85,6 @@ namespace SwarmPlus
                 routes.MapControllerRoute("default", "controller=Home/{action=Index}/id");
             });
 
-            app.UseCors("SwarmplusPolicy");
 
             //app.UseSpa(spa =>
             //{
