@@ -27,6 +27,7 @@ export class MonthSelectorComponent implements OnInit {
     altInput: true,
     altFormat: 'Y年m月',
     altInputClass: 'custom-input',
+    minDate: new Date(2009, 2, 1),
     maxDate: new Date(),
     defaultDate: new Date(),
   };
