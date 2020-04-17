@@ -50,7 +50,7 @@ namespace SwarmPlus
                      builder => builder
                         .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .WithOrigins(new string[] { "https://swarmplus.net" })
+                        .WithOrigins(new string[] { "https://swarmplus.net", "http://localhost:4200" })
                     );
             });
             services.AddApplicationInsightsTelemetry();
