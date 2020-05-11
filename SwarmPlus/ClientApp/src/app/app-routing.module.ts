@@ -7,8 +7,8 @@ import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
 import { MainComponent } from './CommonComponent/main/main.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: '*', redirectTo: '' },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '**', redirectTo: 'month' },
   { path: 'month', component: MainComponent, canActivate: [AuthGuard] },
   { path: 'month/:year/:month', component: MainComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
