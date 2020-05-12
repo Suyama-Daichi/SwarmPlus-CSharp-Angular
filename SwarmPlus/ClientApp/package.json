@@ -9,6 +9,7 @@
     "build:ssr": "npm run build -- --app=ssr --output-hashing=media",
     "test": "ng test",
     "lint": "ng lint",
+    "deploy": "ng build -c=production && firebase deploy",
     "e2e": "ng e2e"
   },
   "private": true,
