@@ -46,7 +46,7 @@ export class HttpService {
   getCheckinDetail(checkinId: string): Observable<Item4> {
     const headers: HttpHeaders = new HttpHeaders().set('Authorization', 'bearer ' + this.getAccessToken());
     const params = new HttpParams().set('checkinId', checkinId);
-    return this.httpClient.get<Item4>(environment.backEndApi + '/foursquareapi/getcheckindetail', { headers: headers, params: params });
+    return this.httpClient.get<Item4>('https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/prod/checkin', { headers: headers, params: params });
   }
 
   /**
