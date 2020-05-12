@@ -25,8 +25,8 @@ export class CheckinDetailComponent implements OnInit {
   @ViewChild('checkinDetail', { static: true }) checkinDetailArea: ElementRef;
 
   constructor(
-    private httpService: HttpService, 
-    private utilService: UtilService, 
+    private httpService: HttpService,
+    private utilService: UtilService,
     public activeModal: NgbActiveModal
     ) { }
 
@@ -37,7 +37,7 @@ export class CheckinDetailComponent implements OnInit {
     this.checkinDetailArea.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.blockUI.start();
     this.httpService.getCheckinDetail(this.checkinId).subscribe(s => {
       this.httpService.getVenuePhotos(s.venue.id).subscribe(photo => {
