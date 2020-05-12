@@ -55,7 +55,7 @@ export class HttpService {
    */
   getVenuePhotos(venueId: string): Observable<Photos> {
     const params = new HttpParams().set('venueId', venueId);
-    return this.httpClient.get<Photos>(environment.backEndApi + '/foursquareapi/getVenuePhotos', { params: params });
+    return this.httpClient.get<Photos>('https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/prod/photos', { params: params });
   }
 
 }
