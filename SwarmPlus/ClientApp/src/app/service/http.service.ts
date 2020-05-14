@@ -21,11 +21,11 @@ export class HttpService {
    * @param targetAccessToken 検証対象のアクセストークン
    */
   VerifyAccessToken(targetAccessToken: string): Observable<any> {
-    return this.httpClient.get<any>(`https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/request-to-foursquare-test/foursquareapi?oauth_token=${targetAccessToken}`);
+    return this.httpClient.get<any>(`${environment.backEndApi}/foursquareapi?oauth_token=${targetAccessToken}`);
   }
 
   GetAccessTokenObservable(code: string): Observable<AccessToken> {
-    return this.httpClient.get<AccessToken>(`https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/authenticate-test/authenticate?code=${code}`);
+    return this.httpClient.get<AccessToken>(`${environment.backEndApi}/authenticate?code=${code}`);
   }
 
   /**
@@ -36,7 +36,7 @@ export class HttpService {
   getUserCheckins(afterTimestamp: string, beforeTimestamp: string): Observable<UsersCheckins> {
     const headers: HttpHeaders = new HttpHeaders().set('Authorization', 'bearer ' + this.getAccessToken());
     const params = new HttpParams().set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);
-    return this.httpClient.get<UsersCheckins>(environment.backEndApi + '/foursquareapi/getCheckinsPerMonth', { headers: headers, params: params });
+    return this.httpClient.get<UsersCheckins>(`${environment.backEndApi}/checkins`, { headers: headers, params: params });
   }
 
   /**
@@ -46,7 +46,7 @@ export class HttpService {
   getCheckinDetail(checkinId: string): Observable<Item4> {
     const headers: HttpHeaders = new HttpHeaders().set('Authorization', 'bearer ' + this.getAccessToken());
     const params = new HttpParams().set('checkinId', checkinId);
-    return this.httpClient.get<Item4>('https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/prod/checkin', { headers: headers, params: params });
+    return this.httpClient.get<Item4>(`${environment.backEndApi}/checkin`, { headers: headers, params: params });
   }
 
   /**
@@ -55,7 +55,7 @@ export class HttpService {
    */
   getVenuePhotos(venueId: string): Observable<Photos> {
     const params = new HttpParams().set('venueId', venueId);
-    return this.httpClient.get<Photos>('https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/prod/photos', { params: params });
+    return this.httpClient.get<Photos>(`${environment.backEndApi}/photos`, { params: params });
   }
 
 }
