@@ -36,7 +36,7 @@ export class HttpService {
   getUserCheckins(afterTimestamp: string, beforeTimestamp: string): Observable<UsersCheckins> {
     const headers: HttpHeaders = new HttpHeaders().set('Authorization', 'bearer ' + this.getAccessToken());
     const params = new HttpParams().set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);
-    return this.httpClient.get<UsersCheckins>(environment.backEndApi + '/foursquareapi/getCheckinsPerMonth', { headers: headers, params: params });
+    return this.httpClient.get<UsersCheckins>('https://1vxd5j4ny1.execute-api.ap-northeast-1.amazonaws.com/prod/checkins', { headers: headers, params: params });
   }
 
   /**
