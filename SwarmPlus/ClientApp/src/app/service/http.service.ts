@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { AccessToken } from '../model/AccessToken.type';
 import { UsersCheckins, Item4, Photos } from '../model/UserCheckins.type';
+import { UserInfo } from '../model/UserInfo.type';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class HttpService {
    * アクセストークンを検証する
    * @param targetAccessToken 検証対象のアクセストークン
    */
-  VerifyAccessToken(targetAccessToken: string): Observable<any> {
+  VerifyAccessToken(targetAccessToken: string): Observable<UserInfo> {
     return this.httpClient.get<any>(`${environment.backEndApi}/foursquareapi?oauth_token=${targetAccessToken}`);
   }
 

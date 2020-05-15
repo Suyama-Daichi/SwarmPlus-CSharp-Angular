@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
   canActivate() {
     return this.httpService.VerifyAccessToken(localStorage.getItem('token')).pipe(
       map(response => {
-        if (response.meta.code === 401) {
+        if (response.statusCode === 401) {
           this.router.navigate(['']);
           return false;
         }
