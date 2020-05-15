@@ -75,7 +75,7 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
       this.httpService.getUserCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
         response => {
           this.checkinHistory = response;
-          this.calendarEvents = this.utilService.generateEvents(this.checkinHistory.response.checkins.items);
+          this.calendarEvents = this.utilService.generateEvents(this.checkinHistory.checkins.items);
           this.filterCheckins(this.searchCondition);
           this.calendarApi.gotoDate(this.selectedDate);
           this.blockUI.stop();
@@ -96,7 +96,7 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
 
   /** フィルター */
   filterCheckins(e: SelectedCategory[]) {
-    this.calendarEvents = this.utilService.filterCheckin((this.checkinHistory.response.checkins.items), e);
+    this.calendarEvents = this.utilService.filterCheckin((this.checkinHistory.checkins.items), e);
   }
 
   /** 日付操作 */
