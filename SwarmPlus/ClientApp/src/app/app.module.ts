@@ -22,9 +22,10 @@ import { MainComponent } from './CommonComponent/main/main.component';
 import { ListViewComponent } from './fullcalendar/list-view/list-view.component';
 import { DateSelectorComponent } from './parts/date-selector/date-selector.component';
 import { MonthSelectorComponent } from './parts/month-selector/month-selector.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Interceptor } from './service/Interceptor/http-interceptors';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { Interceptor } from './service/Interceptor/http-interceptors';
     MainComponent,
     ListViewComponent,
     DateSelectorComponent,
-    MonthSelectorComponent,
+    MonthSelectorComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -53,9 +54,20 @@ import { Interceptor } from './service/Interceptor/http-interceptors';
     FullCalendarModule,
     BlockUIModule.forRoot(),
     Ng2FlatpickrModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
-  providers: [AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }],
+  providers: [
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+        duration: 0,
+        panelClass: 'btn-orange',
+        horizontalPosition: 'end'
+      }
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [CheckinDetailComponent]
 })
