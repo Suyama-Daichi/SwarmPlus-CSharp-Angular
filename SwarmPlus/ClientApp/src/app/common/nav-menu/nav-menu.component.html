@@ -9,10 +9,28 @@
             </li>
             <li class="luxbar-item" [routerLink]='["/month"]'><a>カレンダー</a></li>
             <li class="luxbar-item pull-left" [routerLink]='[thisTimeLastYearPath]'><a>去年の今頃</a></li>
-            <li class="luxbar-item pull-right"><a target="_blank" rel="noopener"
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSfKJCTeZjRYMfMuIeW24Sin-4CHbXgFdGvvfkttKH4KG7r-cA/viewform?usp=sf_link">お問い合わせ</a>
-            </li>
-            <li class="luxbar-item pull-right" (click)="logOut()"><a>ログアウト</a></li>
+
+            <div *ngIf="!isMobile">
+                <li class="luxbar-item dropdown d-flex justify-content-center align-items-center">
+                    <img
+                        src="{{(storeService._userIcon$ | async).prefix}}50x50{{(storeService._userIcon$ | async).suffix}}"><span><i
+                            class="fas fa-caret-down ml-3 mr-5"></i></span>
+                    <ul>
+                        <li class="luxbar-item pull-right"><a target="_blank" rel="noopener"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSfKJCTeZjRYMfMuIeW24Sin-4CHbXgFdGvvfkttKH4KG7r-cA/viewform?usp=sf_link">お問い合わせ</a>
+                        </li>
+                        <li class="luxbar-item pull-right" (click)="logOut()"><a>ログアウト</a></li>
+                    </ul>
+                </li>
+            </div>
+
+            <div *ngIf="isMobile">
+                <li class="luxbar-item pull-right"><a target="_blank" rel="noopener"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfKJCTeZjRYMfMuIeW24Sin-4CHbXgFdGvvfkttKH4KG7r-cA/viewform?usp=sf_link">お問い合わせ</a>
+                </li>
+                <li class="luxbar-item pull-right" (click)="logOut()"><a>ログアウト</a></li>
+            </div>
+
         </ul>
     </div>
 </header>

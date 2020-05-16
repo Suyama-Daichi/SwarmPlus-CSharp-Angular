@@ -34,6 +34,7 @@
     "@fullcalendar/interaction": "^4.4.0",
     "@fullcalendar/list": "^4.4.0",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
+    "@ngrx/store": "^9.1.2",
     "@nguniversal/module-map-ngfactory-loader": "^8.2.6",
     "ajv": "^6.12.2",
     "aspnet-prerendering": "^3.0.1",

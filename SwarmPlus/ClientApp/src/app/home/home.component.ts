@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.httpService.VerifyAccessToken(localStorage.getItem('token')).subscribe(
       response => {
-        if (response.statusCode !== 401) {
+        if (response.statusCode === 200) {
           this.router.navigateByUrl('/month');
         }
       }

@@ -2,13 +2,18 @@ import { HttpService } from './http.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { StoreService } from '../rxjs/store.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private httpService: HttpService) { }
+  constructor(
+    private router: Router,
+    private httpService: HttpService,
+    private storeService: StoreService
+  ) { }
 
   /**
    * 参考：https://www.freakyjolly.com/angular-7-6-use-auth-guards-canactivate-and-resolve-in-angular-routing-quick-example/
@@ -20,6 +25,7 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['']);
           return false;
         }
+        this.storeService._userIcon$.next(response.user.photo);
         return true;
       })
     );

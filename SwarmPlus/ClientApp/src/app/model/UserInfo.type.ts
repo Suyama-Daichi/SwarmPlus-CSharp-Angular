@@ -175,7 +175,7 @@ interface Friends {
     count: number;
 }
 
-interface Photo {
+export interface Photo {
     prefix: string;
     suffix: string;
 }
