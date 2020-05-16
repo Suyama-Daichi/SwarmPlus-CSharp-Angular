@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BlockUIModule } from 'ng-block-ui';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './common/nav-menu/nav-menu.component';
@@ -22,7 +22,10 @@ import { MainComponent } from './CommonComponent/main/main.component';
 import { ListViewComponent } from './fullcalendar/list-view/list-view.component';
 import { DateSelectorComponent } from './parts/date-selector/date-selector.component';
 import { MonthSelectorComponent } from './parts/month-selector/month-selector.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Interceptor } from './service/Interceptor/http-interceptors';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MainComponent,
     ListViewComponent,
     DateSelectorComponent,
-    MonthSelectorComponent,
+    MonthSelectorComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -50,9 +53,21 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AngularFirestoreModule,
     FullCalendarModule,
     BlockUIModule.forRoot(),
-    Ng2FlatpickrModule
+    Ng2FlatpickrModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+        duration: 0,
+        panelClass: 'btn-orange',
+        horizontalPosition: 'end'
+      }
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [CheckinDetailComponent]
 })

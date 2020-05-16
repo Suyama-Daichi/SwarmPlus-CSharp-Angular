@@ -1,6 +1,6 @@
 // Todo: UUIDをこのサービスで取得するように集約
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { AccessToken } from '../model/AccessToken.type';
@@ -11,7 +11,7 @@ import { UserInfo } from '../model/UserInfo.type';
   providedIn: 'root'
 })
 export class HttpService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   getAccessToken(): string {
     return localStorage.getItem('token');
@@ -35,9 +35,8 @@ export class HttpService {
    * @param beforeTimestamp 取得する期間(終わり)
    */
   getUserCheckins(afterTimestamp: string, beforeTimestamp: string): Observable<UsersCheckins> {
-    const headers: HttpHeaders = new HttpHeaders().set('Authorization', 'bearer ' + this.getAccessToken());
     const params = new HttpParams().set('afterTimestamp', afterTimestamp).set('beforeTimestamp', beforeTimestamp);
-    return this.httpClient.get<UsersCheckins>(`${environment.backEndApi}/checkins`, { headers: headers, params: params });
+    return this.httpClient.get<UsersCheckins>(`${environment.backEndApi}/checkins`, { params: params });
   }
 
   /**
@@ -45,9 +44,8 @@ export class HttpService {
    * @param checkinId 詳細を取得したいチェックインのID
    */
   getCheckinDetail(checkinId: string): Observable<Item4> {
-    const headers: HttpHeaders = new HttpHeaders().set('Authorization', 'bearer ' + this.getAccessToken());
     const params = new HttpParams().set('checkinId', checkinId);
-    return this.httpClient.get<Item4>(`${environment.backEndApi}/checkin`, { headers: headers, params: params });
+    return this.httpClient.get<Item4>(`${environment.backEndApi}/checkin`, { params: params });
   }
 
   /**
