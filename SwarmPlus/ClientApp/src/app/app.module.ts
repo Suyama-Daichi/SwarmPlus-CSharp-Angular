@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BlockUIModule } from 'ng-block-ui';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './common/nav-menu/nav-menu.component';
@@ -24,6 +24,7 @@ import { DateSelectorComponent } from './parts/date-selector/date-selector.compo
 import { MonthSelectorComponent } from './parts/month-selector/month-selector.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Interceptor } from './service/Interceptor/http-interceptors';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     Ng2FlatpickrModule,
     BrowserAnimationsModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }],
   bootstrap: [AppComponent],
   entryComponents: [CheckinDetailComponent]
 })
