@@ -26,8 +26,7 @@ export class Interceptor implements HttpInterceptor {
         return next.handle(newReq).pipe(
             // tapオペレータでレスポンスの流れを傍受する
             tap(resp => {
-                // リクエスト成功時のログ出力
-                console.log(resp);
+                // リクエスト成功時のログ出力など
             },
                 () => {
                     // エラー時の共通処理やログ出力
