@@ -23,6 +23,7 @@ import { ListViewComponent } from './fullcalendar/list-view/list-view.component'
 import { DateSelectorComponent } from './parts/date-selector/date-selector.component';
 import { MonthSelectorComponent } from './parts/month-selector/month-selector.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AngularFirestoreModule,
     FullCalendarModule,
     BlockUIModule.forRoot(),
-    Ng2FlatpickrModule
+    Ng2FlatpickrModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],
