@@ -20,7 +20,12 @@ export class Interceptor implements HttpInterceptor {
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
         const newReq = req.clone(
-            { headers: req.headers.set('Authorization', `bearer ` + localStorage.getItem('token')) }
+            {
+                headers:
+                    req.headers
+                        .set('Authorization', `bearer ` + localStorage.getItem('token'))
+                        .set('Accept-Language', 'ja')
+            }
         );
         // cloneされてヘッダーを付与したリクエストを次の処理に引き渡す
         return next.handle(newReq).pipe(
