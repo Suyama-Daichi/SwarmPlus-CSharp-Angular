@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreService } from '../../service/store.service';
+import { StoreService } from '../../rxjs/store.service';
+import { UserInfo } from '../../model/UserInfo.type';
 
 @Component({
   selector: 'app-user',
@@ -7,11 +8,19 @@ import { StoreService } from '../../service/store.service';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+  userInfo: UserInfo;
+  constructor(public store: StoreService) { }
 
-  constructor(private store: StoreService) { }
+  ngOnInit() {
+    this.setUserInfo();
+  }
 
-  ngOnInit(): void {
-    console.log(this.store);
+  setUserInfo() {
+    this.store._userInfo$.subscribe(
+      s => {
+        this.userInfo = s;
+      }
+    );
   }
 
 }
