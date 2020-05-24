@@ -5,6 +5,7 @@ import { LoginComponent } from './common/login/login.component';
 import { AuthGuard } from './service/auth.guard';
 import { DayViewComponent } from './fullcalendar/day-view/day-view.component';
 import { MainComponent } from './CommonComponent/main/main.component';
+import { UserComponent } from './page/user/user.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'day/:year/:month/:date', component: DayViewComponent, canActivate: [AuthGuard] },
   { path: 'day', component: DayViewComponent, canActivate: [AuthGuard] },
+  { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'month' }
 ];
 
