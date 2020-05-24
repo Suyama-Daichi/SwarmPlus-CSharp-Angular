@@ -12,6 +12,11 @@ export class UserComponent implements OnInit {
   userInfo: UserInfo;
   constructor(public store: StoreService) { }
 
+
+  get referralId() {
+    return this.userInfo.user.referralId.substr(2);
+  }
+
   ngOnInit() {
     this.setUserInfo();
   }

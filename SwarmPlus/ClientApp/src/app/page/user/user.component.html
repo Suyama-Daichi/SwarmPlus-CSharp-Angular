@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="row">
-        <mat-card class="mt-5 profile col-12">
+        <mat-card class="mt-lg-5 mt-2 profile col-12">
             <mat-card-header class="justify-content-center">
                 <mat-card-subtitle>{{userInfo.user.createdAt | timeStampToDate | date: 'yyyy/MM/dに登録'}}
                 </mat-card-subtitle>
@@ -10,6 +10,7 @@
                 <mat-card-title><a [href]="userInfo.user.canonicalUrl" target="_blank"
                         rel="noopener noreferrer">{{userInfo.user.firstName + userInfo.user.lastName}}</a>
                 </mat-card-title>
+                <mat-card-subtitle *ngIf="userInfo.user.superuser">Superuser{{userInfo.user.superuser}}</mat-card-subtitle>
                 <mat-card-subtitle>{{userInfo.user.homeCity}}</mat-card-subtitle>
                 <mat-card-subtitle>{{userInfo.user.bio}}</mat-card-subtitle>
             </mat-card-header>
@@ -31,6 +32,10 @@
                         </mat-list-item>
                     </mat-list>
                     <mat-list class="col-lg-6 col-12">
+                        <mat-list-item>
+                            <i mat-list-icon class="fab fa-foursquare"></i>
+                            <div mat-line>{{referralId}}</div>
+                        </mat-list-item>
                         <mat-list-item>
                             <mat-icon mat-list-icon>email</mat-icon>
                             <div mat-line>{{userInfo.user.contact.email}}</div>
@@ -57,8 +62,7 @@
                 <mat-card-subtitle>
                     {{userInfo.user.checkins.items[0].createdAt | timeStampToDate | date: 'yyyy/MM/d HH:mm:sにCI'}}
                 </mat-card-subtitle>
-                <mat-card-title><a [href]="userInfo.user.canonicalUrl" target="_blank"
-                        rel="noopener noreferrer">{{userInfo.user.checkins.items[0].venue.name}}</a>
+                <mat-card-title>{{userInfo.user.checkins.items[0].venue.name}}
                 </mat-card-title>
                 <mat-card-subtitle>{{userInfo.user.checkins.items[0].venue.location.country}}</mat-card-subtitle>
                 <mat-card-subtitle><a [href]="userInfo.user.checkins.items[0].source.url" target="_blank"
