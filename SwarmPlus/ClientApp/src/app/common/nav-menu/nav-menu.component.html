@@ -25,6 +25,7 @@
             </div>
 
             <div *ngIf="isMobile">
+                <li class="luxbar-item pull-right" (click)="toUserPage()"><a>{{(storeService._userInfo$ | async).user.firstName}}について</a></li>
                 <li class="luxbar-item pull-right"><a target="_blank" rel="noopener"
                         href="https://docs.google.com/forms/d/e/1FAIpQLSfKJCTeZjRYMfMuIeW24Sin-4CHbXgFdGvvfkttKH4KG7r-cA/viewform?usp=sf_link">お問い合わせ</a>
                 </li>
