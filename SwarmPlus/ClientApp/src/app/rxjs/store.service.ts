@@ -1,11 +1,11 @@
 import { BehaviorSubject } from 'rxjs';
-import { Photo } from '../model/UserInfo.type';
+import { UserInfo } from '../model/UserInfo.type';
 import { Injectable } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
 })
 export class StoreService {
-    _userIcon$ = new BehaviorSubject<Photo>(null);
+    _userInfo$ = new BehaviorSubject<UserInfo>(null);
     constructor() { }
 }

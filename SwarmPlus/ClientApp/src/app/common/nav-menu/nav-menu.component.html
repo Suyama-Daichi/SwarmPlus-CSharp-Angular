@@ -13,7 +13,7 @@
             <div *ngIf="!isMobile">
                 <li class="luxbar-item dropdown d-flex justify-content-center align-items-center">
                     <img
-                        src="{{(storeService._userIcon$ | async).prefix}}50x50{{(storeService._userIcon$ | async).suffix}}"><span><i
+                        src="{{(storeService._userInfo$ | async).user.photo.prefix}}50x50{{(storeService._userInfo$ | async).user.photo.suffix}}" (click)="toUserPage()"><span><i
                             class="fas fa-caret-down ml-3 mr-5"></i></span>
                     <ul>
                         <li class="luxbar-item pull-right"><a target="_blank" rel="noopener"

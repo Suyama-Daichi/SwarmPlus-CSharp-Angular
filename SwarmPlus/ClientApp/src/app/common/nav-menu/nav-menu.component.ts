@@ -33,4 +33,8 @@ export class NavMenuComponent implements OnInit {
     localStorage.removeItem('token');
     this.router.navigateByUrl('');
   }
+
+  toUserPage() {
+    this.router.navigate(['/user']);
+  }
 }

@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['']);
           return false;
         }
-        this.storeService._userIcon$.next(response.user.photo);
+        this.storeService._userInfo$.next(response);
         return true;
       })
     );
