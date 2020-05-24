@@ -27,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Interceptor } from './service/Interceptor/http-interceptors';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
+import { UserComponent } from './page/user/user.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { StoreModule } from '@ngrx/store';
     MainComponent,
     ListViewComponent,
     DateSelectorComponent,
-    MonthSelectorComponent
+    MonthSelectorComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
