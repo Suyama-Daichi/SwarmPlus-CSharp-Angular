@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { StoreService } from '../../rxjs/store.service';
 import { UserInfo } from '../../model/UserInfo.type';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user',
@@ -16,11 +17,15 @@ export class UserComponent implements OnInit {
   }
 
   setUserInfo() {
-    this.store._userInfo$.subscribe(
+    this.store._userInfo$
+    .subscribe(
       s => {
         this.userInfo = s;
       }
     );
   }
 
+  return() {
+    window.history.back();
+  }
 }

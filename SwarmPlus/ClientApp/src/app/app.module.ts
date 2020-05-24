@@ -26,8 +26,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Interceptor } from './service/Interceptor/http-interceptors';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
-import { StoreModule } from '@ngrx/store';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { UserComponent } from './page/user/user.component';
+import { TimeStampToDatePipe } from './pipe/time-stamp-to-date.pipe';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,8 @@ import { UserComponent } from './page/user/user.component';
     ListViewComponent,
     DateSelectorComponent,
     MonthSelectorComponent,
-    UserComponent
+    UserComponent,
+    TimeStampToDatePipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -58,7 +63,11 @@ import { UserComponent } from './page/user/user.component';
     BlockUIModule.forRoot(),
     Ng2FlatpickrModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [
     AuthGuard,
