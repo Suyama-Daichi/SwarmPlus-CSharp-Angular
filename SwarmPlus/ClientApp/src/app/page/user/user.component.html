@@ -1,0 +1,95 @@
+<app-nav-menu></app-nav-menu>
+
+<div class="container">
+    <div class="row">
+        <mat-card class="mt-lg-5 mt-2 profile col-12">
+            <mat-card-header class="justify-content-center">
+                <mat-card-subtitle>{{userInfo.user.createdAt | timeStampToDate | date: 'yyyy/MM/dに登録'}}
+                </mat-card-subtitle>
+                <img mat-card-avatar [src]="userInfo.user.photo.prefix + '50x50' + userInfo.user.photo.suffix">
+                <mat-card-title><a [href]="userInfo.user.canonicalUrl" target="_blank"
+                        rel="noopener noreferrer">{{userInfo.user.firstName + userInfo.user.lastName}}</a>
+                </mat-card-title>
+                <mat-card-subtitle *ngIf="userInfo.user.superuser">Superuser{{userInfo.user.superuser}}</mat-card-subtitle>
+                <mat-card-subtitle>{{userInfo.user.homeCity}}</mat-card-subtitle>
+                <mat-card-subtitle>{{userInfo.user.bio}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="row">
+                    <mat-list class="col-lg-6 col-md-6 col-12">
+                        <mat-list-item>
+                            <i mat-list-icon class="fas fa-map-marker-alt icon"></i>
+                            <div mat-line>{{userInfo.user.checkins.count}}回CIしました</div>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <i mat-list-icon class="fas fa-user-friends"></i>
+                            <div mat-line>{{userInfo.user.friends.count}}人と友達です
+                            </div>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <i mat-list-icon class="fas fa-camera"></i>
+                            <div mat-line>{{userInfo.user.photos.count}}枚の写真</div>
+                        </mat-list-item>
+                    </mat-list>
+                    <mat-list class="col-lg-6 col-md-6 col-12">
+                        <mat-list-item>
+                            <i mat-list-icon class="fab fa-foursquare"></i>
+                            <div mat-line>{{referralId}}</div>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <mat-icon mat-list-icon>email</mat-icon>
+                            <div mat-line>{{userInfo.user.contact.email}}</div>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <i mat-list-icon class="fab fa-twitter"></i>
+                            <div mat-line><a [href]="'https://twitter.com/' + userInfo.user.contact.twitter"
+                                    target="_blank" rel="noopener noreferrer">{{userInfo.user.contact.twitter}}</a>
+                            </div>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <i mat-list-icon class="fab fa-facebook"></i>
+                            <div mat-line>ユーザID: {{userInfo.user.contact.facebook}}</div>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="mt-3 recent-checkin col-12">
+            <h5>最近のチェックイン</h5>
+            <mat-card-header class="justify-content-center">
+                <mat-card-subtitle>
+                    {{userInfo.user.checkins.items[0].createdAt | timeStampToDate | date: 'yyyy/MM/d HH:mm:sにCI'}}
+                </mat-card-subtitle>
+                <mat-card-title>{{userInfo.user.checkins.items[0].venue.name}}
+                </mat-card-title>
+                <mat-card-subtitle>{{userInfo.user.checkins.items[0].venue.location.country}}</mat-card-subtitle>
+                <mat-card-subtitle><a [href]="userInfo.user.checkins.items[0].source.url" target="_blank"
+                        rel="noopener noreferrer">Checkined from {{userInfo.user.checkins.items[0].source.name}}</a>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="row">
+                    <mat-list class="col-lg-6 col-12">
+                        <mat-list-item>
+                            <mat-icon mat-list-icon>message</mat-icon>
+                            <div mat-line>{{userInfo.user.checkins.items[0].shout}}</div>
+                        </mat-list-item>
+                        <mat-list-item *ngIf="userInfo.user.checkins.items[0].likes.count > 0">
+                            <i mat-list-icon class="fas fa-heart heart-icon"></i>
+                            <p>
+                                <a *ngFor="let like of
+                                (userInfo.user.checkins.items[0])?.likes.groups">{{like | stringJoin}}</a></p>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="mt-3 return">
+        <button mat-fab aria-label="return">
+            <mat-icon (click)="return()">keyboard_return</mat-icon>
+        </button>
+    </div>
+</div>

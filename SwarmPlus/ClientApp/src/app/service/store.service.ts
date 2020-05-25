@@ -5,6 +5,6 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class StoreService {s
+export class StoreService {
   constructor() { }
 }

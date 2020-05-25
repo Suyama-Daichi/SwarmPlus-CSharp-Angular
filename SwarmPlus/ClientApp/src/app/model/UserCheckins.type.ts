@@ -1,10 +1,5 @@
-export interface UsersCheckins {
-    meta: Meta;
-    notifications: Notification[];
-    response: Response;
-}
 
-interface Response {
+export interface UsersCheckins {
     checkins: Checkins;
 }
 
@@ -37,7 +32,7 @@ export interface Item4 {
 
 interface Score {
     total: number;
-    scores: {icon: string, message: string, points: number }[]
+    scores: {icon: string, message: string, points: number }[];
 }
 
 interface Comments {

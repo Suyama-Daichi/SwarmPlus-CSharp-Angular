@@ -1,7 +1,7 @@
 <div #checkinDetail>
     <div class="card">
         <!-- 写真付きチェックインではその写真、写真なしでは公開されている写真を表示する -->
-        <ngb-carousel>
+        <ngb-carousel [interval]=0>
             <ng-template ngbSlide
                 *ngFor="let photo of (checkinData)?.photos.count !== 0 ? (checkinData)?.photos.items : (venuePhotosUrl)?.items; index as i">
                 <div>

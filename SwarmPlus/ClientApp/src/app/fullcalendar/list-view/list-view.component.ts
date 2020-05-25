@@ -60,7 +60,7 @@ export class ListViewComponent implements OnInit, AfterViewInit {
       this.blockUI.start();
       this.httpService.getUserCheckins(this.afterBeforeTimestamp.afterTimestamp, this.afterBeforeTimestamp.beforeTimestamp).subscribe(
         response => {
-          this.calendarEvents = this.utilService.generateEvents(response.response.checkins.items);
+          this.calendarEvents = this.utilService.generateEvents(response.checkins.items);
           this.calendarApi.gotoDate(this.selectedDate);
           this.blockUI.stop();
         }

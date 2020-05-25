@@ -68,7 +68,7 @@ export class DayViewComponent implements OnInit, AfterViewInit {
       this.httpService.getUserCheckins(afterBeforeTimestamp.afterTimestamp, afterBeforeTimestamp.beforeTimestamp).subscribe(
         (response: UsersCheckins) => {
           this.checkinHistory = response;
-          this.calendarEvents = this.utilService.generateEvents(this.checkinHistory.response.checkins.items.filter(x => x.venue != null));
+          this.calendarEvents = this.utilService.generateEvents(this.checkinHistory.checkins.items.filter(x => x.venue != null));
           this.calendarApi.gotoDate(this.selectedDate);
           this.blockUI.stop();
         }
@@ -78,7 +78,7 @@ export class DayViewComponent implements OnInit, AfterViewInit {
 
   /** フィルター */
   filterCheckins(e: SelectedCategory[]) {
-    this.calendarEvents = this.utilService.filterCheckin((this.checkinHistory.response.checkins.items), e);
+    this.calendarEvents = this.utilService.filterCheckin((this.checkinHistory.checkins.items), e);
   }
 
   /** 日付操作 */

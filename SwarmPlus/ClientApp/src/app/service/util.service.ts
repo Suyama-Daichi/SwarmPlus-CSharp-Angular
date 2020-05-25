@@ -99,7 +99,7 @@ export class UtilService {
     return (
       {
         id: index + 1,
-        title: `${checkinData.isMayor ? '👑' : ''} ${checkinData.photos.count > 0 ? '📷' : ''} ${checkinData.with !== null ? '👯' : ''} ${checkinData.venue.name} ${checkinData.with !== null ? `with ${checkinData.with.map(m => m.firstName).join(', ')}` : ''}`,
+        title: `${checkinData.isMayor ? '👑' : ''} ${checkinData.photos.count > 0 ? '📷' : ''} ${checkinData.with ? '👯' : ''} ${checkinData.venue.name} ${checkinData.with ? `with ${checkinData.with.map(m => m.firstName).join(', ')}` : ''}`,
         date: new Date(checkinData.createdAt * 1000),
         checkinData: checkinData
       }
