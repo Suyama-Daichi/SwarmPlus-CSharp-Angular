@@ -24,9 +24,10 @@ export class AuthGuard implements CanActivate {
         if (response.statusCode === 401) {
           this.router.navigate(['']);
           return false;
+        } else {
+          this.storeService._userInfo$.next(response);
+          return true;
         }
-        this.storeService._userInfo$.next(response);
-        return true;
       })
     );
   }
