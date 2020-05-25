@@ -4,7 +4,7 @@
     <div class="row">
         <mat-card class="mt-lg-5 mt-2 profile col-12">
             <mat-card-header class="justify-content-center">
-                <mat-card-subtitle>{{userInfo.user.createdAt | timeStampToDate | date: 'yyyy/MM/dに登録'}}
+                <mat-card-subtitle>{{userInfo.user.createdAt | timeStampToDate | date: 'yyyy/MM/ddに登録'}}
                 </mat-card-subtitle>
                 <img mat-card-avatar [src]="userInfo.user.photo.prefix + '50x50' + userInfo.user.photo.suffix">
                 <mat-card-title><a [href]="userInfo.user.canonicalUrl" target="_blank"
