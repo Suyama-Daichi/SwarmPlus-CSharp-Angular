@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { AccessToken } from '../model/AccessToken.type';
 import { UsersCheckins, Item4, Photos } from '../model/UserCheckins.type';
 import { UserInfo } from '../model/UserInfo.type';
@@ -22,7 +22,13 @@ export class HttpService {
    * @param targetAccessToken 検証対象のアクセストークン
    */
   VerifyAccessToken(targetAccessToken: string): Observable<UserInfo> {
-    return this.httpClient.get<any>(`${environment.backEndApi}/foursquareapi?oauth_token=${targetAccessToken}`);
+    if (targetAccessToken) {
+      return this.httpClient.get<any>(`${environment.backEndApi}/foursquareapi?oauth_token=${targetAccessToken}`);
+    } else {
+      return from([
+        new UserInfo(401)
+      ]);
+    }
   }
 
   GetAccessTokenObservable(code: string): Observable<AccessToken> {

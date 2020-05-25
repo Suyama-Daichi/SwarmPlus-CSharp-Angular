@@ -1,6 +1,10 @@
-export interface UserInfo {
+export class UserInfo {
     statusCode: number;
     user: User2;
+
+    constructor(statusCode: number) {
+        this.statusCode = statusCode;
+    }
 }
 
 interface User2 {
